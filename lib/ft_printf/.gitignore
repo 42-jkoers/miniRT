@@ -1,0 +1,8 @@
+en.subject.pdf
+obj/
+bin/
+.vscode/
+libftprintf.a
+pft/
+42TESTERS-PRINTF/
+tests451/
