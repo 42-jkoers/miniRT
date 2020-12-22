@@ -1,39 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   practice.c                                         :+:    :+:            */
+/*   keycodes.h                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/12/20 22:21:07 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/22 16:08:06 by jkoers        ########   odam.nl         */
+/*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/12/21 19:46:56 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/minilibx-linux/mlx.h"
-#include "../lib/ft_printf/ft_printf.h"
-#include "gui.h"
-#include "helpers.h"
+#ifndef KEYCODES_H
+# define KEYCODES_H
 
-#include <stdlib.h>
-#include <stdio.h>
-
-void	fill_random(t_gui *gui)
+enum MLX_KEYCODES
 {
-	unsigned long	x;
-	unsigned long	y;
-	int				color;
+	MLXKEY_ESC = 65307
+};
 
-	x = 0;
-	while (x < gui->x_size)
-	{
-		y = 0;
-		color = rand() & 0xFFFFFF;
-		while (y < gui->y_size)
-		{
-			gui_set_pixel(gui, x, y, color);
-			y++;
-		}
-		x++;
-	}
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 16:39:11 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/21 16:44:01 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/22 16:09:15 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,18 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <time.h>
 #include <stdio.h>
+#include <unistd.h>
+
 
 int		main(void)
 {
-	t_gui gui;
+	t_gui *gui;
 
-	gui = init_gui();
-	ft_printf("Init done\n");
-	clock_t begin = clock();
-	fill_random(&gui);
-	printf("%f s\n", (double)(clock() - begin) / CLOCKS_PER_SEC);
-	// mlx_loop(gui.mlx);
+	gui = gui_init();
+	fill_random(gui);
+	gui_write_canvas(gui);
+	mlx_loop(gui->mlx);
 	// sleep(10);
-	destroy_gui(&gui);
 	return (0);
 }
