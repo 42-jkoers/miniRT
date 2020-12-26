@@ -1,2 +1,5 @@
 *.o
+*.a
 en.subject.pdf
+miniRT
+mlx-test
