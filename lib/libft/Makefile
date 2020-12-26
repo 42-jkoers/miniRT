@@ -6,7 +6,7 @@
 #    By: joppe <joppe@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/23 17:53:14 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/26 19:25:48 by jkoers        ########   odam.nl          #
+#    Updated: 2020/12/26 22:16:11 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,8 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_memdup.c \
 				  $(SRCDIR)/ft_memmove.c \
 				  $(SRCDIR)/ft_memset.c \
+				  $(SRCDIR)/ft_min.c \
+				  $(SRCDIR)/ft_min_u.c \
 				  $(SRCDIR)/ft_numlen.c \
 				  $(SRCDIR)/ft_numlen_u.c \
 				  $(SRCDIR)/ft_numtobase.c \
@@ -112,6 +114,7 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_substr.c \
 				  $(SRCDIR)/ft_tolower.c \
 				  $(SRCDIR)/ft_toupper.c
+
 OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$\
 				  $(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
 INCLUDENAME		= $(subst lib,,$(NAME))

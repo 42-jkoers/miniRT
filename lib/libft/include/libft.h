@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:51:21 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 17:33:19 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/26 22:14:43 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,10 @@ void				ft_padstart(char **str, size_t target_len, char pad);
 int					ft_isspace(char c);
 long				ft_strtonum(char *str);
 unsigned long		ft_strtonum_u(char *str);
-unsigned long		ft_max_u(unsigned long a, unsigned long b);
 long				ft_max(long a, long b);
+unsigned long		ft_max_u(unsigned long a, unsigned long b);
+long				ft_min(long a, long b);
+unsigned long		ft_min_u(unsigned long a, unsigned long b);
 int					ft_get_next_line(int fd, char **line);
 char				**ft_split_or(const char *s, const char *spitters);
 char				**ft_split_file(const char *filename, size_t *num_lines);

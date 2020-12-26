@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_max_u.c                                         :+:    :+:            */
+/*   ft_min.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/11/08 23:54:35 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 22:13:35 by jkoers        ########   odam.nl         */
+/*   Created: 2020/11/16 16:28:20 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/12/26 22:16:39 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned long	ft_max_u(unsigned long a, unsigned long b)
+long	ft_min(long a, long b)
 {
-	return (a > b ? a : b);
+	return (a < b ? a : b);
 }
