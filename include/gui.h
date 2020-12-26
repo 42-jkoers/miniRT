@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:16 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/22 16:09:15 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/26 18:59:13 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ typedef struct		s_gui
 	t_canvas		canvas;
 }					t_gui;
 
-t_gui	*gui_init(void);
-void	exit_clean(int code, t_gui *gui, const char *format, ...);
+t_gui	*gui_init(char *rt_filename);
 void	gui_write_canvas(t_gui *gui);
 void	gui_set_pixel(t_gui *gui, unsigned long x, unsigned long y, int color);
 

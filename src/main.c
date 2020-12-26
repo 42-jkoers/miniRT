@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 16:39:11 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/22 16:09:15 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/25 13:56:58 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 #include <stdio.h>
 #include <unistd.h>
 
-
 int		main(void)
 {
 	t_gui *gui;
 
-	gui = gui_init();
+	gui = gui_init("rt/standard.rt");
 	fill_random(gui);
 	gui_write_canvas(gui);
 	mlx_loop(gui->mlx);
