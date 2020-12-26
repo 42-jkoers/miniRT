@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/26 16:27:58 by jkoers        ########   odam.nl          #
+#    Updated: 2020/12/26 16:28:27 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,13 @@ re:
 	$(MAKE) fclean
 	$(MAKE) all
 
+sync:
+	cp -rf ~/GitHub/libft/ $(LIBDIR)
+	rm -rf $(LIBDIR)/libft/.git/
+	cp -rf ~/GitHub/ft_printf/ $(LIBDIR)
+	rm -rf $(LIBDIR)/ft_printf/.git/
+
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re sync
