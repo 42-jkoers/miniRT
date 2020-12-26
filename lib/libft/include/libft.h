@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:51:21 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/26 22:46:47 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/26 16:20:22 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,38 @@ long				ft_strtonum(char *str);
 unsigned long		ft_strtonum_u(char *str);
 unsigned long		ft_max_u(unsigned long a, unsigned long b);
 long				ft_max(long a, long b);
+int					ft_get_next_line(int fd, char **line);
+char				**ft_split_or(const char *s, const char *spitters);
+char				**ft_split_file(const char *filename, size_t *num_lines);
+void				*ft_realloc(void *ptr, size_t orig_len, size_t new_len);
+void				ft_lstshift(t_list **lst, void (*del)(void*));
+void				ft_free_2d(void **arr, size_t length);
+void				*ft_memdup(void *src, size_t n);
+
+typedef struct		s_arr_voidp
+{
+	size_t			start_i;
+	size_t			length;
+	size_t			size;
+	void			**table;
+}					t_arr_voidp;
+t_arr_voidp			*ft_arr_voidp(size_t initial_size);
+void				*ft_arr_voidp_set(t_arr_voidp **arr, size_t i, void *value);
+void				*ft_arr_voidp_get(t_arr_voidp *arr, size_t i);
+void				*ft_arr_voidp_push(t_arr_voidp **arr, void *value);
+void				ft_arr_voidp_free(t_arr_voidp *arr, void (*del)(void *));
+void				ft_arr_voidp_shift(t_arr_voidp **arr, void (*del)(void *));
+void				ft_arr_voidp_pop(t_arr_voidp **arr, void (*del)(void *));
+void				**ft_arr_voidp_concat(t_arr_voidp *arr, size_t *length);
+
+/*
+** typedef struct		s_arr_long
+** {
+** 	size_t			start_i;
+** 	size_t			length;
+** 	size_t			size;
+** 	long			*table;
+** }					t_arr_long;
+*/
 
 #endif

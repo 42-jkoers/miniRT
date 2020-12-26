@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:44:38 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/10/28 15:16:31 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/26 12:41:15 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		*ft_memmove(void *dest, void *src, size_t n)
 	char *d;
 	char *s;
 
-	if (dest == src)
+	if (dest == NULL || src == NULL || dest == src)
 		return (dest);
 	if (dest < src)
 		return (ft_memcpy(dest, src, n));

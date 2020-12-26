@@ -3,12 +3,14 @@
 /*                                                        ::::::::            */
 /*   ft_search.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: joppe <joppe@student.codam.nl>               +#+                     */
+/*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/15 22:41:49 by joppe         #+#    #+#                 */
-/*   Updated: 2020/09/07 22:24:46 by joppe         ########   odam.nl         */
+/*   Updated: 2020/12/23 12:26:02 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "types.h"
 #include "ft_string.h"
@@ -37,7 +39,7 @@ int		bin_search_first(int arr[], int x, int arr_size)
 	return (res);
 }
 
-int		bin_search_last(int arr[], int x, int arr_size)
+int			bin_search_last(int arr[], int x, int arr_size)
 {
 	int low = 0;
 	int high = arr_size - 1;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_spit.c                                          :+:    :+:            */
+/*   ft_split_or.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/27 11:59:38 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/22 22:32:18 by jkoers        ########   odam.nl         */
+/*   Created: 2020/12/22 22:18:54 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/12/25 18:13:21 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-static size_t	count_words(char *s, char c)
+static size_t	count_words(char *s, char *splitters)
 {
 	char	*sep;
 	size_t	words;
@@ -24,7 +24,7 @@ static size_t	count_words(char *s, char c)
 	words = 0;
 	while (true)
 	{
-		if (*s == c || *s == '\0')
+		if (ft_includes(splitters, *s) || *s == '\0')
 		{
 			if (s - sep > 1)
 				words++;
@@ -41,12 +41,14 @@ static void		free_strings(char **strings, size_t n)
 	while (n > 0)
 	{
 		n--;
-		free(strings[n]);
+		if (strings[n] != NULL)
+			free(strings[n]);
 	}
 	free(strings);
 }
 
-static void		cpy_words(char *s, char c, char **split, size_t num_words)
+static void		cpy_words(\
+char *s, char *splitters, char **split, size_t num_words)
 {
 	char	*sep;
 	size_t	word_i;
@@ -55,7 +57,7 @@ static void		cpy_words(char *s, char c, char **split, size_t num_words)
 	word_i = 0;
 	while (word_i < num_words)
 	{
-		if (*s == c || *s == '\0')
+		if (ft_includes(splitters, *s) || *s == '\0')
 		{
 			if (s - sep > 1)
 			{
@@ -75,15 +77,21 @@ static void		cpy_words(char *s, char c, char **split, size_t num_words)
 	split[num_words] = NULL;
 }
 
-char			**ft_split(char const *s, char c)
+/*
+** @description split string s in array of strings, followed by a NULL
+**              using any of the character in splitters.
+**              ft_split_or("foo,,bar", ",a") --> {"foo", "b", "r", NULL}
+*/
+
+char			**ft_split_or(const char *s, const char *spitters)
 {
 	char	**split;
 	size_t	num_words;
 
-	num_words = count_words((char *)s, c);
+	num_words = count_words((char *)s, (char *)spitters);
 	split = malloc((num_words + 1) * sizeof(char *));
 	if (split == NULL)
 		return (NULL);
-	cpy_words((char *)s, c, split, num_words);
+	cpy_words((char *)s, (char *)spitters, split, num_words);
 	return (split);
 }

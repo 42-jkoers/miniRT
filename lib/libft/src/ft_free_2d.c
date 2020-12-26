@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstdelone.c                                     :+:    :+:            */
+/*   ft_free_2d.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/29 00:48:50 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/25 18:08:40 by jkoers        ########   odam.nl         */
+/*   Created: 2020/12/23 14:24:44 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/12/25 18:21:25 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+void	ft_free_2d(void **arr, size_t length)
 {
-	if (lst == NULL || del == NULL)
+	if (arr == NULL)
 		return ;
-	del(lst->content);
-	free(lst);
+	while (length > 0)
+	{
+		length--;
+		if (arr[length])
+			free(arr[length]);
+	}
+	free(arr);
 }

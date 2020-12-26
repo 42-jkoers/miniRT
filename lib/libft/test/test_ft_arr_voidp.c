@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstdelone.c                                     :+:    :+:            */
+/*   test_ft_arr_voidp.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/29 00:48:50 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/25 18:08:40 by jkoers        ########   odam.nl         */
+/*   Created: 2020/12/26 12:18:35 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/12/26 12:36:05 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 #include <stdlib.h>
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+int		main(void)
 {
-	if (lst == NULL || del == NULL)
-		return ;
-	del(lst->content);
-	free(lst);
+	t_arr_voidp	*arr;
+	size_t		i;
+
+	arr = NULL;
+	i = 0;
+	while (i < 2)
+	{
+		ft_arr_voidp_push(&arr, (void *)ft_strdup("hello\n"));
+		ft_arr_voidp_shift(&arr, free);
+		i++;
+	}
+	printf("length %lu\n", arr->length);
+	printf("size %lu\n", arr->size);
+	ft_arr_voidp_push(&arr, (void *)ft_strdup("hello\n"));
+	ft_putstr((char *)ft_arr_voidp_get(arr, arr->length - 1));
+	ft_arr_voidp_free(arr, free);
+	return (0);
 }

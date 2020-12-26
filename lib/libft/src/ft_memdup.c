@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_lstdelone.c                                     :+:    :+:            */
+/*   ft_memdup.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/10/29 00:48:50 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/25 18:08:40 by jkoers        ########   odam.nl         */
+/*   Created: 2020/12/25 18:30:13 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/12/26 12:50:25 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
+#include <stddef.h>
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+void	*ft_memdup(void *src, size_t n)
 {
-	if (lst == NULL || del == NULL)
-		return ;
-	del(lst->content);
-	free(lst);
+	void	*dup;
+
+	if (src == NULL)
+		return (NULL);
+	dup = malloc(n);
+	if (dup != NULL)
+		ft_memcpy(dup, src, n);
+	return (dup);
 }
