@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/20 22:43:44 by jkoers        ########   odam.nl          #
+#    Updated: 2020/12/26 16:27:58 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ RESETCOLOR		= @echo "\033[0m\c"
 
 # main
 
-all: $(NAME)
+all:
+	make -j8 $(NAME)
 
 $(NAME): $(BUILDDIR)/ $(OBJECTS) $(HEADERS) $(LIBS)
 	$(CC) $(CFLAGS) -I. -I$(HEADERDIR) $(BUILDDIR)/*.$(OBJEXT) -o $(NAME) $(LIBS) $(LINKS)
@@ -64,13 +65,16 @@ ifneq "$(BUILDDIR)" "."
 	/bin/rm -rf $(BUILDDIR)/
 endif
 
-fclean: clean
+fclean:
+	$(MAKE) clean
 # make -C $(LIBDIR)/minilibx-linux/ fclean
 	make -C $(LIBDIR)/ft_printf/ fclean
 	make -C $(LIBDIR)/libft/ fclean
 	/bin/rm -f $(NAME)
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
