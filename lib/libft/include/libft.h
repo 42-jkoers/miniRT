@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:51:21 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 16:20:22 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/26 17:33:19 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char				*ft_strdup(char *str);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
-char				**ft_speciallit(char const *s, char c);
+char				**ft_split(char const *s, char c);
 char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_putchar_fd(char c, int fd);
@@ -110,6 +110,7 @@ long				ft_max(long a, long b);
 int					ft_get_next_line(int fd, char **line);
 char				**ft_split_or(const char *s, const char *spitters);
 char				**ft_split_file(const char *filename, size_t *num_lines);
+char				**ft_split_length(char const *s, char c, size_t *length);
 void				*ft_realloc(void *ptr, size_t orig_len, size_t new_len);
 void				ft_lstshift(t_list **lst, void (*del)(void*));
 void				ft_free_2d(void **arr, size_t length);

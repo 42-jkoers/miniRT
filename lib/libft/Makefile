@@ -6,14 +6,14 @@
 #    By: joppe <joppe@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/23 17:53:14 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/26 13:38:01 by jkoers        ########   odam.nl          #
+#    Updated: 2020/12/26 19:25:48 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME      		= libft
 
 CC          	= gcc
-CFLAGS      	= -Wall -Wextra -Werror
+CFLAGS      	= -Wall -Wextra -Werror -Wuninitialized
 
 SRCEXT      	= c
 SRCDIR      	= src
@@ -26,7 +26,7 @@ HEADER			= include/libft.h include/internal.h
 TESTNAME		= testor
 UNITTEST		= test/test_ft_split_file.c
 
-SOURCES     	= $(SRCDIR)/ft_abs.c \
+SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_arr_voidp.c \
 				  $(SRCDIR)/ft_arr_voidp2.c \
 				  $(SRCDIR)/ft_atoi.c \
@@ -82,8 +82,9 @@ SOURCES     	= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_putstr.c \
 				  $(SRCDIR)/ft_putstr_fd.c \
 				  $(SRCDIR)/ft_realloc.c \
-				  $(SRCDIR)/ft_spit.c \
+				  $(SRCDIR)/ft_split.c \
 				  $(SRCDIR)/ft_split_file.c \
+				  $(SRCDIR)/ft_split_length.c \
 				  $(SRCDIR)/ft_split_or.c \
 				  $(SRCDIR)/ft_strcat.c \
 				  $(SRCDIR)/ft_strchr.c \

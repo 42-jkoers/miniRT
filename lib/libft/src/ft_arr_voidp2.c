@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/25 13:59:18 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 16:21:47 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/26 16:51:46 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,16 @@ void		**ft_arr_voidp_concat(t_arr_voidp *arr, size_t *length)
 		return (NULL);
 	}
 	*length = arr->length;
-	res = ft_memdup(arr->table + arr->start_i, arr->length * sizeof(void *));
+	if (arr->start_i == 0 && arr->length < arr->size)
+	{
+		res = arr->table;
+		res[arr->length] = NULL;
+		free(arr);
+		return (res);
+	}
+	res = malloc((arr->length + 1) * sizeof(void *));
+	ft_memcpy(res, arr->table + arr->start_i, arr->length * sizeof(void *));
+	res[arr->length] = NULL;
 	ft_arr_voidp_free(arr, NULL);
 	return (res);
 }
