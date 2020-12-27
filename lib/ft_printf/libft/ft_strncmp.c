@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 17:22:46 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/11/01 19:32:14 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/27 13:22:58 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	while (n > 0)
+	if (n == 0)
+		return (0);
+	while (n > 1 && *s1 != '\0' && *s1 == *s2)
 	{
-		if (*s1 == '\0' || *s1 != *s2)
-			break ;
 		s1++;
 		s2++;
 		n--;

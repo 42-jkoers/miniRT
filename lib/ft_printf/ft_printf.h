@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/11/03 02:19:33 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/01 14:02:06 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/11/30 15:41:45 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 
 int					ft_printf(const char *format, ...);
 
-// ft_printf("value = %05i", 42)
-// value = 00042
 /*
 ** This struct is assigned for every converstion (eg. %c), often defined as sp
 ** @param flag			This stores all flags at index. Access: sp.flag['-']
