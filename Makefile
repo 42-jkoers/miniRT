@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/26 16:28:27 by jkoers        ########   odam.nl          #
+#    Updated: 2020/12/27 13:52:05 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ LINKS			= -L$(LIBDIR)/minilibx-linux -lmlx -lXext -lX11
 LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
 				  $(LIBDIR)/ft_printf/libftprintf.a \
 				  $(LIBDIR)/libft/bin/libft.a
-HEADERS			= $(shell find $(HEADERDIR) -type f -name *.h)
-SOURCES     	= $(shell find $(SRCDIR)/ -type f -name *.$(SRCEXT))
+HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
+SOURCES     	= $(shell find $(SRCDIR) -type f -name '*.$(SRCEXT)')
 OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,\
 				  $(SOURCES:$(SRCEXT)=$(OBJEXT)))
 STARTGREEN		= @echo "\033[38;2;0;255;0m\c"
@@ -36,10 +36,15 @@ RESETCOLOR		= @echo "\033[0m\c"
 # main
 
 all:
-	make -j8 $(NAME)
+	make -j4 $(NAME)
 
 $(NAME): $(BUILDDIR)/ $(OBJECTS) $(HEADERS) $(LIBS)
 	$(CC) $(CFLAGS) -I. -I$(HEADERDIR) $(BUILDDIR)/*.$(OBJEXT) -o $(NAME) $(LIBS) $(LINKS)
+
+# sources
+
+$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT) $(HEADERS)
+	$(CC) $(CFLAGS) -I. -I$(HEADERDIR) -c $< -o $@
 
 # libs
 
@@ -51,11 +56,6 @@ $(LIBDIR)/ft_printf/libftprintf.a:
 
 $(LIBDIR)/libft/bin/libft.a:
 	make -C $(LIBDIR)/libft/
-
-# sources
-
-$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT) $(HEADERS)
-	$(CC) $(CFLAGS) -I. -I$(HEADERDIR) -c $< -o $@
 
 clean:
 	make -C $(LIBDIR)/minilibx-linux/ clean
@@ -79,8 +79,10 @@ re:
 sync:
 	cp -rf ~/GitHub/libft/ $(LIBDIR)
 	rm -rf $(LIBDIR)/libft/.git/
+	make -C $(LIBDIR)/libft/ re
 	cp -rf ~/GitHub/ft_printf/ $(LIBDIR)
 	rm -rf $(LIBDIR)/ft_printf/.git/
+	make -C $(LIBDIR)/ft_printf/ re
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
