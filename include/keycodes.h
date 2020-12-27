@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 17:00:00 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/26 22:44:28 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@ enum MLX_KEYCODES
 };
 
 #define ClientMessage 33
-
-enum RT_PARAMS
-{
-	RT_RESOLUTION_ID = 'R'
-};
+#define RULE_RESOLUTION "R"
 
 #endif

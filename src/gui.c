@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 22:26:58 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/27 14:13:22 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <unistd.h>
+#include <string.h>
 
 t_gui	*new_gui(void)
 {
@@ -48,7 +50,7 @@ void	exit_clean(t_gui *gui, char **rt, const char *format, ...)
 		ft_free_2d((void **)rt, i);
 	}
 	va_start(ap, format);
-	ft_printf(format, ap);
+	vprintf(format, ap);
 	va_end(ap);
 	if (gui != NULL)
 	{
@@ -84,19 +86,38 @@ void	gui_write_canvas(t_gui *gui)
 	mlx_put_image_to_window(gui->mlx, gui->window, gui->canvas.mlx_img, 0, 0);
 }
 
-void	set_resolution(t_gui *gui, char **rt)
+size_t	find_rule(t_gui *gui, char **rt, char *rule_id)
 {
 	size_t	i;
+	ssize_t	rt_i;
+	size_t	rule_len;
+
+	rt_i = -1;
+	i = 0;
+	rule_len = ft_strlen(rule_id);
+	while (rt[i] != NULL)
+	{
+		if (ft_strncmp(rt[i], rule_id, rule_len) == 0)
+		{
+			if (rt_i != -1)
+				exit_clean(gui, rt, "Multiple rules of type <%s> found\n", rule_id);
+			rt_i = (ssize_t)i;
+		}
+		i++;
+	}
+	if (rt_i == -1)
+		exit_clean(gui, rt, "Can't find rule <%s>\n", rule_id);
+	return ((size_t)rt_i);
+}
+
+void	set_resolution(t_gui *gui, char **rt)
+{
+	char	*rule;
 	char	**resolution;
 	size_t	params;
 
-	i = 0;
-	resolution = NULL;
-	while (rt[i] && rt[i][0] != RT_RESOLUTION_ID)
-		i++;
-	if (rt[i][0] != RT_RESOLUTION_ID)
-		exit_clean(gui, rt, "No resolution setting found\n");
-	resolution = ft_split_length(rt[i], ' ', &params);
+	rule = rt[find_rule(gui, rt, RULE_RESOLUTION)];
+	resolution = ft_split_length(rule, ' ', &params);
 	if (resolution == NULL)
 		exit_clean(gui, rt, "malloc 1\n");
 	if (params < 3 || 
