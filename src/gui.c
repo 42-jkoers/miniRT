@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/27 14:13:22 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/27 20:50:46 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	exit_clean(t_gui *gui, char **rt, const char *format, ...)
 		if (gui->window)
 			mlx_destroy_window(gui->mlx, gui->window);
 		if (gui->mlx)
+		{
 			mlx_destroy_display(gui->mlx);
+			free(gui->mlx);
+		}
 		free(gui);
 	}
 	exit(1);
@@ -71,6 +74,13 @@ int		on_keypress(int keycode, t_gui *gui)
 		exit_clean(gui, NULL, "Done\n");
 	return (0);
 }
+
+int	on_close(t_gui *gui)
+{
+	exit_clean(gui, NULL, "Done\n");
+	return (0);
+}
+
 
 void	gui_set_pixel(t_gui *gui, unsigned long x, unsigned long y, int color)
 {
@@ -90,14 +100,12 @@ size_t	find_rule(t_gui *gui, char **rt, char *rule_id)
 {
 	size_t	i;
 	ssize_t	rt_i;
-	size_t	rule_len;
 
 	rt_i = -1;
 	i = 0;
-	rule_len = ft_strlen(rule_id);
 	while (rt[i] != NULL)
 	{
-		if (ft_strncmp(rt[i], rule_id, rule_len) == 0)
+		if (ft_strcmp(rt[i], rule_id) == (' ' - 0))
 		{
 			if (rt_i != -1)
 				exit_clean(gui, rt, "Multiple rules of type <%s> found\n", rule_id);
@@ -120,13 +128,15 @@ void	set_resolution(t_gui *gui, char **rt)
 	resolution = ft_split_length(rule, ' ', &params);
 	if (resolution == NULL)
 		exit_clean(gui, rt, "malloc 1\n");
-	if (params < 3 || 
-		!ft_isdigit(resolution[1][0]) || 
-		!ft_isdigit(resolution[2][0]))
+	if (params != 3 || !ft_isdigit(resolution[1][0]) || !ft_isdigit(resolution[2][0]))
+	{
+		ft_free_2d((void **)resolution, params);
 		exit_clean(gui, rt, "Failed to set resolution\n");
+	}
 	mlx_get_screen_size(gui->mlx, (int *)(&gui->x_size), (int *)(&gui->y_size));
 	gui->x_size = ft_min_u(gui->x_size, ft_strtonum_u(resolution[1]));
 	gui->y_size = ft_min_u(gui->y_size, ft_strtonum_u(resolution[2]));
+	ft_free_2d((void **)resolution, params);
 	if (gui->x_size == 0 || gui->y_size == 0)
 		exit_clean(gui, rt, "Can't open window with width = 0 || height == 0\n");
 }
@@ -147,11 +157,14 @@ t_gui	*gui_init(char *rt_filename)
 	if (gui->mlx == NULL)
 		exit_clean(gui, rt, "Failed to init mlx\n");
 	set_resolution(gui, rt);
+	ft_free_2d((void **)rt, rt_lines);
 	gui->fov_deg = 100;
+
 	gui->window = mlx_new_window(gui->mlx, (int)(gui->x_size), (int)(gui->y_size), "miniRT");
 	if (gui->window == NULL)
 		exit_clean(gui, rt, "Failed to open window\n");
 	mlx_key_hook(gui->window, on_keypress, gui);
+	mlx_hook(gui->window, ClientMessage,  NoEventMask, on_close, gui);
 	gui->canvas.mlx_img = mlx_new_image(gui->mlx, (int)(gui->x_size), (int)(gui->y_size));
 	if (gui->canvas.mlx_img == NULL)
 		exit_clean(gui, rt, "Failed to create canvas at 1\n");

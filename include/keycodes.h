@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 22:44:28 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/27 20:40:54 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ enum MLX_KEYCODES
 };
 
 #define ClientMessage 33
+#define NoEventMask 0L	
 #define RULE_RESOLUTION "R"
 
 #endif
