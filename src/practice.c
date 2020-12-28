@@ -6,14 +6,14 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 22:21:07 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/22 16:08:06 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/28 17:46:22 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/minilibx-linux/mlx.h"
 #include "../lib/ft_printf/ft_printf.h"
 #include "gui.h"
-#include "helpers.h"
+#include "shapes.h"
 
 #include <stdlib.h>
 #include <stdio.h>

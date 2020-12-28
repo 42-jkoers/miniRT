@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:16 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/28 17:31:38 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/28 20:28:58 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_gui
 	char			**rt;
 	size_t			rt_i;
 	char			**rt_line_split;
+	t_arr_voidp		*shapes;
 	t_canvas		canvas;
 }				t_gui;
 

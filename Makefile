@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/27 13:52:05 by jkoers        ########   odam.nl          #
+#    Updated: 2020/12/28 19:29:42 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,10 +79,10 @@ re:
 sync:
 	cp -rf ~/GitHub/libft/ $(LIBDIR)
 	rm -rf $(LIBDIR)/libft/.git/
-	make -C $(LIBDIR)/libft/ re
+	make -C $(LIBDIR)/libft/
 	cp -rf ~/GitHub/ft_printf/ $(LIBDIR)
 	rm -rf $(LIBDIR)/ft_printf/.git/
-	make -C $(LIBDIR)/ft_printf/ re
+	make -C $(LIBDIR)/ft_printf/
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)

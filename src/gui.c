@@ -6,12 +6,12 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/28 17:31:04 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/28 22:25:11 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gui.h"
-#include "helpers.h"
+#include "shapes.h"
 #include "keycodes.h"
 #include "rt_file.h"
 #include "../lib/minilibx-linux/mlx.h"
@@ -57,6 +57,7 @@ void	exit_clean(t_gui *gui, const char *format, ...)
 		exit(1);
 	free_until_null((void **)gui->rt);
 	free_until_null((void **)gui->rt_line_split);
+	ft_arr_voidp_free(gui->shapes, free);
 	if (gui->canvas.mlx_img)
 		mlx_destroy_image(gui->mlx, gui->canvas.mlx_img);
 	if (gui->window)
@@ -77,7 +78,7 @@ int		on_keypress(int keycode, t_gui *gui)
 	return (0);
 }
 
-int	on_close(t_gui *gui)
+int		on_close(t_gui *gui)
 {
 	exit_clean(gui, "Done\n");
 	return (0);

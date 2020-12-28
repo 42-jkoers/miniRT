@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 16:39:11 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/25 13:56:58 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/28 17:46:22 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../lib/ft_printf/ft_printf.h"
 #include "../lib/minilibx-linux/mlx.h"
 #include "gui.h"
-#include "helpers.h"
+#include "shapes.h"
 #include "practice.h"
 
 #include <unistd.h>

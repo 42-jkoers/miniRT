@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   helpers.h                                          :+:    :+:            */
+/*   rt_file.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/12/20 18:59:25 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/20 22:11:22 by jkoers        ########   odam.nl         */
+/*   Created: 2020/12/28 13:47:29 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/12/28 21:44:03 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HELPERS_H
-# define HELPERS_H
+#ifndef RT_FILE_H
+# define RT_FILE_H
 
-typedef struct	s_rgb
-{
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
-}				t_rgb;
+# include "gui.h"
 
-void	exit_error(const char *format, ...);
-int 	rgbtoint(t_rgb *rgb);
+void	set_rt(t_gui *gui, const char *rt_filename);
+long	strtonum(t_gui *gui, char *str, char end, long min, long max);
 
 #endif
