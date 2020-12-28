@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:51:21 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 22:14:43 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/28 20:38:24 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ unsigned long		ft_max_u(unsigned long a, unsigned long b);
 long				ft_min(long a, long b);
 unsigned long		ft_min_u(unsigned long a, unsigned long b);
 int					ft_get_next_line(int fd, char **line);
-char				**ft_split_or(const char *s, const char *spitters);
+char				**ft_split_or(
+						const char *s, const char *spitters, size_t *length);
 char				**ft_split_file(const char *filename, size_t *num_lines);
 char				**ft_split_length(char const *s, char c, size_t *length);
 void				*ft_realloc(void *ptr, size_t orig_len, size_t new_len);
@@ -133,6 +134,8 @@ void				ft_arr_voidp_free(t_arr_voidp *arr, void (*del)(void *));
 void				ft_arr_voidp_shift(t_arr_voidp **arr, void (*del)(void *));
 void				ft_arr_voidp_pop(t_arr_voidp **arr, void (*del)(void *));
 void				**ft_arr_voidp_concat(t_arr_voidp *arr, size_t *length);
+double				ft_strtodbl(char *str);
+size_t				ft_strcount(char *str, char search);
 
 /*
 ** typedef struct		s_arr_long

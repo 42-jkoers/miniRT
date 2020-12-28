@@ -6,7 +6,7 @@
 #    By: joppe <joppe@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/23 17:53:14 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/26 22:16:11 by jkoers        ########   odam.nl          #
+#    Updated: 2020/12/28 18:50:57 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_strcat.c \
 				  $(SRCDIR)/ft_strchr.c \
 				  $(SRCDIR)/ft_strcmp.c \
+				  $(SRCDIR)/ft_strcount.c \
 				  $(SRCDIR)/ft_strcpy.c \
 				  $(SRCDIR)/ft_strdup.c \
 				  $(SRCDIR)/ft_strjoin.c \
@@ -106,6 +107,7 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_strnstr.c \
 				  $(SRCDIR)/ft_strrchr.c \
 				  $(SRCDIR)/ft_strset.c \
+				  $(SRCDIR)/ft_strtodbl.c \
 				  $(SRCDIR)/ft_strtolower.c \
 				  $(SRCDIR)/ft_strtonum.c \
 				  $(SRCDIR)/ft_strtonum_u.c \

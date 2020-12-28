@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/22 22:18:54 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/25 18:13:21 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/28 19:38:25 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ char *s, char *splitters, char **split, size_t num_words)
 **              ft_split_or("foo,,bar", ",a") --> {"foo", "b", "r", NULL}
 */
 
-char			**ft_split_or(const char *s, const char *spitters)
+char			**ft_split_or(
+	const char *s, const char *spitters, size_t *length)
 {
 	char	**split;
 	size_t	num_words;
@@ -91,7 +92,11 @@ char			**ft_split_or(const char *s, const char *spitters)
 	num_words = count_words((char *)s, (char *)spitters);
 	split = malloc((num_words + 1) * sizeof(char *));
 	if (split == NULL)
+	{
+		*length = 0;
 		return (NULL);
+	}
+	*length = num_words;
 	cpy_words((char *)s, (char *)spitters, split, num_words);
 	return (split);
 }
