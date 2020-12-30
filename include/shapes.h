@@ -6,34 +6,22 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/27 20:56:20 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/28 20:47:35 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/30 17:29:29 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHAPES_H
 # define SHAPES_H
 
-typedef struct		s_rgb
-{
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-}					t_rgb;
+# include "rt_file_helpers.h"
 
 typedef struct	s_orientation
 {
 	double			x;
 	double			y;
 	double			z;
-
 }				t_orientation;
 
-typedef struct	s_point
-{
-	double			x;
-	double			y;
-	double			z;
-}				t_point;
 /*
 ** Shapes
 */
@@ -53,7 +41,7 @@ typedef struct		s_sphere
 	t_point			origin;
 	double			diameter;
 }					t_sphere;
-void	add_sphere(t_gui *gui, t_arr_voidp *shapes, char *line);
+e_msg	add_sphere(t_arr_voidp *shapes, char *line);
 
 typedef struct		s_plane
 {

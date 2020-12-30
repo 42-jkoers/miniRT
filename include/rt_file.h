@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:47:29 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/28 21:44:03 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/30 18:59:24 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define RT_FILE_H
 
 # include "gui.h"
+# include "constants.h"
 
-void	set_rt(t_gui *gui, const char *rt_filename);
-long	strtonum(t_gui *gui, char *str, char end, long min, long max);
+e_msg	parse_rt(char *rt_filename, t_gui *gui);
 
 #endif
