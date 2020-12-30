@@ -1,28 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_free_2d.c                                       :+:    :+:            */
+/*   ft_free_until_null.c                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/12/23 14:24:44 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/28 22:42:53 by jkoers        ########   odam.nl         */
+/*   Created: 2020/12/29 23:54:47 by jkoers        #+#    #+#                 */
+/*   Updated: 2020/12/30 00:02:33 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
 #include <stdlib.h>
 
-void	ft_free_2d(void **arr, size_t length)
+void	ft_free_until_null_void(void **arr)
 {
+	size_t i;
+	
 	if (arr == NULL)
 		return ;
-	while (length > 0)
+	i = 0;
+	while (arr[i])
 	{
-		length--;
-		if (arr[length])
-			free(arr[length]);
+		free(arr[i]);
+		i++;
 	}
 	free(arr);
-	arr = NULL;
+}
+
+void	ft_free_until_null_char(char **arr)
+{
+	size_t i;
+	
+	if (arr == NULL)
+		return ;
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }

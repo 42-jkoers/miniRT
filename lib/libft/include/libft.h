@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:51:21 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/28 20:38:24 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/30 00:01:20 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ void				ft_arr_voidp_pop(t_arr_voidp **arr, void (*del)(void *));
 void				**ft_arr_voidp_concat(t_arr_voidp *arr, size_t *length);
 double				ft_strtodbl(char *str);
 size_t				ft_strcount(char *str, char search);
+void				ft_free_until_null_void(void **arr);
+void				ft_free_until_null_char(char **arr);
 
 /*
 ** typedef struct		s_arr_long

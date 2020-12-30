@@ -6,7 +6,7 @@
 #    By: joppe <joppe@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/23 17:53:14 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/28 18:50:57 by jkoers        ########   odam.nl          #
+#    Updated: 2020/12/30 00:00:05 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_bzero.c \
 				  $(SRCDIR)/ft_calloc.c \
 				  $(SRCDIR)/ft_free_2d.c \
+				  $(SRCDIR)/ft_free_until_null.c \
 				  $(SRCDIR)/ft_get_next_line.c \
 				  $(SRCDIR)/ft_get_next_line2.c \
 				  $(SRCDIR)/ft_includes.c \
