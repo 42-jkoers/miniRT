@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 00:37:15 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 00:44:13 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 e_msg	destroy_set_resolution(e_msg msg, char **params)
 {
-	free_until_null_c(params);
+	ft_free_until_null_char(params);
 	if (msg != SUCCESS)
 		ft_printf("Failed to set resolution\n"); // illegal
 	return (msg);
@@ -36,15 +36,13 @@ e_msg	destroy_set_resolution(e_msg msg, char **params)
 
 e_msg	set_resolution(char *line, unsigned long *x, unsigned long *y)
 {
-	size_t	n_params;
 	char	**params;
-	e_msg	msg;
 
 	if (split_clamp(&params, line, 3) != SUCCESS)
 		return (destroy_set_resolution(ERR_RT_BADRULE, params));
-	if (strtonum_clamp(x, params[1], '\0', 1, LONG_MAX) != SUCCESS)
+	if (strtonum_clamp((long *)x, params[1], '\0', 1, LONG_MAX) != SUCCESS)
 		return (destroy_set_resolution(ERR_RT_BADVALUE, params));
-	if (set_num(y, params[2], '\0', 1, LONG_MAX) != SUCCESS)
+	if (strtonum_clamp((long *)y, params[2], '\0', 1, LONG_MAX) != SUCCESS)
 		return (destroy_set_resolution(ERR_RT_BADVALUE, params));	
 	return (destroy_set_resolution(SUCCESS, params));
 }
@@ -63,9 +61,9 @@ e_msg	parse_rt_line(char *line, t_gui *gui)
 
 e_msg	destroy_parse_rt(e_msg msg, char **rt, size_t i)
 {
-	free_until_null((void **)rt);
+	ft_free_until_null_char(rt);
 	if (msg != SUCCESS)
-		printf("Failed at line %ul\n", i); // illegal
+		printf("Failed at line %lu\n", i); // illegal
 	return (msg);
 }
 

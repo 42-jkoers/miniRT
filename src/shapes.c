@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/27 20:55:30 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 00:36:48 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 00:47:49 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ e_msg	add_sphere(char *line, t_arr_voidp *shapes)
 		return (destroy_add_sphere(ERR_RT_BADRULE, sphere));
 	if (set_point(&sphere->origin, params[1]) != SUCCESS)
 		return (destroy_add_sphere(ERR_RT_BADRULE, sphere));
-	if (strtonum_clamp(&sphere->diameter, params[2], '\0', 0, DOUBLE_MAX) != SUCCESS)
+	if (strtodbl_clamp(&sphere->diameter, params[2], '\0', 0.0, DOUBLE_MAX) != SUCCESS)
 		return (destroy_add_sphere(ERR_RT_BADRULE, sphere));
 	if (set_color(&sphere->color, params[3]) != SUCCESS)
 		return (destroy_add_sphere(ERR_RT_BADRULE, sphere));
-	return (destroy_add_sphere(SUCCESS, sphere));	
+	if (ft_arr_voidp_push(&shapes, sphere) == NULL)
+		return (destroy_add_sphere(ERR_MALLOC, sphere));
+	return (SUCCESS);
 }

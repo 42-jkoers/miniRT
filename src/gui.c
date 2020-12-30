@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 00:35:00 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 00:50:59 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,9 @@
 #include <unistd.h>
 #include <string.h>
 
-t_gui	*new_gui(void)
-{
-	t_gui *gui;
-
-	gui = malloc(sizeof(t_gui));
-	if (gui == NULL)
-		exit_clean(gui, ERR_MALLOC);
-	ft_bzero(gui, sizeof(t_gui));
-	return (gui);
-}
-
 void	exit_clean(t_gui *gui, e_msg msg)
 {
-	ft_putstr(g_joppe_strerror[msg]);
+	ft_putstr(((char **)(g_joppe_strerror))[msg]);
 	if (gui == NULL)
 		exit(msg == SUCCESS ? 0 : 1);
 	ft_arr_voidp_free(gui->shapes, free);
@@ -52,10 +41,21 @@ void	exit_clean(t_gui *gui, e_msg msg)
 	exit(msg == SUCCESS ? 0 : 1);
 }
 
+t_gui	*new_gui(void)
+{
+	t_gui *gui;
+
+	gui = malloc(sizeof(t_gui));
+	if (gui == NULL)
+		exit_clean(gui, ERR_MALLOC);
+	ft_bzero(gui, sizeof(t_gui));
+	return (gui);
+}
+
 int		on_keypress(int keycode, t_gui *gui)
 {
 	if (keycode == XK_Escape)
-		exit_clean(gui, "Done\n");
+		exit_clean(gui, SUCCESS);
 	return (0);
 }
 
@@ -97,11 +97,11 @@ e_msg	set_canvas(t_canvas *canvas, void *mlx, unsigned long x_size, unsigned lon
 	return (SUCCESS);	
 }
 
-e_msg	set_window(void **window, void *mlx, unsigned long x_size, unsigned long y_size)
+e_msg	set_window(void **window, void *mlx, unsigned long *x_size, unsigned long *y_size)
 {
 	void	*w;
 
-	w = mlx_new_window(mlx, (int)x_size, (int)y_size, "miniRT");
+	w = mlx_new_window(mlx, (int)(*x_size), (int)(*y_size), "miniRT");
 	if (w == NULL)
 		return (ERR_WINDOW_CREATE);
 	return (SUCCESS);

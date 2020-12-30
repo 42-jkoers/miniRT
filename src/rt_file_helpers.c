@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/30 16:53:53 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 00:28:36 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 00:45:13 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,13 @@ e_msg	set_color(t_rgb *color, char *str)
 {
 	if (ft_strcount(str, ',') != 2)
 		return (ERR_RT_NUMARGS);
-	if (strtonum_clamp(&color->r, str, ',', 0, 255) != SUCCESS)
+	if (strtonum_clamp((long *)(&color->r), str, ',', 0, 255) != SUCCESS)
 		return (ERR_RT_BADVALUE);
 	str = ft_strchr(str, ',') + 1;
-	if (strtonum_clamp(&color->g, str, ',', 0, 255) != SUCCESS)
+	if (strtonum_clamp((long *)(&color->g), str, ',', 0, 255) != SUCCESS)
 		return (ERR_RT_BADVALUE);
 	str = ft_strchr(str, ',') + 1;
-	return (strtonum_clamp(&color->b, str, '\0', 0, 255));
+	return (strtonum_clamp((long *)(&color->b), str, '\0', 0, 255));
 }
 
 int		rgbtoint(t_rgb *rgb)

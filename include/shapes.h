@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/27 20:56:20 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/30 17:29:29 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 00:42:26 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct		s_sphere
 	t_point			origin;
 	double			diameter;
 }					t_sphere;
-e_msg	add_sphere(t_arr_voidp *shapes, char *line);
+e_msg				add_sphere(char *line, t_arr_voidp *shapes);
 
 typedef struct		s_plane
 {
