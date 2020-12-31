@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 01:59:05 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 02:17:24 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,27 @@ e_msg	set_canvas(t_canvas *canvas, void *mlx, unsigned long x_size, unsigned lon
 
 e_msg	set_window(void **window, void *mlx, unsigned long *x_size, unsigned long *y_size)
 {
-	void	*w;
+	void			*w;
+	unsigned long	screen_xsize;
+	unsigned long	screen_ysize;
 
 	w = mlx_new_window(mlx, (int)(*x_size), (int)(*y_size), "miniRT");
 	if (w == NULL)
 		return (ERR_WINDOW_CREATE);
 	*window = w;
+	mlx_get_screen_size(mlx, (int *)&screen_xsize, (int *)&screen_ysize);
+	if (screen_xsize < *x_size)
+	{
+		*x_size = screen_xsize;
+		if (VERBOSE)
+			ft_putstr("Note: decreased x resolution\n");
+	}
+	if (screen_ysize < *y_size)
+	{
+		*y_size = screen_ysize;
+		if (VERBOSE)
+			ft_putstr("Note: decreased y resolution\n");
+	}
 	return (SUCCESS);
 }
 
