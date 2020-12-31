@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 00:36:12 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 01:14:40 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define CONSTANTS_H
 # include <X11/keysymdef.h>
 # include <X11/keysym.h>
+
+# define VERBOSE 1
 
 #define ClientMessage 33
 #define NoEventMask 0L
@@ -35,6 +37,7 @@
 typedef enum	s_msg
 {
 	SUCCESS,
+	ERR_USELESS,
 	ERR_MALLOC,
 	ERR_MLXINIT,
 	ERR_RT_NOTFOUND,
@@ -51,24 +54,5 @@ typedef enum	s_msg
 	ERR_WINDOW_CREATE,
 	MSG_LAST
 }				e_msg;
-
-static const char *g_joppe_strerror[MSG_LAST] =
-{
-	"Done\n",
-	"Malloc failed\n",
-	"Failed to init mlx\n",
-	"Rt file not found\n",
-	"Rt file is empty\n",
-	"Rt file is invalid\n",
-	"Rt rule is invalid\n"
-	"Rt rule has wrong number of arguments\n",
-	"Rt rule has illegal value\n",
-	"Unknow rt rule\n",
-	"Unexpected character\n",
-	"Unexpected end of line\n",
-	"Failed to create mlx image for canvas\n",
-	"Mlx init failed\n",
-	"Cannot create window\n"
-};
 
 #endif

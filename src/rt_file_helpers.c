@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/30 16:53:53 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 00:45:13 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 01:27:56 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,24 @@
 #include <stdio.h>
 #include <unistd.h>
 
+e_msg	rt_unexpected_char(char got, char expected)
+{
+	printf("Expected <%c>, go <%c>\n", got, expected);
+	return (ERR_RT_UNEXPECTED_CHAR);
+}
+
 e_msg	strtonum_clamp(long *result, char *str, char end, long min, long max)
 {
 	size_t	i;
 	long	num;
 	
 	if (str[0] == '\0')
-		return (ERR_RT_UNEXPECTED_CHAR);
+		return (rt_unexpected_char(str[0], '\0'));
 	i = str[0] == '+' || str[0] == '-' ? 1 : 0;
 	while (ft_isdigit(str[i]))
 		i++;
 	if (str[i] != end)
-		return (ERR_RT_UNEXPECTED_CHAR);
+		return (rt_unexpected_char(str[i], end));
 	num = ft_strtonum(str);
 	if (num > max || num < min)
 		return (ERR_RT_BADVALUE);
@@ -46,7 +52,7 @@ e_msg	strtodbl_clamp(double *result, char *str, char end, double min, double max
 	double	num;
 	
 	if (str[0] == '\0')
-		return (ERR_RT_UNEXPECTED_CHAR);
+		return (rt_unexpected_char(str[0], '\0'));
 	i = str[0] == '+' || str[0] == '-' ? 1 : 0;
 	while (ft_isdigit(str[i]))
 		i++;
@@ -55,7 +61,7 @@ e_msg	strtodbl_clamp(double *result, char *str, char end, double min, double max
 	while (ft_isdigit(str[i]))
 		i++;
 	if (str[i] != end)
-		return (ERR_RT_UNEXPECTED_CHAR);
+		return (rt_unexpected_char(str[i], end));
 	num = ft_strtodbl(str);
 	if (num > max || num < min)
 		return (ERR_RT_BADVALUE);

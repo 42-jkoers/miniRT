@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:16 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/30 19:09:45 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 01:03:35 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define GUI_H
 
 # include "../lib/libft/include/libft.h"
-# define VERBOSE 1
 
 typedef struct  s_canvas
 {

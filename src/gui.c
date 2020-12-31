@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 00:50:59 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 01:59:05 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,32 @@
 #include <unistd.h>
 #include <string.h>
 
+void	print_joppe_sterror(e_msg msg)
+{
+	static const char *joppe_strerror[MSG_LAST] = {
+		[SUCCESS] = "Done\n",
+		[ERR_USELESS] = "Useless error message\n",
+		[ERR_MALLOC] = "Malloc failed\n",
+		[ERR_MLXINIT] = "Failed to init mlx\n",
+		[ERR_RT_NOTFOUND] = "Rt file not found\n",
+		[ERR_RT_EMPTY] = "Rt file is empty\n",
+		[ERR_RT_INVALID] = "Rt file is invalid\n",
+		[ERR_RT_BADRULE] = "Rt rule is invalid\n",
+		[ERR_RT_NUMARGS] = "Rt rule has wrong number of arguments\n",
+		[ERR_RT_BADVALUE] = "Rt rule has illegal value\n",
+		[ERR_RT_UNKNOWN_RULE] = "Unknow rt rule\n",
+		[ERR_RT_UNEXPECTED_CHAR] = "Unexpected character\n",
+		[ERR_RT_UNEXPECTED_EOL] = "Unexpected end of line\n",
+		[ERR_CANVAS_CREATEIMG] = "Failed to create mlx image for canvas\n",
+		[ERR_MLX_INIT] = "Mlx init failed\n",
+		[ERR_WINDOW_CREATE] = "Cannot create window\n"
+	};
+	ft_putstr((char *)(joppe_strerror[msg]));
+}
+
 void	exit_clean(t_gui *gui, e_msg msg)
 {
-	ft_putstr(((char **)(g_joppe_strerror))[msg]);
+	print_joppe_sterror(msg);
 	if (gui == NULL)
 		exit(msg == SUCCESS ? 0 : 1);
 	ft_arr_voidp_free(gui->shapes, free);
@@ -104,6 +127,7 @@ e_msg	set_window(void **window, void *mlx, unsigned long *x_size, unsigned long 
 	w = mlx_new_window(mlx, (int)(*x_size), (int)(*y_size), "miniRT");
 	if (w == NULL)
 		return (ERR_WINDOW_CREATE);
+	*window = w;
 	return (SUCCESS);
 }
 
@@ -119,7 +143,7 @@ t_gui	*gui_init(char *rt_filename)
 	msg = parse_rt(rt_filename, gui);
 	if (msg != SUCCESS)
 		exit_clean(gui, msg);
-	msg = set_window(&gui->window, gui->mlx, &gui->x_size, &gui->y_size);
+	msg = set_window(gui->window, gui->mlx, &gui->x_size, &gui->y_size);
 	if (msg != SUCCESS)
 		exit_clean(gui, msg);
 	msg = set_canvas(&gui->canvas, gui->mlx, gui->x_size, gui->y_size);

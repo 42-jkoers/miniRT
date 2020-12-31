@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 00:44:13 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 01:48:44 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ e_msg	destroy_parse_rt(e_msg msg, char **rt, size_t i)
 {
 	ft_free_until_null_char(rt);
 	if (msg != SUCCESS)
-		printf("Failed at line %lu\n", i); // illegal
+		printf("Failed at line %lu\n", i + 1); // illegal
 	return (msg);
 }
 
