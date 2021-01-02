@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/02 22:44:32 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/02 23:51:09 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum
 	RULE_CYLINDER,
 	RULE_TRIANGLE,
 	RULE_RESOLUTION,
+	RULE_BRIGHTNESS,
 	RULE_LAST
 }	e_rule;
 

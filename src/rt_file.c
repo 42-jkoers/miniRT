@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/02 23:20:15 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/02 23:34:08 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ e_msg	destroy_set_resolution(e_msg msg, char **params)
 {
 	ft_free_until_null_char(params);
 	if (msg != SUCCESS)
-		ft_printf("Failed to set resolution\n"); // illegal
+		ft_putstr("Failed to set resolution\n");
 	return (msg);
 }
 
@@ -44,6 +44,25 @@ e_msg	set_resolution(char *line, unsigned long *x, unsigned long *y)
 		return (destroy_set_resolution(ERR_RT_BADVALUE, params));
 	if (strtonum_clamp((long *)y, params[2], '\0', 1, LONG_MAX) != SUCCESS)
 		return (destroy_set_resolution(ERR_RT_BADVALUE, params));	
+	return (destroy_set_resolution(SUCCESS, params));
+}
+
+e_msg	destroy_set_brightness(e_msg msg, char **params)
+{
+	ft_free_until_null_char(params);
+	if (msg != SUCCESS)
+		ft_putstr("Failed to set brightness\n");
+	return (msg);
+}
+
+e_msg	set_brightness(char *line, double *brightness)
+{
+	char	**params;
+
+	if (split_clamp(&params, line, 2) != SUCCESS)
+		return (destroy_set_resolution(BADRULE, params));
+	if (strtodbl_clamp(x, params[1], '\0', 0.0, LONG_MAX) != SUCCESS)
+		return (destroy_set_resolution(ERR_RT_BADVALUE, params));
 	return (destroy_set_resolution(SUCCESS, params));
 }
 
@@ -63,6 +82,8 @@ e_msg	parse_rt_line(char *line, t_gui *gui)
 		return (add_cylinder(line, &gui->shapes));
 	else if (ft_strcmp(line, g_rule_id[RULE_TRIANGLE]) == ' ')
 		return (add_triangle(line, &gui->shapes));
+	else if (ft_strcmp(line, g_rule_id[RULE_BRIGHTNESS]) == ' ')
+		return (set_brightness(line, &gui->brightness));
 	else
 		return (ERR_RT_UNKNOWN_RULE);
 }
