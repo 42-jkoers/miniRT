@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/30 16:53:53 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 01:27:56 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 14:40:33 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ e_msg	strtonum_clamp(long *result, char *str, char end, long min, long max)
 	return (SUCCESS);	
 }
 
-e_msg	strtodbl_clamp(double *result, char *str, char end, double min, double max)
+e_msg	strtodbl_clamp(double *result,
+	char *str, char end, double min, double max)
 {
 	size_t	i;
 	double	num;

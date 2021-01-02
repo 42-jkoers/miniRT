@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 02:17:24 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/02 22:57:50 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_joppe_sterror(e_msg msg)
 		[ERR_RT_NOTFOUND] = "Rt file not found\n",
 		[ERR_RT_EMPTY] = "Rt file is empty\n",
 		[ERR_RT_INVALID] = "Rt file is invalid\n",
-		[ERR_RT_BADRULE] = "Rt rule is invalid\n",
+		[BADRULE] = "Rt rule is invalid\n",
 		[ERR_RT_NUMARGS] = "Rt rule has wrong number of arguments\n",
 		[ERR_RT_BADVALUE] = "Rt rule has illegal value\n",
 		[ERR_RT_UNKNOWN_RULE] = "Unknow rt rule\n",
@@ -109,35 +109,38 @@ e_msg	destroy_canvas(e_msg msg, t_canvas *canvas, void *mlx)
 	return (msg);
 }
 
-e_msg	set_canvas(t_canvas *canvas, void *mlx, unsigned long x_size, unsigned long y_size)
+e_msg	set_canvas(t_canvas *canvas,
+			void *mlx, unsigned long x_size, unsigned long y_size)
 {
 	canvas->mlx_img = mlx_new_image(mlx, (int)(x_size), (int)(y_size));
 	if (canvas->mlx_img == NULL)
 		return (destroy_canvas(ERR_MALLOC, canvas, mlx));
-	canvas->data = mlx_get_data_addr(canvas->mlx_img, &canvas->bpp, &canvas->line_length, &canvas->byte_order);
+	canvas->data = mlx_get_data_addr(canvas->mlx_img, &canvas->bpp,
+		&canvas->line_length, &canvas->byte_order);
 	if (canvas->data == NULL)
 		return (destroy_canvas(ERR_MALLOC, canvas, mlx));
 	return (SUCCESS);	
 }
 
-e_msg	set_window(void **window, void *mlx, unsigned long *x_size, unsigned long *y_size)
+e_msg	set_window(void **window,
+			void *mlx, unsigned long *x_size, unsigned long *y_size)
 {
-	void			*w;
-	unsigned long	screen_xsize;
-	unsigned long	screen_ysize;
+	void	*w;
+	int		screen_xsize;
+	int		screen_ysize;
 
 	w = mlx_new_window(mlx, (int)(*x_size), (int)(*y_size), "miniRT");
 	if (w == NULL)
 		return (ERR_WINDOW_CREATE);
 	*window = w;
-	mlx_get_screen_size(mlx, (int *)&screen_xsize, (int *)&screen_ysize);
-	if (screen_xsize < *x_size)
+	mlx_get_screen_size(mlx, &screen_xsize, &screen_ysize);
+	if (screen_xsize < (int)*x_size)
 	{
 		*x_size = screen_xsize;
 		if (VERBOSE)
 			ft_putstr("Note: decreased x resolution\n");
 	}
-	if (screen_ysize < *y_size)
+	if (screen_ysize < (int)*y_size)
 	{
 		*y_size = screen_ysize;
 		if (VERBOSE)
@@ -158,7 +161,7 @@ t_gui	*gui_init(char *rt_filename)
 	msg = parse_rt(rt_filename, gui);
 	if (msg != SUCCESS)
 		exit_clean(gui, msg);
-	msg = set_window(gui->window, gui->mlx, &gui->x_size, &gui->y_size);
+	msg = set_window(&gui->window, gui->mlx, &gui->x_size, &gui->y_size);
 	if (msg != SUCCESS)
 		exit_clean(gui, msg);
 	msg = set_canvas(&gui->canvas, gui->mlx, gui->x_size, gui->y_size);
