@@ -6,7 +6,7 @@
 #    By: joppe <joppe@student.codam.nl>               +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/08/23 17:53:14 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/30 00:00:05 by jkoers        ########   odam.nl          #
+#    Updated: 2020/12/31 13:03:32 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ UNITTEST		= test/test_ft_split_file.c
 SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_arr_voidp.c \
 				  $(SRCDIR)/ft_arr_voidp2.c \
+				  $(SRCDIR)/ft_arrchr.c \
 				  $(SRCDIR)/ft_atoi.c \
 				  $(SRCDIR)/ft_bzero.c \
 				  $(SRCDIR)/ft_calloc.c \

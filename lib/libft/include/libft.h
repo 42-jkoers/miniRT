@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/10/26 14:51:21 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/30 00:01:20 by jkoers        ########   odam.nl         */
+/*   Updated: 2020/12/31 13:07:02 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdint.h>
 # include <stdbool.h>
 # include <stddef.h>
+# include <unistd.h>
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -138,6 +139,11 @@ double				ft_strtodbl(char *str);
 size_t				ft_strcount(char *str, char search);
 void				ft_free_until_null_void(void **arr);
 void				ft_free_until_null_char(char **arr);
+ssize_t				ft_arrchr(char **arr, char *search);
+ssize_t				ft_arrchrn(char **arr, char *search, size_t search_len);
+ssize_t				ft_arrnchr(char **arr, size_t arr_len, char *search);
+ssize_t				ft_arrnchrn(char **arr, size_t arr_len, char *search,
+					size_t search_len);
 
 /*
 ** typedef struct		s_arr_long
