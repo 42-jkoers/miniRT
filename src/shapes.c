@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/27 20:55:30 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/01 23:27:56 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/02 23:19:52 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static e_msg	destroy(e_msg msg, void *shape)
 	return (msg);
 }
 
-e_msg	add_sphere(char *line, t_arr_voidp *shapes)
+e_msg	add_sphere(char *line, t_arr_voidp **shapes)
 {
 	t_sphere	*sp;
 	char		**items;
@@ -56,12 +56,12 @@ e_msg	add_sphere(char *line, t_arr_voidp *shapes)
 		return (destroy(BADRULE, sp));
 	if (set_color(&sp->color, items[3]) != SUCCESS)
 		return (destroy(BADRULE, sp));
-	if (ft_arr_voidp_push(&shapes, sp) == NULL)
+	if (ft_arr_voidp_push(shapes, sp) == NULL)
 		return (destroy(ERR_MALLOC, sp));
 	return (SUCCESS);
 }
 
-e_msg	add_plane(char *line, t_arr_voidp *shapes)
+e_msg	add_plane(char *line, t_arr_voidp **shapes)
 {
 	t_plane	*pl;
 	char	**items;
@@ -78,12 +78,12 @@ e_msg	add_plane(char *line, t_arr_voidp *shapes)
 		return (destroy(BADRULE, pl));
 	if (set_color(&pl->color, items[3]) != SUCCESS)
 		return (destroy(BADRULE, pl));
-	if (ft_arr_voidp_push(&shapes, pl) == NULL)
+	if (ft_arr_voidp_push(shapes, pl) == NULL)
 		return (destroy(ERR_MALLOC, pl));
 	return (SUCCESS);
 }
 
-e_msg	add_square(char *line, t_arr_voidp *shapes)
+e_msg	add_square(char *line, t_arr_voidp **shapes)
 {
 	t_square	*sq;
 	char		**items;
@@ -102,12 +102,12 @@ e_msg	add_square(char *line, t_arr_voidp *shapes)
 		return (destroy(BADRULE, sq));
 	if (set_color(&sq->color, items[4]) != SUCCESS)
 		return (destroy(BADRULE, sq));
-	if (ft_arr_voidp_push(&shapes, sq) == NULL)
+	if (ft_arr_voidp_push(shapes, sq) == NULL)
 		return (destroy(ERR_MALLOC, sq));
 	return (SUCCESS);
 }
 
-e_msg	add_cylinder(char *line, t_arr_voidp *shapes)
+e_msg	add_cylinder(char *line, t_arr_voidp **shapes)
 {
 	t_cylinder	*cy;
 	char		**items;
@@ -129,12 +129,12 @@ e_msg	add_cylinder(char *line, t_arr_voidp *shapes)
 		return (destroy(BADRULE, cy));
 	if (set_color(&cy->color, items[5]) != SUCCESS)
 		return (destroy(BADRULE, cy));
-	if (ft_arr_voidp_push(&shapes, cy) == NULL)
+	if (ft_arr_voidp_push(shapes, cy) == NULL)
 		return (destroy(ERR_MALLOC, cy));
 	return (SUCCESS);
 }
 
-e_msg	add_triangle(char *line, t_arr_voidp *shapes)
+e_msg	add_triangle(char *line, t_arr_voidp **shapes)
 {
 	t_triangle	*tr;
 	char		**items;
@@ -153,7 +153,7 @@ e_msg	add_triangle(char *line, t_arr_voidp *shapes)
 		return (destroy(BADRULE, tr));
 	if (set_color(&tr->color, items[4]) != SUCCESS)
 		return (destroy(BADRULE, tr));
-	if (ft_arr_voidp_push(&shapes, tr) == NULL)
+	if (ft_arr_voidp_push(shapes, tr) == NULL)
 		return (destroy(ERR_MALLOC, tr));
 	return (SUCCESS);
 }
@@ -164,13 +164,14 @@ void	log_shapes(t_arr_voidp *shapes)
 	size_t	i;
 
 	i = 0;
+	ft_putstr("Shapes found:\n");
 	while (ft_arr_voidp_get(shapes, i) != NULL)
 	{
 		ft_memcpy(&shape, ft_arr_voidp_get(shapes, i), sizeof(e_shape));
 		if (shape < SHAPE_LAST)
-			ft_printf("Found %s\n", g_rule_name[shape]); // illegal
+			ft_printf("\tFound %s\n", g_rule_name[shape]); // illegal
 		else	
-			ft_putstr("Something has gone horribly wrong\n");
+			ft_putstr("\tSomething has gone horribly wrong\n");
 		i++;
 	}
 }

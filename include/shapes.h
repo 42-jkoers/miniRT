@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/27 20:56:20 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 12:50:31 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/02 23:18:04 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "rt_file_helpers.h"
 # include "constants.h"
+# include "../lib/libft/include/libft.h"
+
+void	log_shapes(t_arr_voidp *shapes);
 
 typedef struct		s_sphere
 {
@@ -23,7 +26,7 @@ typedef struct		s_sphere
 	t_point			origin;
 	double			diameter;
 }					t_sphere;
-e_msg				add_sphere(char *line, t_arr_voidp *shapes);
+e_msg				add_sphere(char *line, t_arr_voidp **shapes);
 
 typedef struct		s_plane
 {
@@ -32,7 +35,7 @@ typedef struct		s_plane
 	t_point			origin;
 	t_point			orientation;
 }					t_plane;
-e_msg				add_plane(char *line, t_arr_voidp *shapes);
+e_msg				add_plane(char *line, t_arr_voidp **shapes);
 
 typedef struct		s_square
 {
@@ -42,7 +45,7 @@ typedef struct		s_square
 	t_point			orientation;
 	double			size;
 }					t_square;
-e_msg				add_square(char *line, t_arr_voidp *shapes);
+e_msg				add_square(char *line, t_arr_voidp **shapes);
 
 typedef struct		s_cylinder
 {
@@ -53,7 +56,7 @@ typedef struct		s_cylinder
 	double			diameter;
 	double			height;
 }					t_cylinder;
-e_msg				add_cylinder(char *line, t_arr_voidp *shapes);
+e_msg				add_cylinder(char *line, t_arr_voidp **shapes);
 
 typedef struct		s_triangle
 {
@@ -63,6 +66,6 @@ typedef struct		s_triangle
 	t_point			p2;
 	t_point			p3;
 }					t_triangle;
-e_msg				add_triangle(char *line, t_arr_voidp *shapes);
+e_msg				add_triangle(char *line, t_arr_voidp **shapes);
 
 #endif

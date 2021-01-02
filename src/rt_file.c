@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/02 22:44:21 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/02 23:20:15 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ e_msg	parse_rt_line(char *line, t_gui *gui)
 	else if (ft_strcmp(line, g_rule_id[RULE_RESOLUTION]) == ' ')
 		return (set_resolution(line, &gui->x_size, &gui->y_size));
 	else if (ft_strcmp(line, g_rule_id[RULE_SPHERE]) == ' ')
-		return (add_sphere(line, gui->shapes));
+		return (add_sphere(line, &gui->shapes));
 	else if (ft_strcmp(line, g_rule_id[RULE_PLANE]) == ' ')
-		return (add_plane(line, gui->shapes));
+		return (add_plane(line, &gui->shapes));
 	else if (ft_strcmp(line, g_rule_id[RULE_SQUARE]) == ' ')
-		return (add_square(line, gui->shapes));
+		return (add_square(line, &gui->shapes));
 	else if (ft_strcmp(line, g_rule_id[RULE_CYLINDER]) == ' ')
-		return (add_cylinder(line, gui->shapes));
+		return (add_cylinder(line, &gui->shapes));
 	else if (ft_strcmp(line, g_rule_id[RULE_TRIANGLE]) == ' ')
-		return (add_triangle(line, gui->shapes));
+		return (add_triangle(line, &gui->shapes));
 	else
 		return (ERR_RT_UNKNOWN_RULE);
 }
@@ -116,5 +116,7 @@ e_msg	parse_rt(char *rt_filename, t_gui *gui)
 			return (destroy_parse_rt(msg, rt, i));
 		i += 1;
 	}
+	if (VERBOSE)
+		log_shapes(gui->shapes);
 	return (destroy_parse_rt(SUCCESS, rt, i));
 }
