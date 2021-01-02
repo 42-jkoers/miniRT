@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 01:48:44 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/02 22:44:21 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ e_msg	set_resolution(char *line, unsigned long *x, unsigned long *y)
 	char	**params;
 
 	if (split_clamp(&params, line, 3) != SUCCESS)
-		return (destroy_set_resolution(ERR_RT_BADRULE, params));
+		return (destroy_set_resolution(BADRULE, params));
 	if (strtonum_clamp((long *)x, params[1], '\0', 1, LONG_MAX) != SUCCESS)
 		return (destroy_set_resolution(ERR_RT_BADVALUE, params));
 	if (strtonum_clamp((long *)y, params[2], '\0', 1, LONG_MAX) != SUCCESS)
@@ -49,15 +49,46 @@ e_msg	set_resolution(char *line, unsigned long *x, unsigned long *y)
 
 e_msg	parse_rt_line(char *line, t_gui *gui)
 {
-	if (line[0] == '#' || ft_strlen(line) <= 1)
+	if (line[0] == '\0'  || line[0] == '#')
 		return (SUCCESS);
-	else if (ft_strcmp(line, RULE_RESOLUTION) == ' ')
+	else if (ft_strcmp(line, g_rule_id[RULE_RESOLUTION]) == ' ')
 		return (set_resolution(line, &gui->x_size, &gui->y_size));
-	else if (ft_strcmp(line, RULE_SPHERE) == ' ')
+	else if (ft_strcmp(line, g_rule_id[RULE_SPHERE]) == ' ')
 		return (add_sphere(line, gui->shapes));
+	else if (ft_strcmp(line, g_rule_id[RULE_PLANE]) == ' ')
+		return (add_plane(line, gui->shapes));
+	else if (ft_strcmp(line, g_rule_id[RULE_SQUARE]) == ' ')
+		return (add_square(line, gui->shapes));
+	else if (ft_strcmp(line, g_rule_id[RULE_CYLINDER]) == ' ')
+		return (add_cylinder(line, gui->shapes));
+	else if (ft_strcmp(line, g_rule_id[RULE_TRIANGLE]) == ' ')
+		return (add_triangle(line, gui->shapes));
 	else
 		return (ERR_RT_UNKNOWN_RULE);
 }
+
+// e_msg	parse_rt_line(char *line, t_gui *gui)
+// {
+// 	ssize_t i;
+// 	char	*end;
+// 	static e_msg (*shape_parser[SHAPE_LAST])() = {
+// 		[RULE_SPHERE] = add_sphere,
+// 		[RULE_PLANE] = add_plane,
+// 		[RULE_SQUARE] = add_square,
+// 		[RULE_CYLINDER] = add_cylinder,
+// 		[RULE_TRIANGLE] = add_triangle
+// 	};
+
+// 	if (line[0] == '#' || ft_strlen(line) <= 1)
+// 		return (SUCCESS);
+// 	end = ft_strchr(line, ' ');
+// 	if (end == NULL)
+// 		return (ERR_RT_UNKNOWN_RULE);
+// 	i = ft_arrnchrn(g_rule_id, SHAPE_LAST, line, (size_t)(end - line));
+// 	if (i == -1)
+// 		return (ERR_RT_UNKNOWN_RULE);
+// 	return (shape_parser[i](line, gui->shapes));
+// }
 
 e_msg	destroy_parse_rt(e_msg msg, char **rt, size_t i)
 {
