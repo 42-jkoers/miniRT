@@ -6,11 +6,9 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 01:14:40 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/02 22:44:32 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
@@ -25,12 +23,30 @@
 /*
 ** RT rules
 */
-#define RULE_RESOLUTION	"R"
-#define RULE_SPHERE		"sp"
-#define RULE_PLANE		"pl"
-#define RULE_SQUARE 	"sq"
-#define RULE_CYLINDER	"cy"
-#define RULE_TRIANGLE	"tr"
+typedef enum
+{
+	SHAPE_SPHERE,
+	SHAPE_PLANE,
+	SHAPE_SQUARE,
+	SHAPE_CYLINDER,
+	SHAPE_TRIANGLE,
+	SHAPE_LAST
+}	e_shape;
+
+typedef enum
+{
+	RULE_SPHERE,
+	RULE_PLANE,
+	RULE_SQUARE,
+	RULE_CYLINDER,
+	RULE_TRIANGLE,
+	RULE_RESOLUTION,
+	RULE_LAST
+}	e_rule;
+
+extern char *g_rule_id[RULE_LAST];
+
+extern char *g_rule_name[RULE_LAST];
 
 #define	DOUBLE_MAX 9999999999.0
 
@@ -43,7 +59,7 @@ typedef enum	s_msg
 	ERR_RT_NOTFOUND,
 	ERR_RT_EMPTY,
 	ERR_RT_INVALID,
-	ERR_RT_BADRULE,
+	BADRULE,
 	ERR_RT_NUMARGS,
 	ERR_RT_BADVALUE,
 	ERR_RT_UNKNOWN_RULE,
