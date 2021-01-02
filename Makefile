@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2020/12/28 19:29:42 by jkoers        ########   odam.nl          #
+#    Updated: 2021/01/02 22:49:48 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,9 @@ sync:
 	cp -rf ~/GitHub/ft_printf/ $(LIBDIR)
 	rm -rf $(LIBDIR)/ft_printf/.git/
 	make -C $(LIBDIR)/ft_printf/
+
+dev:
+	make > /dev/null && valgrind -q ./miniRT
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
