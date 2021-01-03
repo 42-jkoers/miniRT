@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/30 16:53:53 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 14:40:33 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/03 13:31:00 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 e_msg	rt_unexpected_char(char got, char expected)
 {
-	printf("Expected <%c>, go <%c>\n", got, expected);
+	printf("Expected <%c>, got <%c>\n", got, expected); // illegal
 	return (ERR_RT_UNEXPECTED_CHAR);
 }
 
@@ -41,7 +41,10 @@ e_msg	strtonum_clamp(long *result, char *str, char end, long min, long max)
 		return (rt_unexpected_char(str[i], end));
 	num = ft_strtonum(str);
 	if (num > max || num < min)
+	{
+		printf("double %li not in range %li - %li", num, min, max); // illegal
 		return (ERR_RT_BADVALUE);
+	}
 	*result = num;
 	return (SUCCESS);	
 }
@@ -65,7 +68,10 @@ e_msg	strtodbl_clamp(double *result,
 		return (rt_unexpected_char(str[i], end));
 	num = ft_strtodbl(str);
 	if (num > max || num < min)
+	{
+		printf("double %lf not in range [%lf - %lf]", num, min, max); // illegal
 		return (ERR_RT_BADVALUE);
+	}
 	*result = num;
 	return (SUCCESS);
 }
@@ -75,12 +81,15 @@ e_msg	split_clamp(char ***result, char *line, size_t should_be_n)
 	size_t	n_params;
 	char	**params;
 
+	*result = NULL;
 	params = ft_split_length(line, ' ', &n_params);
 	if (params == NULL)
 		return (ERR_MALLOC);
 	if (n_params != should_be_n)
 	{
 		ft_free_until_null_char(params);
+		printf("Wrong number of args, expected %lu, got %lu\n",
+			should_be_n, n_params); // illegal
 		return (ERR_RT_NUMARGS);
 	}
 	*result = params;
@@ -91,13 +100,13 @@ e_msg	set_point(t_point *origin, char *str)
 {
 	if (ft_strcount(str, ',') != 2)
 		return (ERR_RT_NUMARGS);
-	if (strtodbl_clamp(&origin->x, str, ',', 0.0, DOUBLE_MAX) != SUCCESS)
+	if (strtodbl_clamp(&origin->x, str, ',', DOUBLE_MIN, DOUBLE_MAX) != SUCCESS)
 		return (ERR_RT_BADVALUE);
 	str = ft_strchr(str, ',') + 1;
-	if (strtodbl_clamp(&origin->y, str, ',', 0.0, DOUBLE_MAX) != SUCCESS)
+	if (strtodbl_clamp(&origin->y, str, ',', DOUBLE_MIN, DOUBLE_MAX) != SUCCESS)
 		return (ERR_RT_BADVALUE);
 	str = ft_strchr(str, ',') + 1;
-	return (strtodbl_clamp(&origin->z, str, '\0', 0.0, DOUBLE_MAX));
+	return (strtodbl_clamp(&origin->z, str, '\0', DOUBLE_MIN, DOUBLE_MAX));
 }
 
 e_msg	set_color(t_rgb *color, char *str)

@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/02 23:34:08 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/03 13:35:03 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ e_msg	set_resolution(char *line, unsigned long *x, unsigned long *y)
 	return (destroy_set_resolution(SUCCESS, params));
 }
 
-e_msg	destroy_set_brightness(e_msg msg, char **params)
+e_msg	destroy_set_ambient(e_msg msg, char **params)
 {
 	ft_free_until_null_char(params);
 	if (msg != SUCCESS)
@@ -55,16 +55,83 @@ e_msg	destroy_set_brightness(e_msg msg, char **params)
 	return (msg);
 }
 
-e_msg	set_brightness(char *line, double *brightness)
+e_msg	set_ambient(char *line, t_ambient *ambient)
 {
 	char	**params;
 
-	if (split_clamp(&params, line, 2) != SUCCESS)
+	if (split_clamp(&params, line, 3) != SUCCESS)
 		return (destroy_set_resolution(BADRULE, params));
-	if (strtodbl_clamp(x, params[1], '\0', 0.0, LONG_MAX) != SUCCESS)
+	if (strtodbl_clamp(&ambient->brightness,
+		params[1], '\0', 0.0, LONG_MAX) != SUCCESS)
+		return (destroy_set_resolution(ERR_RT_BADVALUE, params));
+	if (set_color(&ambient->color, params[2]) != SUCCESS)
 		return (destroy_set_resolution(ERR_RT_BADVALUE, params));
 	return (destroy_set_resolution(SUCCESS, params));
 }
+
+e_msg	destroy_add_camera(e_msg msg, char **params, t_camera *camera)
+{
+	ft_free_until_null_char(params);
+	if (camera)
+		free(camera);
+	if (msg != SUCCESS)
+		ft_putstr("Failed to set brightness\n");
+	return (msg);
+}
+
+e_msg	add_camera(char *line, t_arr_voidp **cameras)
+{
+	char		**items;
+	t_camera	*cam;
+
+	cam = malloc(sizeof(t_camera));
+	if (cam == NULL)
+		return (ERR_MALLOC);
+	if (split_clamp(&items, line, 4) != SUCCESS)
+		return (destroy_add_camera(BADRULE, items, cam));
+	if (set_point(&cam->origin, items[1]) != SUCCESS)
+		return (destroy_add_camera(BADRULE, items, cam));
+	if (set_point(&cam->orientation, items[2]) != SUCCESS)
+		return (destroy_add_camera(BADRULE, items, cam));
+	if (strtodbl_clamp(&cam->fov, items[3], '\0', 0.0, 180.0) != SUCCESS)
+		return (destroy_add_camera(ERR_RT_BADVALUE, items, cam));
+	if (ft_arr_voidp_push(cameras, cam) == NULL)
+		return (destroy_add_camera(ERR_MALLOC, items, cam));
+	return (SUCCESS);
+}
+
+e_msg	destroy_add_light(e_msg msg, char **params, t_light *light)
+{
+	ft_free_until_null_char(params);
+	if (light)
+		free(light);
+	if (msg != SUCCESS)
+		ft_putstr("Failed to set brightness\n");
+	return (msg);
+}
+
+e_msg	add_light(char *line, t_arr_voidp **lights)
+{
+	char	**items;
+	t_light	*light;
+
+	light = malloc(sizeof(t_light));
+	if (light == NULL)
+		return (ERR_MALLOC);
+	if (split_clamp(&items, line, 4) != SUCCESS)
+		return (destroy_add_light(BADRULE, items, light));
+	if (set_point(&light->origin, items[1]) != SUCCESS)
+		return (destroy_add_light(BADRULE, items, light));
+	if (strtodbl_clamp(&light->brightness,
+			items[2], '\0', 0.0, 1.0) != SUCCESS)
+		return (destroy_add_light(ERR_RT_BADVALUE, items, light));
+	if (set_point(&light->orientation, items[3]) != SUCCESS)
+		return (destroy_add_light(BADRULE, items, light));
+	if (ft_arr_voidp_push(lights, light) == NULL)
+		return (destroy_add_light(ERR_MALLOC, items, light));
+	return (SUCCESS);
+}
+
 
 e_msg	parse_rt_line(char *line, t_gui *gui)
 {
@@ -82,8 +149,12 @@ e_msg	parse_rt_line(char *line, t_gui *gui)
 		return (add_cylinder(line, &gui->shapes));
 	else if (ft_strcmp(line, g_rule_id[RULE_TRIANGLE]) == ' ')
 		return (add_triangle(line, &gui->shapes));
-	else if (ft_strcmp(line, g_rule_id[RULE_BRIGHTNESS]) == ' ')
-		return (set_brightness(line, &gui->brightness));
+	else if (ft_strcmp(line, g_rule_id[RULE_AMBIENT]) == ' ')
+		return (set_ambient(line, &gui->ambient));
+	else if (ft_strcmp(line, g_rule_id[RULE_CAMERA]) == ' ')
+		return (add_camera(line, &gui->cameras));
+	else if (ft_strcmp(line, g_rule_id[RULE_LIGHT]) == ' ')
+		return (add_light(line, &gui->lights));
 	else
 		return (ERR_RT_UNKNOWN_RULE);
 }
@@ -99,7 +170,6 @@ e_msg	parse_rt_line(char *line, t_gui *gui)
 // 		[RULE_CYLINDER] = add_cylinder,
 // 		[RULE_TRIANGLE] = add_triangle
 // 	};
-
 // 	if (line[0] == '#' || ft_strlen(line) <= 1)
 // 		return (SUCCESS);
 // 	end = ft_strchr(line, ' ');
@@ -113,9 +183,9 @@ e_msg	parse_rt_line(char *line, t_gui *gui)
 
 e_msg	destroy_parse_rt(e_msg msg, char **rt, size_t i)
 {
-	ft_free_until_null_char(rt);
 	if (msg != SUCCESS)
-		printf("Failed at line %lu\n", i + 1); // illegal
+		printf("Failed at line %02lu <%s>\n", i + 1, rt[i]); // illegal
+	ft_free_until_null_char(rt);
 	return (msg);
 }
 

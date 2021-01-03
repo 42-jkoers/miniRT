@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/02 23:51:09 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/03 13:13:44 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef enum
 	RULE_CYLINDER,
 	RULE_TRIANGLE,
 	RULE_RESOLUTION,
-	RULE_BRIGHTNESS,
+	RULE_AMBIENT,
+	RULE_CAMERA,
+	RULE_LIGHT,
 	RULE_LAST
 }	e_rule;
 
@@ -50,6 +52,7 @@ extern char *g_rule_id[RULE_LAST];
 extern char *g_rule_name[RULE_LAST];
 
 #define	DOUBLE_MAX 9999999999.0
+#define	DOUBLE_MIN -9999999999.0
 
 typedef enum	s_msg
 {
