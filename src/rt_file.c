@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/03 13:35:03 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/05 13:35:02 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ e_msg	add_light(char *line, t_arr_voidp **lights)
 		return (destroy_add_light(ERR_MALLOC, items, light));
 	return (SUCCESS);
 }
-
 
 e_msg	parse_rt_line(char *line, t_gui *gui)
 {

@@ -4,5 +4,5 @@ en.subject.pdf
 miniRT
 mlx-test
 a.out
-test.c
+test/
 rt/

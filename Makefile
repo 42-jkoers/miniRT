@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2021/01/02 22:49:48 by jkoers        ########   odam.nl          #
+#    Updated: 2021/01/05 13:54:57 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,18 +33,19 @@ OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,\
 STARTGREEN		= @echo "\033[38;2;0;255;0m\c"
 RESETCOLOR		= @echo "\033[0m\c"
 
+VPATH = $(shell find $(SRCDIR) -type d | tr '\n' ':' | sed -r 's/(.*):/\1/')
 # main
 
 all:
 	make -j4 $(NAME)
 
 $(NAME): $(BUILDDIR)/ $(OBJECTS) $(HEADERS) $(LIBS)
-	$(CC) $(CFLAGS) -I. -I$(HEADERDIR) $(BUILDDIR)/*.$(OBJEXT) -o $(NAME) $(LIBS) $(LINKS)
+	$(CC) $(CFLAGS)-I$(HEADERDIR) $(BUILDDIR)/*.$(OBJEXT) -o $(NAME) $(LIBS) $(LINKS)
 
 # sources
 
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT) $(HEADERS)
-	$(CC) $(CFLAGS) -I. -I$(HEADERDIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I. -I$(HEADERDIR) -c $< -o $(notdir $@)
 
 # libs
 

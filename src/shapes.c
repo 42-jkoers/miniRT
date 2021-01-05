@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/27 20:55:30 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/02 23:19:52 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/04 19:53:39 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	log_shapes(t_arr_voidp *shapes)
 		ft_memcpy(&shape, ft_arr_voidp_get(shapes, i), sizeof(e_shape));
 		if (shape < SHAPE_LAST)
 			ft_printf("\tFound %s\n", g_rule_name[shape]); // illegal
-		else	
+		else
 			ft_putstr("\tSomething has gone horribly wrong\n");
 		i++;
 	}

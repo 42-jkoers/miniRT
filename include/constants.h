@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/03 13:13:44 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/05 13:41:11 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,7 @@ typedef enum	s_msg
 	ERR_WINDOW_CREATE,
 	MSG_LAST
 }				e_msg;
+
+extern char *g_joppe_strerror[MSG_LAST];
 
 #endif
