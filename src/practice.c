@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 22:21:07 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/05 14:14:35 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/05 14:16:21 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	fill_random(t_gui *gui)
 {
 	unsigned long	x;
 	unsigned long	y;
-	int				color_i;
+	t_rgb			color;
 
 	color.b = 64;
 	y = 0;
