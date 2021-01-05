@@ -6,13 +6,14 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/05 13:35:02 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/05 14:34:50 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gui.h"
 #include "shapes.h"
 #include "constants.h"
+#include "unsorted.h"
 #include "../lib/minilibx-linux/mlx.h"
 #include "../lib/ft_printf/ft_printf.h"
 #include "../lib/libft/include/libft.h"
@@ -95,6 +96,7 @@ e_msg	add_camera(char *line, t_arr_voidp **cameras)
 		return (destroy_add_camera(BADRULE, items, cam));
 	if (strtodbl_clamp(&cam->fov, items[3], '\0', 0.0, 180.0) != SUCCESS)
 		return (destroy_add_camera(ERR_RT_BADVALUE, items, cam));
+	cam->fov = radians(cam->fov);
 	if (ft_arr_voidp_push(cameras, cam) == NULL)
 		return (destroy_add_camera(ERR_MALLOC, items, cam));
 	return (SUCCESS);
