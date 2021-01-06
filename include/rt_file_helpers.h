@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/30 16:54:50 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/31 00:29:06 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/06 00:29:13 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,13 @@
 # include "gui.h"
 # include "constants.h"
 
-typedef struct		s_rgb
-{
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-}					t_rgb;
-
-typedef struct	s_point
-{
-	double			x;
-	double			y;
-	double			z;
-}				t_point;
-
-e_msg	strtonum_clamp(long *result, char *str, char end, long min, long max);
-e_msg	strtodbl_clamp(double *result, char *str, char end, double min, double max);
-e_msg	split_clamp(char ***result, char *line, size_t should_be_n);
-e_msg	set_point(t_point *origin, char *str);
-e_msg	set_color(t_rgb *color, char *str);
+long	strtonum_clamp(char *str, char end, long min, long max);
+double	strtodbl_clamp(char *str, char end, double min, double max);
+char	**split_clamp(char *line, size_t should_be_n);
+void	set_point(t_vec3 *origin, char *str);
+void	set_color(t_rgb *color, char *str);
 int		rgbtoint(t_rgb *rgb);
+void	verbose(char *str);
+void	trace(char *str);
 
 #endif

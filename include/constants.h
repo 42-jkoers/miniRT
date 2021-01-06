@@ -6,23 +6,22 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/05 13:41:11 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/06 00:24:55 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
+
 # include <X11/keysymdef.h>
 # include <X11/keysym.h>
+# include "../lib/libft/include/libft.h"
 
-# define VERBOSE 1
+void	exit_e(char *msg);
+void	exit_range(long num, long min, long max);
+void	exit_ranged(double num, double min, double max);
+void	exit_char(char got, char expected);
 
-#define ClientMessage 33
-#define NoEventMask 0L
-
-/*
-** RT rules
-*/
 typedef enum
 {
 	SHAPE_SPHERE,
@@ -31,7 +30,118 @@ typedef enum
 	SHAPE_CYLINDER,
 	SHAPE_TRIANGLE,
 	SHAPE_LAST
-}	e_shape;
+}					t_shape;
+
+typedef struct		s_rgb
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}					t_rgb;
+
+typedef struct		s_vec3
+{
+	double			x;
+	double			y;
+	double			z;
+}					t_vec3;
+
+typedef struct		s_canvas
+{
+	void			*mlx_img;
+	char			*data;
+	int				bpp;
+	int				line_length;
+	int				byte_order;
+}					t_canvas;
+
+typedef struct		s_ambient
+{
+	double			brightness;
+	t_rgb			color;
+}					t_ambient;
+
+typedef struct		s_camera
+{
+	t_vec3			origin;
+	t_vec3			orientation;
+	double			fov;
+	double			distance_canvas;
+}					t_camera;
+
+typedef struct		s_light
+{
+	t_vec3			origin;
+	t_vec3			orientation;
+	double			brightness;
+	t_rgb			color;
+}					t_light;
+
+typedef struct		s_gui
+{
+	t_arr_voidp		*shapes;
+	t_arr_voidp		*lights;
+	t_arr_voidp		*cameras;
+	t_ambient		ambient;
+	unsigned long	x_resolution;
+	unsigned long	y_resolution;
+	double			x_size;  
+	double			y_size;
+	t_camera		*camera;
+	void			*mlx;
+	void			*window;
+	t_canvas		canvas;
+}					t_gui;
+
+typedef struct		s_cylinder
+{
+	t_shape			shape;
+	t_rgb			color;
+	t_vec3			origin;
+	t_vec3			orientation;
+	double			diameter;
+	double			height;
+}					t_cylinder;
+
+typedef struct		s_square
+{
+	t_shape			shape;
+	t_rgb			color;
+	t_vec3			origin;
+	t_vec3			orientation;
+	double			size;
+}					t_square;
+
+typedef struct		s_plane
+{
+	t_shape			shape;
+	t_rgb			color;
+	t_vec3			origin;
+	t_vec3			orientation;
+}					t_plane;
+
+typedef struct		s_sphere
+{
+	t_shape			shape;
+	t_rgb			color;
+	t_vec3			origin;
+	double			diameter;
+}					t_sphere;
+
+typedef struct		s_triangle
+{
+	t_shape			shape;
+	t_rgb			color;
+	t_vec3			p1;
+	t_vec3			p2;
+	t_vec3			p3;
+}					t_triangle;
+
+# define VERBOSE 1
+# define TRACE 1
+# define UNITS_PER_PIXEL 1.0
+# define DOUBLE_MAX 9999999999.0
+# define DOUBLE_MIN -9999999999.0
 
 typedef enum
 {
@@ -45,36 +155,8 @@ typedef enum
 	RULE_CAMERA,
 	RULE_LIGHT,
 	RULE_LAST
-}	e_rule;
-
+}					t_rule;
 extern char *g_rule_id[RULE_LAST];
-
 extern char *g_rule_name[RULE_LAST];
-
-#define	DOUBLE_MAX 9999999999.0
-#define	DOUBLE_MIN -9999999999.0
-
-typedef enum	s_msg
-{
-	SUCCESS,
-	ERR_USELESS,
-	ERR_MALLOC,
-	ERR_MLXINIT,
-	ERR_RT_NOTFOUND,
-	ERR_RT_EMPTY,
-	ERR_RT_INVALID,
-	BADRULE,
-	ERR_RT_NUMARGS,
-	ERR_RT_BADVALUE,
-	ERR_RT_UNKNOWN_RULE,
-	ERR_RT_UNEXPECTED_CHAR,
-	ERR_RT_UNEXPECTED_EOL,
-	ERR_CANVAS_CREATEIMG,
-	ERR_MLX_INIT,
-	ERR_WINDOW_CREATE,
-	MSG_LAST
-}				e_msg;
-
-extern char *g_joppe_strerror[MSG_LAST];
 
 #endif

@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   unsorted.c                                         :+:    :+:            */
+/*   ray.h                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/01/05 14:22:31 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/05 14:39:46 by jkoers        ########   odam.nl         */
+/*   Created: 2021/01/05 14:57:04 by jkoers        #+#    #+#                 */
+/*   Updated: 2021/01/05 18:14:16 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
+#ifndef RAY_H
+# define RAY_H
 
-double	radians(double degrees)
-{
-	return (degrees * M_PI / 180);
-}
+#include "rt_file_helpers.h"
 
-double	degrees(double radians)
+typedef struct	s_ray
 {
-	return (radians * 180 / M_PI);
-}
+	t_vec3		origin;
+	t_vec3		direction;
+}				t_ray;
+
+#endif

@@ -6,13 +6,15 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/02 22:37:04 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/05 13:40:15 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/06 01:09:42 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "constants.h"
 #include "gui.h"
 #include "shapes.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 char *g_rule_id[RULE_LAST] = {
 	[RULE_SPHERE] = "sp",
@@ -38,26 +40,36 @@ char *g_rule_name[RULE_LAST] = {
 	[RULE_LIGHT] = "Light source",
 };
 
-char *g_joppe_strerror[MSG_LAST] = {
-	[SUCCESS] = "Done\n",
-	[ERR_USELESS] = "Useless error message\n",
-	[ERR_MALLOC] = "Malloc failed\n",
-	[ERR_MLXINIT] = "Failed to init mlx\n",
-	[ERR_RT_NOTFOUND] = "Rt file not found\n",
-	[ERR_RT_EMPTY] = "Rt file is empty\n",
-	[ERR_RT_INVALID] = "Rt file is invalid\n",
-	[BADRULE] = "Rt rule is invalid\n",
-	[ERR_RT_NUMARGS] = "Rt rule has wrong number of arguments\n",
-	[ERR_RT_BADVALUE] = "Rt rule has illegal value\n",
-	[ERR_RT_UNKNOWN_RULE] = "Unknow rt rule\n",
-	[ERR_RT_UNEXPECTED_CHAR] = "Unexpected character\n",
-	[ERR_RT_UNEXPECTED_EOL] = "Unexpected end of line\n",
-	[ERR_CANVAS_CREATEIMG] = "Failed to create mlx image for canvas\n",
-	[ERR_MLX_INIT] = "Mlx init failed\n",
-	[ERR_WINDOW_CREATE] = "Cannot create window\n"
-};
+void	exit_e(char *msg)
+{
+	size_t	len;
 
-// static e_msg (*shape_parser[SHAPE_LAST])(char *line, t_gui *gui) = {
+	len = ft_strlen(msg);
+	ft_putstr(msg);
+	if (len > 0 && msg[len - 1] != '\n')
+		ft_putstr("\n");
+	exit(1);
+}
+
+void	exit_range(long num, long min, long max)
+{
+
+	exit(1);
+}
+
+void	exit_ranged(double num, double min, double max)
+{
+
+	exit(1);
+}
+
+void	exit_char(char got, char expected)
+{
+	printf("Expected <%c>, got <%c>\n", got, expected); // illegal
+	exit(1);
+}
+
+// static t_msg (*shape_parser[SHAPE_LAST])(char *line, t_gui *gui) = {
 // 	[RULE_SPHERE] = add_sphere,
 // 	[RULE_PLANE] = add_plane,
 // 	[RULE_SQUARE] = add_square,

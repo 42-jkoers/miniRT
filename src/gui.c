@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/05 13:41:26 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/06 01:07:40 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "constants.h"
 #include "rt_file.h"
 #include "../lib/minilibx-linux/mlx.h"
-#include "../lib/ft_printf/ft_printf.h"
 #include "../lib/libft/include/libft.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -23,17 +22,14 @@
 #include <unistd.h>
 #include <string.h>
 
-void	print_joppe_sterror(e_msg msg)
+void	exit_success(t_gui *gui)
 {
-	ft_putstr(g_joppe_strerror[msg]);
-}
-
-void	exit_clean(t_gui *gui, e_msg msg)
-{
-	print_joppe_sterror(msg);
+	ft_putstr("Done\n");
 	if (gui == NULL)
-		exit(msg == SUCCESS ? 0 : 1);
+		exit(1);
 	ft_arr_voidp_free(gui->shapes, free);
+	if (gui->canvas.mlx_img)
+		mlx_destroy_image(gui->mlx, gui->canvas.mlx_img);
 	if (gui->window)
 		mlx_destroy_window(gui->mlx, gui->window);
 	if (gui->mlx)
@@ -42,7 +38,7 @@ void	exit_clean(t_gui *gui, e_msg msg)
 		free(gui->mlx);
 	}
 	free(gui);
-	exit(msg == SUCCESS ? 0 : 1);
+	exit(0);
 }
 
 t_gui	*new_gui(void)
@@ -51,7 +47,7 @@ t_gui	*new_gui(void)
 
 	gui = malloc(sizeof(t_gui));
 	if (gui == NULL)
-		exit_clean(gui, ERR_MALLOC);
+		exit_e("malloc");
 	ft_bzero(gui, sizeof(t_gui));
 	return (gui);
 }
@@ -59,13 +55,13 @@ t_gui	*new_gui(void)
 int		on_keypress(int keycode, t_gui *gui)
 {
 	if (keycode == XK_Escape)
-		exit_clean(gui, SUCCESS);
+		exit_success(gui);
 	return (0);
 }
 
 int		on_close(t_gui *gui)
 {
-	exit_clean(gui, SUCCESS);
+	exit_success(gui);
 	return (0);
 }
 
@@ -83,72 +79,51 @@ void	gui_write_canvas(t_gui *gui)
 	mlx_put_image_to_window(gui->mlx, gui->window, gui->canvas.mlx_img, 0, 0);
 }
 
-e_msg	destroy_canvas(e_msg msg, t_canvas *canvas, void *mlx)
-{
-	if (canvas->mlx_img)
-		mlx_destroy_image(mlx, canvas->mlx_img);
-	return (msg);
-}
-
-e_msg	set_canvas(t_canvas *canvas,
+void	set_canvas(t_canvas *canvas,
 			void *mlx, unsigned long x_size, unsigned long y_size)
 {
 	canvas->mlx_img = mlx_new_image(mlx, (int)(x_size), (int)(y_size));
 	if (canvas->mlx_img == NULL)
-		return (destroy_canvas(ERR_MALLOC, canvas, mlx));
+		exit_e("Can't create canvas image 1");
 	canvas->data = mlx_get_data_addr(canvas->mlx_img, &canvas->bpp,
 		&canvas->line_length, &canvas->byte_order);
 	if (canvas->data == NULL)
-		return (destroy_canvas(ERR_MALLOC, canvas, mlx));
-	return (SUCCESS);	
+		exit_e("Can't create canvas image 2");
+
 }
 
-e_msg	set_window(void **window,
-			void *mlx, unsigned long *x_size, unsigned long *y_size)
+void	set_window(void **window, unsigned long *x_size, unsigned long *y_size,
+			void *mlx)
 {
-	void	*w;
 	int		screen_xsize;
 	int		screen_ysize;
 
-	w = mlx_new_window(mlx, (int)(*x_size), (int)(*y_size), "miniRT");
-	if (w == NULL)
-		return (ERR_WINDOW_CREATE);
-	*window = w;
+	*window = mlx_new_window(mlx, (int)(*x_size), (int)(*y_size), "miniRT");
+	if (*window == NULL)
+		exit_e("malloc");
 	mlx_get_screen_size(mlx, &screen_xsize, &screen_ysize);
 	if (screen_xsize < (int)*x_size)
 	{
 		*x_size = screen_xsize;
-		if (VERBOSE)
-			ft_putstr("Note: decreased x resolution\n");
+		verbose("Note: decreased x resolution\n");
 	}
 	if (screen_ysize < (int)*y_size)
 	{
 		*y_size = screen_ysize;
-		if (VERBOSE)
-			ft_putstr("Note: decreased y resolution\n");
+		verbose("Note: decreased y resolution\n");
 	}
-	return (SUCCESS);
 }
 
 t_gui	*gui_init(char *rt_filename)
 {
 	t_gui	*gui;
-	e_msg	msg;
 	
 	gui = new_gui();
 	gui->mlx = mlx_init();
-	if (gui->mlx == NULL)
-		exit_clean(gui, ERR_MLX_INIT);
-	msg = parse_rt(rt_filename, gui);
-	if (msg != SUCCESS)
-		exit_clean(gui, msg);
-	msg = set_window(&gui->window, gui->mlx, &gui->x_size, &gui->y_size);
-	if (msg != SUCCESS)
-		exit_clean(gui, msg);
-	msg = set_canvas(&gui->canvas, gui->mlx, gui->x_size, gui->y_size);
-	if (msg != SUCCESS)
-		exit_clean(gui, msg);
+	parse_rt(gui, rt_filename);
+	set_window(&gui->window, &gui->x_resolution, &gui->y_resolution, gui->mlx);
+	set_canvas(&gui->canvas, gui->mlx, gui->x_resolution, gui->y_resolution);
 	mlx_key_hook(gui->window, on_keypress, gui);
-	mlx_hook(gui->window, ClientMessage,  NoEventMask, on_close, gui);
+	mlx_hook(gui->window, 33,  0L, on_close, gui);
 	return (gui);
 }

@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/27 20:55:30 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/04 19:53:39 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/05 23:31:07 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,142 +32,110 @@
 ** printf("%f s\n", (double)(clock() - begin) / CLOCKS_PER_SEC);
 */
 
-static e_msg	destroy(e_msg msg, void *shape)
-{
-	free(shape);
-	return (msg);
-}
-
-e_msg	add_sphere(char *line, t_arr_voidp **shapes)
+void	add_sphere(t_arr_voidp **shapes, char *line)
 {
 	t_sphere	*sp;
 	char		**items;
 
 	sp = malloc(sizeof(t_sphere));
 	if (sp == NULL)
-		return (destroy(ERR_MALLOC, sp));
+		exit_e("malloc");
 	sp->shape = SHAPE_SPHERE;
-	if (split_clamp(&items, line, 4) != SUCCESS)
-		return (destroy(BADRULE, sp));
-	if (set_point(&sp->origin, items[1]) != SUCCESS)
-		return (destroy(BADRULE, sp));
-	if (strtodbl_clamp(&sp->diameter,
-			items[2], '\0', 0.0, DOUBLE_MAX) != SUCCESS)
-		return (destroy(BADRULE, sp));
-	if (set_color(&sp->color, items[3]) != SUCCESS)
-		return (destroy(BADRULE, sp));
+	items = split_clamp(line, 4);
+	set_point(&sp->origin, items[1]);
+	sp->diameter = strtodbl_clamp(items[2], '\0', 0.0, DOUBLE_MAX);
+	set_color(&sp->color, items[3]);
 	if (ft_arr_voidp_push(shapes, sp) == NULL)
-		return (destroy(ERR_MALLOC, sp));
-	return (SUCCESS);
+		exit_e("malloc");
+	ft_free_until_null_char(items);
 }
 
-e_msg	add_plane(char *line, t_arr_voidp **shapes)
+void	add_plane(t_arr_voidp **shapes, char *line)
 {
 	t_plane	*pl;
 	char	**items;
 
 	pl = malloc(sizeof(t_plane));
 	if (pl == NULL)
-		return (destroy(ERR_MALLOC, pl));
+		exit_e("malloc");
 	pl->shape = SHAPE_PLANE;
-	if (split_clamp(&items, line, 4) != SUCCESS)
-		return (destroy(BADRULE, pl));
-	if (set_point(&pl->origin, items[1]) != SUCCESS)
-		return (destroy(BADRULE, pl));
-	if (set_point(&pl->orientation, items[2]) != SUCCESS)
-		return (destroy(BADRULE, pl));
-	if (set_color(&pl->color, items[3]) != SUCCESS)
-		return (destroy(BADRULE, pl));
+	items = split_clamp(line, 4);
+	set_point(&pl->origin, items[1]);
+	set_point(&pl->orientation, items[2]);
+	set_color(&pl->color, items[3]);
 	if (ft_arr_voidp_push(shapes, pl) == NULL)
-		return (destroy(ERR_MALLOC, pl));
-	return (SUCCESS);
+		exit_e("malloc");
+	ft_free_until_null_char(items);
 }
 
-e_msg	add_square(char *line, t_arr_voidp **shapes)
+void	add_square(t_arr_voidp **shapes, char *line)
 {
 	t_square	*sq;
 	char		**items;
 
 	sq = malloc(sizeof(t_square));
 	if (sq == NULL)
-		return (destroy(ERR_MALLOC, sq));
+		exit_e("malloc");
 	sq->shape = SHAPE_SQUARE;
-	if (split_clamp(&items, line, 5) != SUCCESS)
-		return (destroy(BADRULE, sq));
-	if (set_point(&sq->origin, items[1]) != SUCCESS)
-		return (destroy(BADRULE, sq));
-	if (set_point(&sq->orientation, items[2]) != SUCCESS)
-		return (destroy(BADRULE, sq));
-	if (strtodbl_clamp(&sq->size, items[3], '\0', 0.0, DOUBLE_MAX) != SUCCESS)
-		return (destroy(BADRULE, sq));
-	if (set_color(&sq->color, items[4]) != SUCCESS)
-		return (destroy(BADRULE, sq));
+	items = split_clamp(line, 5);
+	set_point(&sq->origin, items[1]);
+	set_point(&sq->orientation, items[2]);
+	sq->size = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX);
+	set_color(&sq->color, items[4]);
 	if (ft_arr_voidp_push(shapes, sq) == NULL)
-		return (destroy(ERR_MALLOC, sq));
-	return (SUCCESS);
+		exit_e("malloc");
+	ft_free_until_null_char(items);
 }
 
-e_msg	add_cylinder(char *line, t_arr_voidp **shapes)
+void	add_cylinder(t_arr_voidp **shapes, char *line)
 {
 	t_cylinder	*cy;
 	char		**items;
 
 	cy = malloc(sizeof(t_cylinder));
 	if (cy == NULL)
-		return (destroy(ERR_MALLOC, cy));
+		exit_e("malloc");
 	cy->shape = SHAPE_CYLINDER;
-	if (split_clamp(&items, line, 6) != SUCCESS)
-		return (destroy(BADRULE, cy));
-	if (set_point(&cy->origin, items[1]) != SUCCESS)
-		return (destroy(BADRULE, cy));
-	if (set_point(&cy->orientation, items[2]) != SUCCESS)
-		return (destroy(BADRULE, cy));
-	if (strtodbl_clamp(&cy->diameter,
-			items[3], '\0', 0.0, DOUBLE_MAX) != SUCCESS)
-		return (destroy(BADRULE, cy));
-	if (strtodbl_clamp(&cy->height, items[4], '\0', 0.0, DOUBLE_MAX) != SUCCESS)
-		return (destroy(BADRULE, cy));
-	if (set_color(&cy->color, items[5]) != SUCCESS)
-		return (destroy(BADRULE, cy));
+	items = split_clamp(line, 6);
+	set_point(&cy->origin, items[1]);
+	set_point(&cy->orientation, items[2]);
+	cy->diameter = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX);
+	cy->height = strtodbl_clamp(items[4], '\0', 0.0, DOUBLE_MAX);
+	set_color(&cy->color, items[5]);
 	if (ft_arr_voidp_push(shapes, cy) == NULL)
-		return (destroy(ERR_MALLOC, cy));
-	return (SUCCESS);
+		exit_e("malloc");
+	ft_free_until_null_char(items);
 }
 
-e_msg	add_triangle(char *line, t_arr_voidp **shapes)
+void	add_triangle(t_arr_voidp **shapes, char *line)
 {
 	t_triangle	*tr;
 	char		**items;
 
 	tr = malloc(sizeof(t_triangle));
 	if (tr == NULL)
-		return (destroy(ERR_MALLOC, tr));
+		exit_e("malloc");
 	tr->shape = SHAPE_TRIANGLE;
-	if (split_clamp(&items, line, 5) != SUCCESS)
-		return (destroy(BADRULE, tr));
-	if (set_point(&tr->p1, items[1]) != SUCCESS)
-		return (destroy(BADRULE, tr));
-	if (set_point(&tr->p2, items[2]) != SUCCESS) 
-		return (destroy(BADRULE, tr));
-	if (set_point(&tr->p3, items[3]) != SUCCESS)
-		return (destroy(BADRULE, tr));
-	if (set_color(&tr->color, items[4]) != SUCCESS)
-		return (destroy(BADRULE, tr));
+	items = split_clamp(line, 5);
+	set_point(&tr->p1, items[1]);
+	set_point(&tr->p2, items[2]);
+	set_point(&tr->p3, items[3]);
+	set_color(&tr->color, items[4]);
 	if (ft_arr_voidp_push(shapes, tr) == NULL)
-		return (destroy(ERR_MALLOC, tr));
-	return (SUCCESS);
+		exit_e("malloc");
+	ft_free_until_null_char(items);
 }
 
 void	log_shapes(t_arr_voidp *shapes)
 {
-	e_shape	shape;
+	t_shape	shape;
 	size_t	i;
 
 	i = 0;
 	ft_putstr("Shapes found:\n");
 	while (ft_arr_voidp_get(shapes, i) != NULL)
 	{
-		ft_memcpy(&shape, ft_arr_voidp_get(shapes, i), sizeof(e_shape));
+		ft_memcpy(&shape, ft_arr_voidp_get(shapes, i), sizeof(t_shape));
 		if (shape < SHAPE_LAST)
 			ft_printf("\tFound %s\n", g_rule_name[shape]); // illegal
 		else

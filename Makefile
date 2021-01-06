@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2021/01/05 14:21:35 by jkoers        ########   odam.nl          #
+#    Updated: 2021/01/06 01:08:41 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJEXT      	= o
 BUILDDIR    	= obj
 
 LIBDIR			= lib
-LINKS			= -L$(LIBDIR)/minilibx-linux -lmlx -lXext -lX11
+LINKS			= -L$(LIBDIR)/minilibx-linux -lmlx -lXext -lX11 -lm
 SOURCELINKS		= -lm
 LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
 				  $(LIBDIR)/ft_printf/libftprintf.a \
@@ -46,7 +46,7 @@ $(NAME): $(BUILDDIR)/ $(OBJECTS) $(HEADERS) $(LIBS)
 # sources
 
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT) $(HEADERS)
-	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $(notdir $@) $(SOURCELINKS)
+	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $(BUILDDIR)/$(notdir $@) $(SOURCELINKS)
 
 # libs
 
