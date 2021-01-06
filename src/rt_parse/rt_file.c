@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/06 01:18:10 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/06 01:19:05 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	foreach_arr(char **rt, t_gui *gui)
 		ft_putstr("Reading: ");
 		ft_putstr(rt[i]);
 		parse_rt_line(rt[i], gui);
-		sleep(1);
 		clearline();
 		i++;
 	}
