@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shapes.c                                           :+:    :+:            */
+/*   parse_rule_shapes.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/27 20:55:30 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/05 23:31:07 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/12 14:15:10 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parse_rt.h"
 #include "../lib/libft/include/libft.h"
-#include "../lib/ft_printf/ft_printf.h"
-#include "../lib/minilibx-linux/mlx.h"
 #include "gui.h"
-#include "shapes.h"
 #include "constants.h"
-#include "rt_file.h"
-#include "rt_file_helpers.h"
-
-#include <unistd.h>
-#include <stdbool.h>
+#include "parse_rt.h"
 #include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <limits.h>
 
 /*
 ** #include <time.h>
@@ -43,7 +34,9 @@ void	add_sphere(t_arr_voidp **shapes, char *line)
 	sp->shape = SHAPE_SPHERE;
 	items = split_clamp(line, 4);
 	set_point(&sp->origin, items[1]);
-	sp->diameter = strtodbl_clamp(items[2], '\0', 0.0, DOUBLE_MAX);
+	sp->radius = strtodbl_clamp(items[2], '\0', 0.0, DOUBLE_MAX);
+	sp->radius *= 0.5; // rt rule is with diameter
+	sp->radius2 = sp->radius * sp->radius;
 	set_color(&sp->color, items[3]);
 	if (ft_arr_voidp_push(shapes, sp) == NULL)
 		exit_e("malloc");
@@ -99,7 +92,7 @@ void	add_cylinder(t_arr_voidp **shapes, char *line)
 	items = split_clamp(line, 6);
 	set_point(&cy->origin, items[1]);
 	set_point(&cy->orientation, items[2]);
-	cy->diameter = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX);
+	cy->radius = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX);
 	cy->height = strtodbl_clamp(items[4], '\0', 0.0, DOUBLE_MAX);
 	set_color(&cy->color, items[5]);
 	if (ft_arr_voidp_push(shapes, cy) == NULL)
@@ -137,7 +130,7 @@ void	log_shapes(t_arr_voidp *shapes)
 	{
 		ft_memcpy(&shape, ft_arr_voidp_get(shapes, i), sizeof(t_shape));
 		if (shape < SHAPE_LAST)
-			ft_printf("\tFound %s\n", g_rule_name[shape]); // illegal
+			printf("\tFound %s\n", g_rule_name[shape]); // illegal
 		else
 			ft_putstr("\tSomething has gone horribly wrong\n");
 		i++;

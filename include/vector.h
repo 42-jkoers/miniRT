@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_file.h                                          :+:    :+:            */
+/*   vector.h                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/12/28 13:47:29 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/06 01:00:09 by jkoers        ########   odam.nl         */
+/*   Created: 2021/01/08 15:58:29 by jkoers        #+#    #+#                 */
+/*   Updated: 2021/01/09 00:45:20 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_FILE_H
-# define RT_FILE_H
+#ifndef VECTOR_H
+# define VECTOR_H
 
-# include "gui.h"
 # include "constants.h"
 
-void	parse_rt(t_gui *gui, char *rt_filename);
+t_vec3	vec(double x, double y, double z);
+double	length(t_vec3 v); // also magnitude
+double	dot(t_vec3 a, t_vec3 b);
+double	angle(t_vec3 a, t_vec3 b);
+t_vec3	cross(t_vec3 a, t_vec3 b);
+t_vec3	add(t_vec3 a, t_vec3 b);
+t_vec3	subtract(t_vec3 a, t_vec3 b); // a - b
+t_vec3	multiply(t_vec3 v, double r);
+
+void	normalize(t_vec3 *v);
+
+void	log_vec3(char *id, t_vec3 v);
 
 #endif

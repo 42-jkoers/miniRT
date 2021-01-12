@@ -6,20 +6,14 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/30 16:53:53 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/06 00:31:24 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/12 14:15:10 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gui.h"
-#include "shapes.h"
+#include "parse_rt.h"
 #include "constants.h"
-#include "../lib/minilibx-linux/mlx.h"
-#include "../lib/ft_printf/ft_printf.h"
 #include "../lib/libft/include/libft.h"
-#include <limits.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 
 long	strtonum_clamp(char *str, char end, long min, long max)
 {
@@ -94,27 +88,4 @@ void	set_color(t_rgb *color, char *str)
 	color->g = (unsigned char)strtonum_clamp(str, ',', 0, 255);
 	str = ft_strchr(str, ',') + 1;
 	color->b = (unsigned char)strtonum_clamp(str, '\0', 0, 255);
-}
-
-int		rgbtoint(t_rgb *rgb)
-{
-	int res;
-	
-	res = 0;
-	res |= (int)(rgb->r) << 16;
-	res |= (int)(rgb->g) << 8;
-	res |= (int)(rgb->b) << 0;
-	return (res);
-}
-
-void	verbose(char *str)
-{
-	if (VERBOSE)
-		ft_putstr(str);
-}
-
-void	trace(char *str)
-{
-	if (TRACE)
-		ft_putstr(str);
 }

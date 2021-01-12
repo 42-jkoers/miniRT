@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/21 19:27:08 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/06 00:24:55 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/12 14:18:13 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,21 @@
 # include <X11/keysymdef.h>
 # include <X11/keysym.h>
 # include "../lib/libft/include/libft.h"
+# include <stdbool.h>
+# include <sys/types.h>
+
+# include <stdio.h> // illegal
+# include <time.h> // illegal
 
 void	exit_e(char *msg);
 void	exit_range(long num, long min, long max);
 void	exit_ranged(double num, double min, double max);
 void	exit_char(char got, char expected);
+void	exit_errno(char *msg);
+void	verbose(char *str);
+void	trace(char *str);
+void	*malloc_safe(size_t size);
+void	*calloc_safe(size_t size);
 
 typedef enum
 {
@@ -45,6 +55,12 @@ typedef struct		s_vec3
 	double			y;
 	double			z;
 }					t_vec3;
+
+typedef struct		s_ray
+{
+	t_vec3			origin;
+	t_vec3			direction;
+}					t_ray;
 
 typedef struct		s_canvas
 {
@@ -93,13 +109,19 @@ typedef struct		s_gui
 	t_canvas		canvas;
 }					t_gui;
 
+typedef enum
+{
+	WINDOW,
+	CREATE_BMP
+}					t_gui_mode;
+
 typedef struct		s_cylinder
 {
 	t_shape			shape;
 	t_rgb			color;
 	t_vec3			origin;
 	t_vec3			orientation;
-	double			diameter;
+	double			radius;
 	double			height;
 }					t_cylinder;
 
@@ -125,7 +147,8 @@ typedef struct		s_sphere
 	t_shape			shape;
 	t_rgb			color;
 	t_vec3			origin;
-	double			diameter;
+	double			radius;
+	double			radius2;
 }					t_sphere;
 
 typedef struct		s_triangle
@@ -137,7 +160,7 @@ typedef struct		s_triangle
 	t_vec3			p3;
 }					t_triangle;
 
-# define VERBOSE 1
+# define VERBOSE 0
 # define TRACE 1
 # define UNITS_PER_PIXEL 1.0
 # define DOUBLE_MAX 9999999999.0

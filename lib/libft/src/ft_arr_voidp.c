@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/25 13:59:18 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 16:21:12 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/08 22:35:46 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,27 @@ static void	*ft_arr_voidp_grow(t_arr_voidp *arr, size_t new_size)
 {
 	void		*new_table;
 
-	arr->size = new_size;
-	new_table = malloc(arr->size * sizeof(void *));
+	new_table = malloc(new_size * sizeof(void *));
 	if (new_table == NULL)
 		return (NULL);
 	ft_memcpy(new_table, arr->table, arr->size * sizeof(void *));
 	free(arr->table);
 	arr->table = new_table;
+	arr->size = new_size;
 	return (arr->table);
 }
 
 void		*ft_arr_voidp_set(t_arr_voidp **arr, size_t i, void *value)
 {
 	if (arr == NULL || *arr == NULL)
+	{
 		*arr = ft_arr_voidp(i + ARR_DEFAULT_SIZE);
+		if (*arr == NULL)
+			return (NULL);
+	}
 	else if ((*arr)->start_i + i >= (*arr)->size)
 	{
-		if (ft_arr_voidp_grow(*arr, (*arr)->size * 2 + 1) == NULL)
+		if (ft_arr_voidp_grow(*arr, (*arr)->size + i) == NULL)
 			return (NULL);
 	}
 	(*arr)->table[(*arr)->start_i + i] = value;

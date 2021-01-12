@@ -6,15 +6,17 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/02 22:37:04 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/06 01:09:42 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/12 14:06:24 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "constants.h"
 #include "gui.h"
-#include "shapes.h"
+
 #include <stdlib.h>
 #include <stdio.h>
+#include <errno.h>
+#include <string.h>
 
 char *g_rule_id[RULE_LAST] = {
 	[RULE_SPHERE] = "sp",
@@ -53,13 +55,13 @@ void	exit_e(char *msg)
 
 void	exit_range(long num, long min, long max)
 {
-
+	printf("Number %li out of range [%li %li]\n", num, min, max); // illegal
 	exit(1);
 }
 
 void	exit_ranged(double num, double min, double max)
 {
-
+	printf("Double %lf out of range [%lf %lf]\n", num, min, max); // illegal
 	exit(1);
 }
 
@@ -67,6 +69,44 @@ void	exit_char(char got, char expected)
 {
 	printf("Expected <%c>, got <%c>\n", got, expected); // illegal
 	exit(1);
+}
+
+void	exit_errno(char *msg)
+{
+	ft_putstr("errno : ");
+	ft_putstr(strerror(errno));
+	exit_e(msg);
+}
+
+void	verbose(char *str)
+{
+	if (VERBOSE)
+		ft_putstr(str);
+}
+
+void	trace(char *str)
+{
+	if (TRACE)
+		ft_putstr(str);
+}
+
+void	*malloc_safe(size_t size)
+{
+	void	*p;
+
+	p = malloc(size);
+	if (p == NULL)
+		exit_e("malloc");
+	return (p);
+}
+
+void	*calloc_safe(size_t size)
+{
+	void *p;
+
+	p = malloc_safe(size);
+	ft_bzero(p, size);
+	return (p);
 }
 
 // static t_msg (*shape_parser[SHAPE_LAST])(char *line, t_gui *gui) = {

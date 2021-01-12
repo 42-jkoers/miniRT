@@ -1,8 +1,10 @@
 *.o
 *.a
-en.subject.pdf
+*.pdf
 miniRT
 mlx-test
 a.out
 test/
 rt/
+scene.bmp
+.vscode/
