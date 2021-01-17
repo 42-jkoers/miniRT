@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/05 19:05:04 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/12 14:27:39 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/12 14:46:50 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,22 @@
 #include <unistd.h>
 #include <limits.h>
 
-void	add_camera(t_arr_voidp **cameras, char *line)
+void	add_camera(t_gui *gui, char *line)
 {
 	char		**items;
 	t_camera	*cam;
 
-	cam = malloc(sizeof(t_camera));
-	if (cam == NULL)
-		exit_e("malloc");
-	ft_bzero(cam, sizeof(t_camera));
-	items =  split_clamp(line, 4);
+	cam = calloc_safe(sizeof(t_camera));
+	items = split_clamp(line, 4);
 	set_point(&cam->origin, items[1]);
 	set_point(&cam->orientation, items[2]);
 	cam->fov = strtodbl_clamp(items[3], '\0', 0.0, 180.0);
 	cam->fov = radians(cam->fov);
-	if (ft_arr_voidp_push(cameras, cam) == NULL)
-		exit_e("malloc");
 	ft_free_until_null_char(items);
+	if (ft_arr_voidp_push(&gui->cameras, cam) == NULL)
+		exit_e("malloc");
+	if (gui->camera == NULL)
+		gui->camera = cam;
 }
 
 void	add_light(t_arr_voidp **lights, char *line)

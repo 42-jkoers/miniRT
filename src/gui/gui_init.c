@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/10 14:09:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/12 14:30:42 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/12 15:00:02 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ static void	open_window(t_gui *gui)
 	if (screen_x < (int)gui->x_resolution)
 	{
 		gui->x_resolution = screen_x;
-		gui->x_resolution = (double)screen_x;
+		gui->x_size = (double)screen_x;
 		verbose("Note: decreased x resolution\n");
 	}
 	if (screen_y < (int)gui->y_resolution)
 	{
 		gui->y_resolution = screen_y;
-		gui->y_resolution = (double)screen_y;
+		gui->y_size = (double)screen_y;
 		verbose("Note: decreased y resolution\n");
 	}
 	gui->window = mlx_new_window(
@@ -60,11 +60,9 @@ static void	open_window(t_gui *gui)
 		exit_e("malloc");
 	mlx_key_hook(gui->window, on_keypress, gui);
 	mlx_hook(gui->window, 33, 0L, mlx_loop_end, gui->mlx);
-	mlx_loop(gui->mlx);
-	mlx_destroy_window(gui->mlx, gui->window);
 }
 
-t_gui		*gui_init(char *rt_filename, t_gui_mode mode)
+t_gui		*gui_init(char *rt_filename, bool create_window)
 {
 	t_gui	*gui;
 	
@@ -74,14 +72,7 @@ t_gui		*gui_init(char *rt_filename, t_gui_mode mode)
 		exit_e("malloc");
 	parse_rt(gui, rt_filename);
 	set_canvas(&gui->canvas, gui);
-	if (mode == WINDOW)
-	{
+	if (create_window)
 		open_window(gui);
-	}
-	else if (mode == CREATE_BMP)
-	{
-		if (save_bmp(gui) != 0)
-			exit_errno("Failed to create bmp image");
-	}
 	return (gui);
 }

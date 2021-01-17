@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:39:05 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/12 14:28:20 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/12 14:48:54 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@
 void	search_missing_rules(t_gui *gui)
 {
 	if (gui->x_resolution == 0 || gui->y_resolution == 0)
-	{
 		exit_e("Missing resolution rule");
-		return ;
-	}
+	if (gui->x_size == 0.0 || gui->y_size == 0.0)
+		exit_e("Missing size rule");
+	if (gui->cameras == NULL || gui->camera == NULL)
+		exit_e("Missing camera rule");
 }
 
 void	parse_rt_line(char *line, t_gui *gui)
@@ -52,7 +53,7 @@ void	parse_rt_line(char *line, t_gui *gui)
 	else if (ft_strcmp(line, g_rule_id[RULE_AMBIENT]) == ' ')
 		set_ambient(&gui->ambient, line);
 	else if (ft_strcmp(line, g_rule_id[RULE_CAMERA]) == ' ')
-		add_camera(&gui->cameras, line);
+		add_camera(gui, line);
 	else if (ft_strcmp(line, g_rule_id[RULE_LIGHT]) == ' ')
 		add_light(&gui->lights, line);
 	else

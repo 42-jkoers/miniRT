@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/05 13:18:30 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/12 14:06:24 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/17 13:04:47 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,20 @@ void	set_ray(t_ray *ray, double x, double y, t_gui *gui)
 	normalize(&ray->direction);
 }
 
+
+// void	set_ray(t_ray *ray, double x, double y, t_gui *gui)
+// {
+// 	double cam_canvas_dist = (gui->x_size / 2) / tan(gui->camera->fov / 2);
+	
+// 	ray->origin = gui->camera->origin;
+// 	ray->direction.x = gui->camera->origin.x + cam_canvas_dist;
+// 	ray->direction.y = (gui->camera->origin.y + gui->y_size / 2) - x;
+// 	ray->direction.z = (gui->camera->origin.x + gui->x_size / 2) - y;
+
+// 	ray->direction = subtract(ray->direction, ray->origin);
+// 	normalize(&ray->direction);
+// }
+
 bool	distance_sphere(double *distance,
 		t_sphere sp, t_ray ray) // distance to surface of sphere
 {
@@ -73,21 +87,24 @@ bool	distance_sphere(double *distance,
 	l = subtract(sp.origin, ray.origin);
 	tca = dot(l, ray.direction);
 	if (tca < 0)
-	{
-		// ft_putstr("a");
 		return (false);	// sphere is behind ray origin 
-	}
-	// log_vec3("sphere", sp.origin);
 	d2 = dot(l, l) - tca * tca; 
-	// printf("d2 %lf, radius2 %lf\n", d2, sp.radius2);
 	if (d2 > sp.radius2)
-	{
-		// ft_putstr("b");
 		return (false);	// sphere is too small to intersect with ray
-	}
 	thc = sqrt(sp.radius2 - d2); 
 	*distance = tca - thc;
 	return (true);
+}
+
+/*
+** @return if shape intersects
+** @param *dist distance to shape if there is an intersection
+*/
+bool	intersects(double *dist,
+	t_ray ray, t_shape shape, const void *s)
+{
+	if (shape == SHAPE_SPHERE)
+		return (distance_sphere(dist, *((t_sphere *)s), ray));
 }
 
 void	compute_pixel(t_rgb *color,
@@ -95,7 +112,7 @@ void	compute_pixel(t_rgb *color,
 {
 	size_t	i;
 	double	closest;
-	double	distance;
+	double	dist;
 	t_shape	shape;
 	void	*closest_shape;
 
@@ -105,15 +122,12 @@ void	compute_pixel(t_rgb *color,
 	while (ft_arr_voidp_get(gui->shapes, i) != NULL)
 	{
 		ft_memcpy(&shape, ft_arr_voidp_get(gui->shapes, i), sizeof(t_shape));
-		if (shape == SHAPE_SPHERE)
-		{
-			if (distance_sphere(&distance, *((t_sphere *)gui->shapes->table[i]), ray) &&
-				distance < closest)
-				{
-					closest = distance;
-					closest_shape = gui->shapes->table[i];
-				}
-		}
+		if (intersects(&dist, ray, shape, ft_arr_voidp_get(gui->shapes, i)))
+			if (dist < closest)
+			{
+				closest = dist;
+				closest_shape = ft_arr_voidp_get(gui->shapes, i);
+			}
 		i++;
 	}
 	if (closest_shape == NULL)

@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 18:50:36 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/12 14:18:57 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/12 19:09:25 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,13 @@ void	gui_write_canvas(t_gui *gui)
 
 void	exit_success(t_gui *gui)
 {
-	ft_putstr("Done\n");
+	// ft_putstr("Done\n");
 	if (gui == NULL)
 		exit(1);
 	ft_arr_voidp_free(gui->shapes, free);
+	ft_arr_voidp_free(gui->cameras, free);
+	if (gui->window)
+		mlx_destroy_window(gui->mlx, gui->window);
 	if (gui->canvas.mlx_img)
 		mlx_destroy_image(gui->mlx, gui->canvas.mlx_img);
 	if (gui->mlx)

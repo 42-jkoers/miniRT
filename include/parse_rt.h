@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/28 13:47:29 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/12 14:28:02 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/12 14:48:43 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_plane(t_arr_voidp **shapes, char *line);
 void	add_square(t_arr_voidp **shapes, char *line);
 void	add_cylinder(t_arr_voidp **shapes, char *line);
 void	add_triangle(t_arr_voidp **shapes, char *line);
-void	add_camera(t_arr_voidp **cameras, char *line);
+void	add_camera(t_gui *gui, char *line);
 void	add_light(t_arr_voidp **lights, char *line);
 void	set_resolution(t_gui *gui, char *line);
 void	set_ambient(t_ambient *ambient, char *line);

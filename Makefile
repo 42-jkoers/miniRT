@@ -6,7 +6,7 @@
 #    By: jkoers <jkoers@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/05 15:36:08 by jkoers        #+#    #+#                  #
-#    Updated: 2021/01/06 01:08:41 by jkoers        ########   odam.nl          #
+#    Updated: 2021/01/12 16:16:01 by jkoers        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,10 @@ sync:
 dev:
 	make > /dev/null && valgrind -q ./miniRT
 
+rt:
+	@while inotifywait -qq -e close_write rt/standard.rt; do ./miniRT; done
+
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
 
-.PHONY: all clean fclean re sync
+.PHONY: all clean fclean re sync rt
