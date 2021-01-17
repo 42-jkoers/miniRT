@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/05 13:18:30 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/17 13:04:47 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/17 13:16:56 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ void	set_ray(t_ray *ray, double x, double y, t_gui *gui)
 	ray->origin = gui->camera->origin;
 	ray->direction = subtract(vec(Px, Py, -1.0), ray->origin);
 	normalize(&ray->direction);
+
+    // const double scale = tan(gui->camera->fov * 0.5); 
+    // const double aspect_ratio = gui->x_size / gui->y_size;
+	// const double px = (2 * (x + 0.5) / gui->x_size - 1) * aspect_ratio * scale; 
+    // const double py = (1 - 2 * (y + 0.5) / gui->y_size) * scale; 
+	
+	// ray->origin = gui->camera->origin;
+	// ray->direction = subtract(vec(px, py, -1.0), ray->origin);
+	// normalize(&ray->direction);	
 }
 
 
@@ -105,6 +114,7 @@ bool	intersects(double *dist,
 {
 	if (shape == SHAPE_SPHERE)
 		return (distance_sphere(dist, *((t_sphere *)s), ray));
+	return (false);
 }
 
 void	compute_pixel(t_rgb *color,
@@ -123,11 +133,13 @@ void	compute_pixel(t_rgb *color,
 	{
 		ft_memcpy(&shape, ft_arr_voidp_get(gui->shapes, i), sizeof(t_shape));
 		if (intersects(&dist, ray, shape, ft_arr_voidp_get(gui->shapes, i)))
+		{
 			if (dist < closest)
 			{
 				closest = dist;
 				closest_shape = ft_arr_voidp_get(gui->shapes, i);
 			}
+		}
 		i++;
 	}
 	if (closest_shape == NULL)
