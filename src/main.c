@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/12/20 16:39:11 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/12 16:07:23 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/18 14:29:00 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ int		main(void)
 	clock_t tic = clock(); 
 	render(gui);
 	clock_t toc = clock();
-	printf("render in: %lf\n", (double)(toc - tic) / CLOCKS_PER_SEC);
+	printf("render in: %lf s\n", (double)(toc - tic) / CLOCKS_PER_SEC);
 
 	if (save_bmp(gui) != 0)
 		exit_errno("Can't create bmp");
-	log_vec3("cam", gui->camera->origin);
+	// log_vec3("cam", gui->camera->origin);
 	// mlx_loop(gui->mlx);
 	exit_success(gui);
 	return (0);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rt_file_helpers.c                                  :+:    :+:            */
+/*   clamp.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
@@ -66,26 +66,4 @@ char	**split_clamp(char *line, size_t should_be_n)
 	if (n_params != should_be_n)
 		exit_range(n_params, should_be_n, should_be_n);		
 	return (params);
-}
-
-void	set_point(t_vec3 *origin, char *str)
-{
-	if (ft_strcount(str, ',') != 2)
-		exit_e("Wrong number of args in point");
-	origin->x = strtodbl_clamp(str, ',', DOUBLE_MIN, DOUBLE_MAX);
-	str = ft_strchr(str, ',') + 1;
-	origin->y = strtodbl_clamp(str, ',', DOUBLE_MIN, DOUBLE_MAX);
-	str = ft_strchr(str, ',') + 1;
-	origin->z = strtodbl_clamp(str, '\0', DOUBLE_MIN, DOUBLE_MAX);
-}
-
-void	set_color(t_rgb *color, char *str)
-{
-	if (ft_strcount(str, ',') != 2)
-		exit_e("Wrong number of args in color");
-	color->r = (unsigned char)strtonum_clamp(str, ',', 0, 255);
-	str = ft_strchr(str, ',') + 1;
-	color->g = (unsigned char)strtonum_clamp(str, ',', 0, 255);
-	str = ft_strchr(str, ',') + 1;
-	color->b = (unsigned char)strtonum_clamp(str, '\0', 0, 255);
 }

@@ -139,7 +139,7 @@ typedef struct		s_plane
 	t_shape			shape;
 	t_rgb			color;
 	t_vec3			origin;
-	t_vec3			orientation;
+	t_vec3			normal;
 }					t_plane;
 
 typedef struct		s_sphere

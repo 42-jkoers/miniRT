@@ -6,5 +6,6 @@ mlx-test
 a.out
 test/
 rt/
-scene.bmp
+scene.*
 .vscode/
+standard.rt

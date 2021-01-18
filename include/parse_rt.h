@@ -23,6 +23,7 @@ long	strtonum_clamp(char *str, char end, long min, long max);
 double	strtodbl_clamp(char *str, char end, double min, double max);
 char	**split_clamp(char *line, size_t should_be_n);
 void	set_point(t_vec3 *origin, char *str);
+void	set_orientation(t_vec3 *orientation, char *str);
 void	set_color(t_rgb *color, char *str);
 
 void	log_shapes(t_arr_voidp *shapes);

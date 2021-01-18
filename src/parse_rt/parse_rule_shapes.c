@@ -28,9 +28,7 @@ void	add_sphere(t_arr_voidp **shapes, char *line)
 	t_sphere	*sp;
 	char		**items;
 
-	sp = malloc(sizeof(t_sphere));
-	if (sp == NULL)
-		exit_e("malloc");
+	sp = malloc_safe(sizeof(t_sphere));
 	sp->shape = SHAPE_SPHERE;
 	items = split_clamp(line, 4);
 	set_point(&sp->origin, items[1]);
@@ -48,17 +46,15 @@ void	add_plane(t_arr_voidp **shapes, char *line)
 	t_plane	*pl;
 	char	**items;
 
-	pl = malloc(sizeof(t_plane));
-	if (pl == NULL)
-		exit_e("malloc");
+	pl = malloc_safe(sizeof(t_plane));
 	pl->shape = SHAPE_PLANE;
 	items = split_clamp(line, 4);
 	set_point(&pl->origin, items[1]);
-	set_point(&pl->orientation, items[2]);
+	set_orientation(&pl->normal, items[2]);
 	set_color(&pl->color, items[3]);
+	ft_free_until_null_char(items);
 	if (ft_arr_voidp_push(shapes, pl) == NULL)
 		exit_e("malloc");
-	ft_free_until_null_char(items);
 }
 
 void	add_square(t_arr_voidp **shapes, char *line)
@@ -66,18 +62,16 @@ void	add_square(t_arr_voidp **shapes, char *line)
 	t_square	*sq;
 	char		**items;
 
-	sq = malloc(sizeof(t_square));
-	if (sq == NULL)
-		exit_e("malloc");
+	sq = malloc_safe(sizeof(t_square));
 	sq->shape = SHAPE_SQUARE;
 	items = split_clamp(line, 5);
 	set_point(&sq->origin, items[1]);
-	set_point(&sq->orientation, items[2]);
+	set_orientation(&sq->orientation, items[2]);
 	sq->size = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX);
 	set_color(&sq->color, items[4]);
+	ft_free_until_null_char(items);
 	if (ft_arr_voidp_push(shapes, sq) == NULL)
 		exit_e("malloc");
-	ft_free_until_null_char(items);
 }
 
 void	add_cylinder(t_arr_voidp **shapes, char *line)
@@ -85,19 +79,17 @@ void	add_cylinder(t_arr_voidp **shapes, char *line)
 	t_cylinder	*cy;
 	char		**items;
 
-	cy = malloc(sizeof(t_cylinder));
-	if (cy == NULL)
-		exit_e("malloc");
+	cy = malloc_safe(sizeof(t_cylinder));
 	cy->shape = SHAPE_CYLINDER;
 	items = split_clamp(line, 6);
 	set_point(&cy->origin, items[1]);
-	set_point(&cy->orientation, items[2]);
+	set_orientation(&cy->orientation, items[2]);
 	cy->radius = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX);
 	cy->height = strtodbl_clamp(items[4], '\0', 0.0, DOUBLE_MAX);
 	set_color(&cy->color, items[5]);
+	ft_free_until_null_char(items);
 	if (ft_arr_voidp_push(shapes, cy) == NULL)
 		exit_e("malloc");
-	ft_free_until_null_char(items);
 }
 
 void	add_triangle(t_arr_voidp **shapes, char *line)

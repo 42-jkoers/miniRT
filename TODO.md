@@ -1,4 +1,4 @@
-Parsing the rt file creates a trace
+0Parsing the rt file creates a trace
 add a if (trace) ft_pustst(msg);
 
 improve ft_memcpy speed

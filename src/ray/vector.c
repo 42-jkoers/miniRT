@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/08 15:59:04 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/09 00:52:02 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/18 13:59:11 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_vec3	subtract(t_vec3 a, t_vec3 b) // a - b
 	return (v);
 }
 
-t_vec3	multiply(t_vec3 v, double r)
+t_vec3	scale(t_vec3 v, double r)
 {
 	t_vec3	vec;
 

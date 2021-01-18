@@ -6,7 +6,7 @@
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/05 13:18:30 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/17 13:16:56 by jkoers        ########   odam.nl         */
+/*   Updated: 2021/01/18 13:21:18 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "constants.h"
 #include "vector.h"
 #include "../lib/minilibx-linux/mlx.h"
-#include "../lib/ft_printf/ft_printf.h"
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 
@@ -48,82 +47,32 @@ void set_ray(t_ray *ray, double x, double y, t_gui *gui)
 }
 */
 
-void	set_ray(t_ray *ray, double x, double y, t_gui *gui)
+void	set_ray(t_ray *ray,
+	double x, double y, const t_gui *gui)
 {
-	double	aspect_ratio;
-	double	Px;
-	double	Py;
-
-	aspect_ratio = gui->x_size / gui->y_size; // assuming width >= height 
-	Px = (2 * ((x + 0.5) / gui->x_size) - 1) * tan(gui->camera->fov / 2) * aspect_ratio;
-	Py = 1 - 2 * ((y + 0.5) / gui->y_size) * tan(gui->camera->fov / 2);
+    const double scale = tan(gui->camera->fov * 0.5); 
+    const double aspect_ratio = gui->x_size / gui->y_size;
+	const double px = (2 * (x + 0.5) / gui->x_size - 1) * aspect_ratio * scale; 
+    const double py = (1 - 2 * (y + 0.5) / gui->y_size) * scale; 
+	
 	ray->origin = gui->camera->origin;
-	ray->direction = subtract(vec(Px, Py, -1.0), ray->origin);
-	normalize(&ray->direction);
-
-    // const double scale = tan(gui->camera->fov * 0.5); 
-    // const double aspect_ratio = gui->x_size / gui->y_size;
-	// const double px = (2 * (x + 0.5) / gui->x_size - 1) * aspect_ratio * scale; 
-    // const double py = (1 - 2 * (y + 0.5) / gui->y_size) * scale; 
-	
-	// ray->origin = gui->camera->origin;
-	// ray->direction = subtract(vec(px, py, -1.0), ray->origin);
-	// normalize(&ray->direction);	
-}
-
-
-// void	set_ray(t_ray *ray, double x, double y, t_gui *gui)
-// {
-// 	double cam_canvas_dist = (gui->x_size / 2) / tan(gui->camera->fov / 2);
-	
-// 	ray->origin = gui->camera->origin;
-// 	ray->direction.x = gui->camera->origin.x + cam_canvas_dist;
-// 	ray->direction.y = (gui->camera->origin.y + gui->y_size / 2) - x;
-// 	ray->direction.z = (gui->camera->origin.x + gui->x_size / 2) - y;
-
-// 	ray->direction = subtract(ray->direction, ray->origin);
-// 	normalize(&ray->direction);
-// }
-
-bool	distance_sphere(double *distance,
-		t_sphere sp, t_ray ray) // distance to surface of sphere
-{
-	t_vec3	l;		// distance sphere ray
-	double	tca;	// distance sphere ray on ray direction
-	double	d2;		// distance from center sp to ray squared
-	double	thc;
-
-	l = subtract(sp.origin, ray.origin);
-	tca = dot(l, ray.direction);
-	if (tca < 0)
-		return (false);	// sphere is behind ray origin 
-	d2 = dot(l, l) - tca * tca; 
-	if (d2 > sp.radius2)
-		return (false);	// sphere is too small to intersect with ray
-	thc = sqrt(sp.radius2 - d2); 
-	*distance = tca - thc;
-	return (true);
+	ray->direction = subtract(vec(px, py, -1.0), ray->origin);
+	normalize(&ray->direction);	
 }
 
 /*
 ** @return if shape intersects
 ** @param *dist distance to shape if there is an intersection
 */
-bool	intersects(double *dist,
-	t_ray ray, t_shape shape, const void *s)
-{
-	if (shape == SHAPE_SPHERE)
-		return (distance_sphere(dist, *((t_sphere *)s), ray));
-	return (false);
-}
+
 
 void	compute_pixel(t_rgb *color,
 			t_ray ray, t_gui *gui)
 {
 	size_t	i;
+	t_shape	shape;
 	double	closest;
 	double	dist;
-	t_shape	shape;
 	void	*closest_shape;
 
 	i = 0;
@@ -132,7 +81,7 @@ void	compute_pixel(t_rgb *color,
 	while (ft_arr_voidp_get(gui->shapes, i) != NULL)
 	{
 		ft_memcpy(&shape, ft_arr_voidp_get(gui->shapes, i), sizeof(t_shape));
-		if (intersects(&dist, ray, shape, ft_arr_voidp_get(gui->shapes, i)))
+		if (g_distance[shape](&dist, ft_arr_voidp_get(gui->shapes, i), ray))
 		{
 			if (dist < closest)
 			{
