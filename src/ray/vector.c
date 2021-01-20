@@ -41,12 +41,22 @@ double	angle(t_vec3 a, t_vec3 b)
 
 t_vec3	cross(t_vec3 a, t_vec3 b)
 {
-	t_vec3 cross;
+	t_vec3 v;
 	
-	cross.x = a.y * b.z - a.z * b.y;
-	cross.y = a.z * b.x - a.x * b.z;
-	cross.z = a.x * b.y - a.y * b.x;
-	return (cross);
+	v.x = a.y * b.z - a.z * b.y;
+	v.y = a.z * b.x - a.x * b.z;
+	v.z = a.x * b.y - a.y * b.x;
+	return (v);
+}
+
+t_vec3	multiply(t_vec3 a, t_vec3 b)
+{
+	t_vec3 v;
+	
+	v.x = a.x * b.x;
+	v.y = a.y * b.y;
+	v.z = a.z * b.z;
+	return (v);
 }
 
 t_vec3	add(t_vec3 a, t_vec3 b)
@@ -90,6 +100,12 @@ void	normalize(t_vec3 *v)
 		v->y /= len;
 		v->z /= len;
 	}
+}
+
+t_vec3	unit(t_vec3 v)
+{
+	normalize(&v);
+	return (v);
 }
 
 #include <stdio.h>

@@ -28,7 +28,7 @@ void	add_camera(t_gui *gui, char *line)
 	cam = calloc_safe(sizeof(t_camera));
 	items = split_clamp(line, 4);
 	set_point(&cam->origin, items[1]);
-	set_point(&cam->orientation, items[2]);
+	set_orientation(&cam->orientation, items[2]);
 	cam->fov = strtodbl_clamp(items[3], '\0', 0.0, 180.0);
 	cam->fov = radians(cam->fov);
 	ft_free_until_null_char(items);
@@ -49,7 +49,7 @@ void	add_light(t_arr_voidp **lights, char *line)
 	items =  split_clamp(line, 4);
 	set_point(&light->origin, items[1]);
 	light->brightness = strtodbl_clamp(items[2], '\0', 0.0, 1.0);
-	set_point(&light->orientation, items[3]);
+	set_orientation(&light->orientation, items[3]);
 	if(ft_arr_voidp_push(lights, light) == NULL)
 		exit_e("malloc");
 	ft_free_until_null_char(items);

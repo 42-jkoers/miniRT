@@ -13,6 +13,7 @@
 #include "parse_rt.h"
 #include "constants.h"
 #include "../lib/libft/include/libft.h"
+#include "vector.h"
 #include <stdlib.h>
 
 void	set_point(t_vec3 *origin, char *str)
@@ -28,6 +29,8 @@ void	set_point(t_vec3 *origin, char *str)
 
 void	set_orientation(t_vec3 *orientation, char *str)
 {
+	double len;
+
 	if (ft_strcount(str, ',') != 2)
 		exit_e("Wrong number of args in orientation");
 	orientation->x = strtodbl_clamp(str, ',', -1.0, 1.0);
@@ -35,6 +38,13 @@ void	set_orientation(t_vec3 *orientation, char *str)
 	orientation->y = strtodbl_clamp(str, ',', -1.0, 1.0);
 	str = ft_strchr(str, ',') + 1;
 	orientation->z = strtodbl_clamp(str, '\0', -1.0, 1.0);
+	if (!ALLOW_NON_NORMALIZED_DIRECTION)
+	{
+		len = length(*orientation);
+		if (len < 0.99999 || len > 1.00001)
+			exit_e("Orientation vector is not normalized");
+		normalize(orientation);
+	}
 }
 
 void	set_color(t_rgb *color, char *str)

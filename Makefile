@@ -89,9 +89,10 @@ sync:
 dev:
 	make > /dev/null && valgrind -q ./miniRT
 
-rt: all
-	./miniRT
-	@while inotifywait -qq -e close_write rt/standard.rt; do ./miniRT; done
+rt:
+	@$(MAKE) > /dev/null
+	@./miniRT
+	@while inotifywait -qq -e close_write rt/standard.rt; do make > /dev/null && ./miniRT; done
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)

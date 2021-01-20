@@ -160,6 +160,7 @@ typedef struct		s_triangle
 	t_vec3			p3;
 }					t_triangle;
 
+# define ALLOW_NON_NORMALIZED_DIRECTION 1
 # define VERBOSE 0
 # define TRACE 1
 # define UNITS_PER_PIXEL 1.0

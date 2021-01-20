@@ -19,52 +19,63 @@
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 
-/*
-void set_ray(t_ray *ray, double x, double y, t_gui *gui)
+void	set_ray_without_rotation(t_ray *ray,
+	double x, double y, const t_gui *gui)
 {
-	// t_ray ray;
-	
-	// double	ndc_x;			// [0,1]   Normalized Device Coordinates
-	// double	ndc_y;			// [0,1]   Normalized Device Coordinates
-	// double	pixelscreen_x;	// [-1, 1] screen space
-	// double	pixelscreen_y;	// [-1, 1] screen space
-	// double	pixelcamera_x;	// [-aspect_ratio, aspect_radio]
-	// double	pixelcamera_y;	// [-aspect_ratio, aspect_radio] 
+	const double scale = tan(gui->camera->fov * 0.5);
+	// const double scale = (0.5 * gui->x_size) / tan(gui->camera->fov * 0.5);
+	const double aspect_ratio = gui->x_size / gui->y_size;
+	const double px = (2 * (x + 0.5) / gui->x_size - 1) * aspect_ratio * scale;
+	const double py = (1 - 2 * (y + 0.5) / gui->y_size) * scale;
 
-	// double aspect_ratio;
-
-	// ndc_x = (x + 0.5) / gui->x_size;
-	// ndc_y = (y + 0.5) / gui->y_size;
-	
-	// pixelscreen_x = 2.0 * ndc_x - 1;
-	// pixelscreen_y = 1 - 2 * ndc_y;
-	
-	// aspect_ratio = gui->x_size / gui->y_size;
-	// pixelcamera_x = (2.0 * pixelscreen_x - 1) * aspect_ratio * tan(gui->camera->fov / 2);
-	// pixelcamera_y = 1 - 2 * pixelscreen_y * tan(gui->camera->fov / 2);
-
-	// return (ray);
+	ray->origin = gui->camera->origin;
+	ray->direction = subtract(vec(px, py, -1.0), ray->origin);
+	// ray->direction = add(vec(px, py, scale), ray->origin);
+	normalize(&ray->direction);
 }
-*/
+
 
 void	set_ray(t_ray *ray,
 	double x, double y, const t_gui *gui)
 {
-    const double scale = tan(gui->camera->fov * 0.5); 
-    const double aspect_ratio = gui->x_size / gui->y_size;
-	const double px = (2 * (x + 0.5) / gui->x_size - 1) * aspect_ratio * scale; 
-    const double py = (1 - 2 * (y + 0.5) / gui->y_size) * scale; 
-	
+	const double	aspect_ratio = gui->x_size / gui->y_size;
+	const double	half_height = tan(gui->camera->fov * 0.5);
+	const double	half_width = aspect_ratio * half_height;
 	ray->origin = gui->camera->origin;
-	ray->direction = subtract(vec(px, py, -1.0), ray->origin);
-	normalize(&ray->direction);	
+	const t_vec3	w = unit(subtract(gui->camera->origin, gui->camera->orientation));
+	const t_vec3	vup = vec(0.0, -1.0 , 0.0); // i do not really know
+	const t_vec3	u = unit(cross(vup, w));
+	const t_vec3	v = cross(w, u);
+	
+	// t_vec3			lower_left_corner = vec(-half_width, -half_height, -1.0);
+
+	t_vec3			u_scaled = scale(u, half_width);
+	t_vec3			v_scaled = scale(v, half_height);
+	t_vec3			lower_left_corner = gui->camera->origin;
+					lower_left_corner = subtract(lower_left_corner, u_scaled);
+					lower_left_corner = subtract(lower_left_corner, v_scaled);
+					lower_left_corner = subtract(lower_left_corner, w);
+					
+	t_vec3			horizontal = scale(u, 2 * half_width);
+	t_vec3			vertical =   scale(v, 2 * half_height);
+	
+	// ray->direction = lower_left_corner + ((x + 0.5) / gui->x_size) * horizontal + ((y + 0.5) / gui->y_size) * vertical - origin;
+	t_vec3			horizontal_scaled = scale(horizontal, 1.0 - (x + 0.5) / gui->x_size); // 1.0 - part is correction
+	t_vec3			vertical_scaled = scale(vertical, (y + 0.5) / gui->y_size);
+
+	// ray->direction = lower_left_corner + horizontal_scaled + vertical_scaled - origin;
+	ray->direction = lower_left_corner;
+	ray->direction = add(ray->direction, horizontal_scaled);
+	ray->direction = add(ray->direction, vertical_scaled);
+	ray->direction = subtract(ray->direction, gui->camera->origin);
+
+	normalize(&ray->direction);
 }
 
 /*
 ** @return if shape intersects
 ** @param *dist distance to shape if there is an intersection
 */
-
 
 void	compute_pixel(t_rgb *color,
 			t_ray ray, t_gui *gui)
@@ -82,13 +93,11 @@ void	compute_pixel(t_rgb *color,
 	{
 		ft_memcpy(&shape, ft_arr_voidp_get(gui->shapes, i), sizeof(t_shape));
 		if (g_distance[shape](&dist, ft_arr_voidp_get(gui->shapes, i), ray))
-		{
 			if (dist < closest)
-			{
+			{// is this neccecary
 				closest = dist;
 				closest_shape = ft_arr_voidp_get(gui->shapes, i);
 			}
-		}
 		i++;
 	}
 	if (closest_shape == NULL)
