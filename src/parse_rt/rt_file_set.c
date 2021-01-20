@@ -43,8 +43,8 @@ void	set_orientation(t_vec3 *orientation, char *str)
 		len = length(*orientation);
 		if (len < 0.99999 || len > 1.00001)
 			exit_e("Orientation vector is not normalized");
-		normalize(orientation);
 	}
+	normalize(orientation); // ???
 }
 
 void	set_color(t_rgb *color, char *str)
