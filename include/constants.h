@@ -109,16 +109,15 @@ typedef struct		s_gui
 	t_canvas		canvas;
 }					t_gui;
 
-typedef enum
-{
-	WINDOW,
-	CREATE_BMP
-}					t_gui_mode;
-
-typedef struct		s_cylinder
+typedef struct	s_object
 {
 	t_shape			shape;
 	t_rgb			color;
+	void			*pos;
+}				t_object;
+
+typedef struct		s_cylinder
+{
 	t_vec3			origin;
 	t_vec3			orientation;
 	double			radius;
@@ -127,8 +126,6 @@ typedef struct		s_cylinder
 
 typedef struct		s_square
 {
-	t_shape			shape;
-	t_rgb			color;
 	t_vec3			origin;
 	t_vec3			orientation;
 	double			size;
@@ -136,16 +133,12 @@ typedef struct		s_square
 
 typedef struct		s_plane
 {
-	t_shape			shape;
-	t_rgb			color;
 	t_vec3			origin;
 	t_vec3			normal;
 }					t_plane;
 
 typedef struct		s_sphere
 {
-	t_shape			shape;
-	t_rgb			color;
 	t_vec3			origin;
 	double			radius;
 	double			radius2;
@@ -153,8 +146,6 @@ typedef struct		s_sphere
 
 typedef struct		s_triangle
 {
-	t_shape			shape;
-	t_rgb			color;
 	t_vec3			p1;
 	t_vec3			p2;
 	t_vec3			p3;

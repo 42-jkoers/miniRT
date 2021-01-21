@@ -79,23 +79,23 @@ void	set_ray(t_ray *ray,
 
 void	*find_closest_shape(t_ray ray, const t_gui *gui)
 {
-	size_t	i;
-	t_shape	shape;
-	double	closest;
-	double	dist;
-	void	*closest_shape;
+	size_t		i;
+	t_object	*shape;
+	t_object	*closest_shape;
+	double		closest;
+	double		dist;
 
 	i = 0;
 	closest = 999999999999.0;
 	closest_shape = NULL;
 	while (ft_arr_voidp_get(gui->shapes, i) != NULL)
 	{
-		ft_memcpy(&shape, ft_arr_voidp_get(gui->shapes, i), sizeof(t_shape));
-		if (g_distance[shape](&dist, ft_arr_voidp_get(gui->shapes, i), ray))
+		shape = ft_arr_voidp_get(gui->shapes, i);
+		if (g_distance[shape->shape](&dist, shape->pos, ray))
 			if (dist < closest)
-			{// is this neccecary
+			{
 				closest = dist;
-				closest_shape = ft_arr_voidp_get(gui->shapes, i);
+				closest_shape = shape;
 			}
 		i++;
 	}
