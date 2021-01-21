@@ -28,9 +28,8 @@ LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
 				  $(LIBDIR)/ft_printf/libftprintf.a \
 				  $(LIBDIR)/libft/bin/libft.a
 HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
-SOURCES     	= $(shell find $(SRCDIR) -type f -name '*.$(SRCEXT)')
-OBJECTS     	= $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,\
-				  $(SOURCES:$(SRCEXT)=$(OBJEXT)))
+SRC     		= $(shell find $(SRCDIR) -name "*.$(SRCEXT)" -exec basename {} \;)
+OBJ				= $(addprefix $(BUILDDIR)/, $(SRC:.$(SRCEXT)=.$(OBJEXT)))
 STARTGREEN		= @echo "\033[38;2;0;255;0m\c"
 RESETCOLOR		= @echo "\033[0m\c"
 
@@ -38,14 +37,14 @@ VPATH = $(shell find $(SRCDIR) -type d | tr '\n' ':' | sed -r 's/(.*):/\1/')
 # main
 
 all:
-	make -j4 $(NAME)
+	$(MAKE) -j4 $(NAME)
 
-$(NAME): $(BUILDDIR)/ $(OBJECTS) $(HEADERS) $(LIBS)
+$(NAME): $(BUILDDIR)/ $(OBJ) $(HEADERS) $(LIBS)
 	$(CC) $(CFLAGS)-I$(HEADERDIR) $(BUILDDIR)/*.$(OBJEXT) -o $(NAME) $(LIBS) $(LINKS)
 
 # sources
 
-$(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT) $(HEADERS)
+$(BUILDDIR)/%.$(OBJEXT): %.$(SRCEXT) $(HEADERS)
 	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $(BUILDDIR)/$(notdir $@) $(SOURCELINKS)
 
 # libs
