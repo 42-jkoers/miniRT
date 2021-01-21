@@ -77,8 +77,7 @@ void	set_ray(t_ray *ray,
 ** @param *dist distance to shape if there is an intersection
 */
 
-void	compute_pixel(t_rgb *color,
-			t_ray ray, t_gui *gui)
+void	*find_closest_shape(t_ray ray, const t_gui *gui)
 {
 	size_t	i;
 	t_shape	shape;
@@ -100,6 +99,15 @@ void	compute_pixel(t_rgb *color,
 			}
 		i++;
 	}
+	return (closest_shape);
+}
+
+
+void	compute_pixel(t_rgb *color,
+			t_ray ray, const t_gui *gui)
+{
+	const void *closest_shape = find_closest_shape(ray, gui);
+
 	if (closest_shape == NULL)
 		return (ft_bzero(color, sizeof(t_rgb)));
 	ft_memcpy(color, &((t_sphere *)closest_shape)->color, sizeof(t_rgb));
