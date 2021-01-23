@@ -22,15 +22,21 @@
 void	set_ray(t_ray *ray,
 	double x, double y, const t_gui *gui)
 {
-	const double scale = tan(gui->camera->fov * 0.5);
-	// const double scale = (0.5 * gui->x_size) / tan(gui->camera->fov * 0.5);
+	const double fov_scale = tan(gui->camera->fov * 0.5);
 	const double aspect_ratio = gui->x_size / gui->y_size;
-	const double px = (2 * (x + 0.5) / gui->x_size - 1) * aspect_ratio * scale;
-	const double py = (1 - 2 * (y + 0.5) / gui->y_size) * scale;
+	const double px = (2 * (x + 0.5) / gui->x_size - 1) * aspect_ratio * fov_scale;
+	const double py = (2 * (y + 0.5) / gui->y_size - 1) * fov_scale;
 
 	ray->origin = gui->camera->origin;
-	ray->direction = subtract(vec(px, py, -1.0), ray->origin);
-	// ray->direction = add(vec(px, py, scale), ray->origin);
+	t_vec3 positive_x;
+	if (gui->camera->orientation.x == 0.0 && gui->camera->orientation.z == 0.0)
+		positive_x = vec(1.0, 0.0, 0.0);
+	else
+		positive_x = cross(gui->camera->orientation, vec(0.0, 1.0, 0.0));
+	t_vec3 negative_y = cross(gui->camera->orientation, positive_x);
+	t_vec3 scaled_x = scale(positive_x, px);
+	t_vec3 scaled_y = scale(negative_y, py);
+	ray->direction = add(add(scaled_x, scaled_y), gui->camera->orientation);
 	normalize(&ray->direction);
 }
 
