@@ -19,7 +19,7 @@
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 
-void	set_ray_without_rotation(t_ray *ray,
+void	set_ray(t_ray *ray,
 	double x, double y, const t_gui *gui)
 {
 	const double scale = tan(gui->camera->fov * 0.5);
@@ -34,83 +34,40 @@ void	set_ray_without_rotation(t_ray *ray,
 	normalize(&ray->direction);
 }
 
-
-void	set_ray(t_ray *ray,
-	double x, double y, const t_gui *gui)
-{
-	const double	aspect_ratio = gui->x_size / gui->y_size;
-	const double	half_height = tan(gui->camera->fov * 0.5);
-	const double	half_width = aspect_ratio * half_height;
-	ray->origin = gui->camera->origin;
-	const t_vec3	w = unit(subtract(gui->camera->origin, gui->camera->orientation));
-	const t_vec3	vup = vec(0.0, -1.0 , 0.0); // i do not really know
-	const t_vec3	u = unit(cross(vup, w));
-	const t_vec3	v = cross(w, u);
-	
-	// t_vec3			lower_left_corner = vec(-half_width, -half_height, -1.0);
-
-	t_vec3			u_scaled = scale(u, half_width);
-	t_vec3			v_scaled = scale(v, half_height);
-	t_vec3			lower_left_corner = gui->camera->origin;
-					lower_left_corner = subtract(lower_left_corner, u_scaled);
-					lower_left_corner = subtract(lower_left_corner, v_scaled);
-					lower_left_corner = subtract(lower_left_corner, w);
-					
-	t_vec3			horizontal = scale(u, 2 * half_width);
-	t_vec3			vertical =   scale(v, 2 * half_height);
-	
-	// ray->direction = lower_left_corner + ((x + 0.5) / gui->x_size) * horizontal + ((y + 0.5) / gui->y_size) * vertical - origin;
-	t_vec3			horizontal_scaled = scale(horizontal, 1.0 - (x + 0.5) / gui->x_size); // 1.0 - part is correction
-	t_vec3			vertical_scaled = scale(vertical, (y + 0.5) / gui->y_size);
-
-	// ray->direction = lower_left_corner + horizontal_scaled + vertical_scaled - origin;
-	ray->direction = lower_left_corner;
-	ray->direction = add(ray->direction, horizontal_scaled);
-	ray->direction = add(ray->direction, vertical_scaled);
-	ray->direction = subtract(ray->direction, gui->camera->origin);
-
-	normalize(&ray->direction);
-}
-
-/*
-** @return if shape intersects
-** @param *dist distance to shape if there is an intersection
-*/
-
 void	*find_closest_shape(t_ray ray, const t_gui *gui)
 {
-	size_t		i;
-	t_object	*shape;
-	t_object	*closest_shape;
-	double		closest;
-	double		dist;
+	size_t	i;
+	t_obj	*obj;
+	t_obj	*closest_obj;
+	double	closest;
+	double	dist;
 
 	i = 0;
-	closest = 999999999999.0;
-	closest_shape = NULL;
+	closest = DOUBLE_MAX;
+	closest_obj = NULL;
 	while (ft_arr_voidp_get(gui->shapes, i) != NULL)
 	{
-		shape = ft_arr_voidp_get(gui->shapes, i);
-		if (g_distance[shape->shape](&dist, shape->pos, ray))
+		obj = ft_arr_voidp_get(gui->shapes, i);
+		if (g_distance[obj->shape](&dist, obj->pos, ray))
 			if (dist < closest)
 			{
 				closest = dist;
-				closest_shape = shape;
+				closest_obj = obj;
 			}
 		i++;
 	}
-	return (closest_shape);
+	return (closest_obj);
 }
-
 
 void	compute_pixel(t_rgb *color,
 			t_ray ray, const t_gui *gui)
 {
-	const void *closest_shape = find_closest_shape(ray, gui);
+	const t_obj *closest_shape = find_closest_shape(ray, gui);
 
 	if (closest_shape == NULL)
-		return (ft_bzero(color, sizeof(t_rgb)));
-	ft_memcpy(color, &((t_sphere *)closest_shape)->color, sizeof(t_rgb));
+		ft_bzero(color, sizeof(t_rgb));
+	else
+		*color = closest_shape->color;
 }
 
 void	render(t_gui *gui)

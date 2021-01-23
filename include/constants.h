@@ -109,12 +109,6 @@ typedef struct		s_gui
 	t_canvas		canvas;
 }					t_gui;
 
-typedef struct	s_object
-{
-	t_shape			shape;
-	t_rgb			color;
-	void			*pos;
-}				t_object;
 
 typedef struct		s_cylinder
 {
@@ -150,6 +144,22 @@ typedef struct		s_triangle
 	t_vec3			p2;
 	t_vec3			p3;
 }					t_triangle;
+
+typedef union	s_pos
+{
+	t_cylinder	cy;
+	t_square	sq;
+	t_plane		pl;
+	t_sphere	sp;
+	t_triangle	tr;
+}				t_pos;
+
+typedef struct	s_obj
+{
+	t_shape			shape;
+	t_rgb			color;
+	t_pos			pos;
+}				t_obj;
 
 # define ALLOW_NON_NORMALIZED_DIRECTION 1
 # define VERBOSE 0
