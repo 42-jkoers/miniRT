@@ -36,8 +36,8 @@ void	set_ray(t_ray *ray,
 	t_vec3 negative_y = cross(gui->camera->orientation, positive_x);
 	t_vec3 scaled_x = scale(positive_x, px);
 	t_vec3 scaled_y = scale(negative_y, py);
-	ray->direction = add(add(scaled_x, scaled_y), gui->camera->orientation);
-	normalize(&ray->direction);
+	ray->dir = add(add(scaled_x, scaled_y), gui->camera->orientation);
+	normalize(&ray->dir);
 }
 
 void	*find_closest_shape(t_ray ray, const t_gui *gui)

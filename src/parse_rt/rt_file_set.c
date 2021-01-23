@@ -38,7 +38,7 @@ void	set_orientation(t_vec3 *orientation, char *str)
 	orientation->y = strtodbl_clamp(str, ',', -1.0, 1.0);
 	str = ft_strchr(str, ',') + 1;
 	orientation->z = strtodbl_clamp(str, '\0', -1.0, 1.0);
-	if (!ALLOW_NON_NORMALIZED_DIRECTION)
+	if (!ALLOW_NON_NORMALIZED_DIR)
 	{
 		len = length(*orientation);
 		if (len < 0.99999 || len > 1.00001)

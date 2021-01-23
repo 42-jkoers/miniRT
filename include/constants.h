@@ -59,7 +59,7 @@ typedef struct		s_vec3
 typedef struct		s_ray
 {
 	t_vec3			origin;
-	t_vec3			direction;
+	t_vec3			dir;
 }					t_ray;
 
 typedef struct		s_canvas
@@ -161,7 +161,7 @@ typedef struct	s_obj
 	t_pos			pos;
 }				t_obj;
 
-# define ALLOW_NON_NORMALIZED_DIRECTION 1
+# define ALLOW_NON_NORMALIZED_DIR 1
 # define VERBOSE 0
 # define TRACE 1
 # define UNITS_PER_PIXEL 1.0

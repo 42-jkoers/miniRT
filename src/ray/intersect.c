@@ -25,7 +25,7 @@ static bool	distance_triangle(double *distance, t_pos pos, t_ray ray)
 	double a, f, u, v;
 	edge1 = subtract(pos.tr.p2, pos.tr.p1);
 	edge2 = subtract(pos.tr.p3, pos.tr.p1);
-	h = cross(ray.direction, edge2);
+	h = cross(ray.dir, edge2);
 	a = dot(edge1, h);
 	if (a > -EPSILON && a < EPSILON)
 		return (false); // Ray is parallel to this triangle.
@@ -35,7 +35,7 @@ static bool	distance_triangle(double *distance, t_pos pos, t_ray ray)
 	if (u < 0.0 || u > 1.0)
 		return (false);
 	q = cross(s, edge1);
-	v = f * dot(ray.direction, q);
+	v = f * dot(ray.dir, q);
 
 	if (v < 0.0 || u + v > 1.0)
 		return (false);
@@ -43,7 +43,7 @@ static bool	distance_triangle(double *distance, t_pos pos, t_ray ray)
 	if (t < EPSILON) // There is a line intersection but not a ray intersection
 		return (false);
 	// outIntersectionPoint = rayOrigin + rayVector * t;
-	*distance = length(scale(ray.direction, t));
+	*distance = length(scale(ray.dir, t));
 	return (true);
 }
 
@@ -53,7 +53,7 @@ static bool distance_plane(double *distance, t_pos pos, t_ray ray)
 	double	t;
     t_vec3	p0l0;
 
-	denom = dot(pos.pl.normal, ray.direction); 
+	denom = dot(pos.pl.normal, ray.dir); 
 	if (denom < 1e-6) // how small?
 		return (false);
 	p0l0 = subtract(pos.pl.origin, ray.origin); 
@@ -67,12 +67,12 @@ static bool distance_plane(double *distance, t_pos pos, t_ray ray)
 static bool	distance_sphere(double *distance, t_pos pos, t_ray ray)
 {
 	t_vec3	l;		// distance sphere ray
-	double	tca;	// distance sphere ray on ray direction
+	double	tca;	// distance sphere ray on ray dir
 	double	d2;		// distance from center sp to ray squared
 	double	thc;
 
 	l = subtract(pos.sp.origin, ray.origin);
-	tca = dot(l, ray.direction);
+	tca = dot(l, ray.dir);
 	if (tca < 0)
 		return (false);	// sphere is behind ray origin 
 	d2 = dot(l, l) - tca * tca; 
