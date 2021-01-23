@@ -161,7 +161,7 @@ typedef struct	s_obj
 	t_pos			pos;
 }				t_obj;
 
-# define ALLOW_NON_NORMALIZED_DIR 1
+# define ALLOW_ABNORMAL_DIR 1
 # define VERBOSE 0
 # define TRACE 1
 # define UNITS_PER_PIXEL 1.0
