@@ -81,9 +81,6 @@ sync:
 	cp -rf ~/GitHub/libft/ $(LIBDIR)
 	rm -rf $(LIBDIR)/libft/.git/
 	make -C $(LIBDIR)/libft/
-	cp -rf ~/GitHub/ft_printf/ $(LIBDIR)
-	rm -rf $(LIBDIR)/ft_printf/.git/
-	make -C $(LIBDIR)/ft_printf/
 
 dev:
 	make > /dev/null && valgrind -q ./miniRT
