@@ -25,7 +25,6 @@ LIBDIR			= lib
 LINKS			= -L$(LIBDIR)/minilibx-linux -lmlx -lXext -lX11 -lm
 SOURCELINKS		= -lm
 LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
-				  $(LIBDIR)/ft_printf/libftprintf.a \
 				  $(LIBDIR)/libft/bin/libft.a
 HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
 SRC     		= $(shell find $(SRCDIR) -name "*.$(SRCEXT)" -exec basename {} \;)
@@ -52,15 +51,11 @@ $(BUILDDIR)/%.$(OBJEXT): %.$(SRCEXT) $(HEADERS)
 $(LIBDIR)/minilibx-linux/libmlx.a:
 	make -C $(LIBDIR)/minilibx-linux/
 
-$(LIBDIR)/ft_printf/libftprintf.a:
-	make -C $(LIBDIR)/ft_printf/
-
 $(LIBDIR)/libft/bin/libft.a:
 	make -C $(LIBDIR)/libft/
 
 clean:
 	make -C $(LIBDIR)/minilibx-linux/ clean
-	make -C $(LIBDIR)/ft_printf/ clean
 	make -C $(LIBDIR)/libft/ clean
 ifneq "$(BUILDDIR)" "."
 	/bin/rm -rf $(BUILDDIR)/
@@ -69,7 +64,6 @@ endif
 fclean:
 	$(MAKE) clean
 # make -C $(LIBDIR)/minilibx-linux/ fclean
-	make -C $(LIBDIR)/ft_printf/ fclean
 	make -C $(LIBDIR)/libft/ fclean
 	/bin/rm -f $(NAME)
 
