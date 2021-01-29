@@ -25,7 +25,6 @@ int		main(void)
 {
 	t_gui *gui;
 
-	setvbuf(stdout, NULL, _IONBF, 0);
 	gui = gui_init("rt/standard.rt", false);
 
 	clock_t tic = clock(); 

@@ -40,40 +40,77 @@ void	set_ray(t_ray *ray,
 	normalize(&ray->dir);
 }
 
-void	*find_closest_shape(t_ray ray, const t_gui *gui)
+static t_rgb	set_brightness(t_rgb color, double brightness)
+{
+	// amount = 1 - amount;
+	// printf("%lf\n", amount);
+	color.r = (double)color.r * /* 0.2126 * */ brightness;
+	color.g = (double)color.g * /* 0.7152 * */ brightness;
+	color.b = (double)color.b * /* 0.0722 * */ brightness;
+	return (color);
+}
+
+static double	max_dbl(double a, double b)
+{
+	return (a > b ? a : b);
+}
+
+static double	min_dbl(double a, double b)
+{
+	return (a < b ? a : b);
+}
+
+// static double	abs_dbl(double d)
+// {
+// 	return (d < 0.0 ? 0.0 : d);
+// }
+
+t_rgb	compute_color(t_hit hit, t_obj obj, const t_gui *gui)
+{
+	size_t	i;
+	t_light	*light;
+	t_vec3	to_light;
+	double	dim_n;
+	
+	if (!hit.hit)
+		return ((struct s_rgb){0, 0, 0});
+	i = 0;
+	while (ft_arr_voidp_get(gui->lights, i) != NULL)
+	{
+		light = (t_light *)ft_arr_voidp_get(gui->lights, i);
+		// light is not obstructed by objects for now
+		to_light = unit(subtract(light->origin, hit.point));
+		dim_n = 1 * light->brightness * max_dbl(0.0, dot(hit.normal, to_light));
+		dim_n = min_dbl(dim_n, 1.0);
+		return (set_brightness(obj.color, dim_n));
+		i++;
+	}
+	return ((struct s_rgb){0, 0, 0});
+}
+
+t_rgb	get_color(t_ray ray, const t_gui *gui)
 {
 	size_t	i;
 	t_obj	*obj;
-	t_obj	*closest_obj;
-	double	closest;
-	double	dist;
+	t_obj	closest_obj;
+	t_hit	closest_hit;
+	t_hit	hit;
 
 	i = 0;
-	closest = DOUBLE_MAX;
-	closest_obj = NULL;
+	closest_hit.hit = false;
+	closest_hit.dist = DOUBLE_MAX;
 	while (ft_arr_voidp_get(gui->shapes, i) != NULL)
 	{
 		obj = ft_arr_voidp_get(gui->shapes, i);
-		if (g_distance[obj->shape](&dist, obj->pos, ray))
-			if (dist < closest)
-			{
-				closest = dist;
-				closest_obj = obj;
-			}
+		hit = g_hit_shape[obj->shape](obj->pos, ray);
+		if (hit.hit && hit.dist < closest_hit.dist)
+		{
+			closest_hit = hit;
+			closest_obj = *obj;
+		}
 		i++;
 	}
-	return (closest_obj);
-}
-
-void	compute_pixel(t_rgb *color,
-			t_ray ray, const t_gui *gui)
-{
-	const t_obj *closest_shape = find_closest_shape(ray, gui);
-
-	if (closest_shape == NULL)
-		ft_bzero(color, sizeof(t_rgb));
-	else
-		*color = closest_shape->color;
+	return (compute_color(closest_hit, closest_obj, gui));
 }
 
 void	render(t_gui *gui)
@@ -90,7 +127,7 @@ void	render(t_gui *gui)
 		while (x < gui->x_size)
 		{
 			set_ray(&ray, x, y, gui);
-			compute_pixel(&color, ray, gui);
+			color = get_color(ray, gui);
 			gui_set_pixel(gui, x, y, color);
 			x++;
 		}

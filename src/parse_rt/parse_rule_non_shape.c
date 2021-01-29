@@ -43,23 +43,21 @@ void	add_light(t_arr_voidp **lights, char *line)
 	char	**items;
 	t_light	*light;
 
-	light = malloc(sizeof(t_light));
-	if (light == NULL)
-		exit_e("malloc");
+	light = malloc_safe(sizeof(t_light));
 	items =  split_clamp(line, 4);
 	set_point(&light->origin, items[1]);
 	light->brightness = strtodbl_clamp(items[2], '\0', 0.0, 1.0);
-	set_orientation(&light->orientation, items[3]);
+	set_color(&light->color, items[3]);
+	ft_free_until_null_char(items);
 	if(ft_arr_voidp_push(lights, light) == NULL)
 		exit_e("malloc");
-	ft_free_until_null_char(items);
 }
 
 void	set_resolution(t_gui *gui, char *line)
 {
 	char	**items;
 
-	items =  split_clamp(line, 3);
+	items = split_clamp(line, 3);
 	gui->x_resolution = (unsigned long)strtonum_clamp(items[1], '\0', 1, LONG_MAX);
 	gui->y_resolution = (unsigned long)strtonum_clamp(items[2], '\0', 1, LONG_MAX);
 	gui->x_size = (double)gui->x_resolution;

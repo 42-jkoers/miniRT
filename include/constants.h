@@ -88,7 +88,6 @@ typedef struct		s_camera
 typedef struct		s_light
 {
 	t_vec3			origin;
-	t_vec3			orientation;
 	double			brightness;
 	t_rgb			color;
 }					t_light;
@@ -160,6 +159,14 @@ typedef struct	s_obj
 	t_rgb			color;
 	t_pos			pos;
 }				t_obj;
+
+typedef struct	s_hit
+{
+	bool	hit;
+	double	dist;
+	t_vec3	point;
+	t_vec3	normal;
+}				t_hit;
 
 # define ALLOW_ABNORMAL_DIR 1
 # define VERBOSE 0

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../lib/minilibx-linux/mlx.h"
-#include "../lib/ft_printf/ft_printf.h"
 #include "gui.h"
 #include "parse_rt.h"
 

@@ -15,7 +15,7 @@
 
 # include "constants.h"
 
-extern bool (*g_distance[SHAPE_LAST])();
+t_hit (*g_hit_shape[SHAPE_LAST])(t_pos, t_ray);
 
 void	render(t_gui *gui);
 
