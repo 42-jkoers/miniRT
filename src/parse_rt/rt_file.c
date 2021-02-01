@@ -81,7 +81,7 @@ void	foreach_arr(char **rt, t_gui *gui)
 	}
 }
 
-void	parse_rt(t_gui *gui, char *rt_filename)
+void	parse_rt(t_gui *gui, const char *rt_filename)
 {
 	size_t	rt_lines;
 	char	**rt;

@@ -16,7 +16,7 @@
 # include "../lib/libft/include/libft.h"
 # include "constants.h"
 
-t_gui	*gui_init(char *rt_filename, bool create_window);
+t_gui	*gui_init(const char *rt_filename, bool create_window);
 char	*gui_get_pixel_data(const t_gui *gui, unsigned long x, unsigned long y);
 void	gui_set_pixel(t_gui *gui, double x, double y, t_rgb color);
 t_rgb	gui_get_pixel(t_gui *gui, unsigned long x, unsigned long y);

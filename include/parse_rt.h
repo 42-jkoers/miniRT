@@ -18,7 +18,7 @@
 # include "../lib/libft/include/libft.h"
 
 
-void	parse_rt(t_gui *gui, char *rt_filename);
+void	parse_rt(t_gui *gui, const char *rt_filename);
 long	strtonum_clamp(char *str, char end, long min, long max);
 double	strtodbl_clamp(char *str, char end, double min, double max);
 char	**split_clamp(char *line, size_t should_be_n);

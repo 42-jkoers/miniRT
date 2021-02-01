@@ -14,6 +14,7 @@
 #include "constants.h"
 #include "parse_rt.h"
 #include "../lib/minilibx-linux/mlx.h"
+#include "ray.h"
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -29,10 +30,18 @@ static void	set_canvas(t_canvas *canvas, const t_gui *gui)
 		exit_e("Can't create canvas image 2");
 }
 
-static int	on_keypress(int keycode, void *mlx)
+void	display_scene(t_gui *gui)
+{
+	render(gui);
+	mlx_put_image_to_window(gui->mlx, gui->window, gui->canvas.mlx_img, 0, 0);
+}
+
+static int	on_keypress(int keycode, t_gui *gui)
 {
 	if (keycode == XK_Escape)
-		mlx_loop_end(mlx);
+		exit_success(gui);
+	else
+		display_scene(gui);
 	return (0);
 }
 
@@ -60,9 +69,11 @@ static void	open_window(t_gui *gui)
 		exit_e("malloc");
 	mlx_key_hook(gui->window, on_keypress, gui);
 	mlx_hook(gui->window, 33, 0L, mlx_loop_end, gui->mlx);
+	display_scene(gui);
+	mlx_loop(gui->mlx);
 }
 
-t_gui		*gui_init(char *rt_filename, bool create_window)
+t_gui		*gui_init(const char *rt_filename, bool create_window)
 {
 	t_gui	*gui;
 	

@@ -55,7 +55,7 @@ $(LIBDIR)/libft/bin/libft.a:
 	make -C $(LIBDIR)/libft/
 
 clean:
-	make -C $(LIBDIR)/minilibx-linux/ clean
+# make -C $(LIBDIR)/minilibx-linux/ clean
 	make -C $(LIBDIR)/libft/ clean
 ifneq "$(BUILDDIR)" "."
 	/bin/rm -rf $(BUILDDIR)/
@@ -81,8 +81,8 @@ dev:
 
 rt:
 	@$(MAKE) > /dev/null
-	@./miniRT
-	@while inotifywait -qq -e close_write rt/standard.rt; do make > /dev/null && ./miniRT; done
+	@./miniRT rt/standard.rt
+	@while inotifywait -qq -e close_write rt/standard.rt; do make > /dev/null && ./miniRT rt/standard.rt; done
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)

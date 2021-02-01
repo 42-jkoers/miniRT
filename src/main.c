@@ -21,21 +21,32 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int		main(void)
+void	time_render(t_gui *gui)
 {
-	t_gui *gui;
-
-	gui = gui_init("rt/standard.rt", false);
-
-	clock_t tic = clock(); 
+	clock_t tic = clock();
 	render(gui);
 	clock_t toc = clock();
 	printf("render in: %lf s\n", (double)(toc - tic) / CLOCKS_PER_SEC);
+}
 
-	if (save_bmp(gui) != 0)
-		exit_errno("Can't create bmp");
-	// log_vec3("cam", gui->camera->origin);
-	// mlx_loop(gui->mlx);
-	exit_success(gui);
+int		main(int argc, const char *argv[])
+{
+	t_gui	*gui;
+	
+	if (argc == 3 && ft_strcmp((char *)argv[2], "--save") == 0)
+	{
+		gui = gui_init(argv[1], false);
+		time_render(gui);
+		if (save_bmp(gui) != 0)
+			exit_errno("Can't create bmp");
+		exit_success(gui);
+	}
+	else if (argc == 2)
+	{
+		gui = gui_init(argv[1], true);
+		exit_success(gui);
+	}
+	else
+		printf("Invalid args\n");
 	return (0);
 }
