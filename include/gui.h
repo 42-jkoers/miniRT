@@ -17,9 +17,9 @@
 # include "constants.h"
 
 t_gui	*gui_init(const char *rt_filename, bool create_window);
-char	*gui_get_pixel_data(const t_gui *gui, unsigned long x, unsigned long y);
-void	gui_set_pixel(t_gui *gui, double x, double y, t_rgb color);
-t_rgb	gui_get_pixel(t_gui *gui, unsigned long x, unsigned long y);
+char	*gui_get_pixel_data(const t_gui *gui, unsigned x, unsigned y);
+void	gui_set_pixel(t_gui *gui, unsigned x, unsigned y, t_rgb color);
+t_rgb	gui_get_pixel(t_gui *gui, unsigned x, unsigned y);
 void	gui_write_canvas(t_gui *gui);
 void	gui_display_scene(t_gui *gui);
 void	exit_success(t_gui *gui);

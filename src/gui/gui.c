@@ -19,38 +19,33 @@
 #include "../lib/libft/include/libft.h"
 #include <stdlib.h>
 
-char	*gui_get_pixel_data(const t_gui *gui, unsigned long x, unsigned long y)
+char	*gui_get_pixel_data(const t_gui *gui, unsigned x, unsigned y)
 {
-    return (gui->canvas.data + 
-		(int)y * gui->canvas.line_length + (int)x * (gui->canvas.bpp / 8));
+    return (gui->canvas.data +
+		y * gui->canvas.line_length + x * (gui->canvas.bpp / 8));
 }
 
-void	gui_set_pixel(t_gui *gui, double x, double y, t_rgb color)
+void	gui_set_pixel(t_gui *gui, unsigned x, unsigned y, t_rgb color)
 {
 	char	*pixel_data;
 
 	pixel_data = gui_get_pixel_data(gui, x, y);
-	pixel_data[0] = (uint8_t)color.b; 
+	pixel_data[0] = (uint8_t)color.b;
 	pixel_data[1] = (uint8_t)color.g;
 	pixel_data[2] = (uint8_t)color.r;
 	// gui->canvas.data[pixel + 3] = 0; // alpha is ignored by rest of codebase
 }
 
-t_rgb	gui_get_pixel(t_gui *gui, unsigned long x, unsigned long y)
+t_rgb	gui_get_pixel(t_gui *gui, unsigned x, unsigned y)
 {
-	t_rgb color;
+	t_rgb	color;
 	char	*pixel_data;
 
 	pixel_data = gui_get_pixel_data(gui, x, y);
-	color.b = (unsigned char)pixel_data[0]; 
+	color.b = (unsigned char)pixel_data[0];
 	color.g = (unsigned char)pixel_data[1];
 	color.r = (unsigned char)pixel_data[2];
 	return (color);
-}
-
-void	gui_write_canvas(t_gui *gui)
-{
-	mlx_put_image_to_window(gui->mlx, gui->window, gui->canvas.mlx_img, 0, 0);
 }
 
 void	exit_success(t_gui *gui)
