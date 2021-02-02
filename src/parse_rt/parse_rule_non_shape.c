@@ -28,14 +28,14 @@ void	add_camera(t_gui *gui, char *line)
 	cam = calloc_safe(sizeof(t_camera));
 	items = split_clamp(line, 4);
 	set_point(&cam->origin, items[1]);
-	set_orientation(&cam->orientation, items[2]);
+	set_dir(&cam->dir, items[2]);
 	cam->fov = strtodbl_clamp(items[3], '\0', 0.0, 180.0);
 	cam->fov = radians(cam->fov);
 	ft_free_until_null_char(items);
 	if (ft_arr_voidp_push(&gui->cameras, cam) == NULL)
 		exit_e("malloc");
-	if (gui->camera == NULL)
-		gui->camera = cam;
+	if (gui->cameras->length == 1)
+		ft_memcpy(&gui->camera, cam, sizeof(t_camera));
 }
 
 void	add_light(t_arr_voidp **lights, char *line)

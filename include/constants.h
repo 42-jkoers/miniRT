@@ -80,9 +80,8 @@ typedef struct		s_ambient
 typedef struct		s_camera
 {
 	t_vec3			origin;
-	t_vec3			orientation;
+	t_vec3			dir;
 	double			fov;
-	double			distance_canvas;
 }					t_camera;
 
 typedef struct		s_light
@@ -100,7 +99,8 @@ typedef struct		s_gui
 	t_ambient		ambient;
 	unsigned		x_size;
 	unsigned		y_size;
-	t_camera		*camera;
+	t_camera		camera;
+
 	void			*mlx;
 	void			*window;
 	t_canvas		canvas;
@@ -110,7 +110,7 @@ typedef struct		s_gui
 typedef struct		s_cylinder
 {
 	t_vec3			origin;
-	t_vec3			orientation;
+	t_vec3			dir;
 	double			radius;
 	double			height;
 }					t_cylinder;
@@ -118,7 +118,7 @@ typedef struct		s_cylinder
 typedef struct		s_square
 {
 	t_vec3			origin;
-	t_vec3			orientation;
+	t_vec3			dir;
 	double			size;
 }					t_square;
 

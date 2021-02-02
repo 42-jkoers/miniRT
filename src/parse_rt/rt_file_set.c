@@ -27,24 +27,24 @@ void	set_point(t_vec3 *origin, char *str)
 	origin->z = strtodbl_clamp(str, '\0', DOUBLE_MIN, DOUBLE_MAX);
 }
 
-void	set_orientation(t_vec3 *orientation, char *str)
+void	set_dir(t_vec3 *dir, char *str)
 {
 	double len;
 
 	if (ft_strcount(str, ',') != 2)
-		exit_e("Wrong number of args in orientation");
-	orientation->x = strtodbl_clamp(str, ',', -1.0, 1.0);
+		exit_e("Wrong number of args in direction vector");
+	dir->x = strtodbl_clamp(str, ',', -1.0, 1.0);
 	str = ft_strchr(str, ',') + 1;
-	orientation->y = strtodbl_clamp(str, ',', -1.0, 1.0);
+	dir->y = strtodbl_clamp(str, ',', -1.0, 1.0);
 	str = ft_strchr(str, ',') + 1;
-	orientation->z = strtodbl_clamp(str, '\0', -1.0, 1.0);
+	dir->z = strtodbl_clamp(str, '\0', -1.0, 1.0);
 	if (!ALLOW_ABNORMAL_DIR)
 	{
-		len = length(*orientation);
+		len = length(*dir);
 		if (len < 0.99999 || len > 1.00001)
-			exit_e("Orientation vector is not normalized");
+			exit_e("Direction vector is not normalized");
 	}
-	normalize(orientation); // ???
+	normalize(dir);
 }
 
 void	set_color(t_rgb *color, char *str)

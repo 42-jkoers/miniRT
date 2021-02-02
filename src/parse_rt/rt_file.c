@@ -28,13 +28,13 @@ void	search_missing_rules(t_gui *gui)
 {
 	if (gui->x_size == 0 || gui->y_size == 0)
 		exit_e("Missing size rule");
-	if (gui->cameras == NULL || gui->camera == NULL)
+	if (gui->cameras == NULL)
 		exit_e("Missing camera rule");
 }
 
 void	parse_rt_line(char *line, t_gui *gui)
 {
-	if (line[0] == '\0'  || line[0] == '#')
+	if (line[0] == '\0'  || line[0] == '#') // illegal
 		;
 	else if (ft_strcmp(line, g_rule_id[RULE_RESOLUTION]) == ' ')
 		set_resolution(gui, line);
@@ -90,7 +90,6 @@ void	parse_rt(t_gui *gui, const char *rt_filename)
 	foreach_arr(rt, gui);
 	ft_free_until_null_char(rt);
 	search_missing_rules(gui);
-	gui->camera = (t_camera *)(gui->cameras->table[0]);
 	if (VERBOSE)
 		log_shapes(gui->shapes);
 }
