@@ -26,9 +26,7 @@
 
 void	search_missing_rules(t_gui *gui)
 {
-	if (gui->x_resolution == 0 || gui->y_resolution == 0)
-		exit_e("Missing resolution rule");
-	if (gui->x_size == 0.0 || gui->y_size == 0.0)
+	if (gui->x_size == 0 || gui->y_size == 0)
 		exit_e("Missing size rule");
 	if (gui->cameras == NULL || gui->camera == NULL)
 		exit_e("Missing camera rule");

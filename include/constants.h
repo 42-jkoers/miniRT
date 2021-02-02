@@ -98,10 +98,8 @@ typedef struct		s_gui
 	t_arr_voidp		*lights;
 	t_arr_voidp		*cameras;
 	t_ambient		ambient;
-	unsigned long	x_resolution;
-	unsigned long	y_resolution;
-	double			x_size;  
-	double			y_size;
+	unsigned		x_size;
+	unsigned		y_size;
 	t_camera		*camera;
 	void			*mlx;
 	void			*window;

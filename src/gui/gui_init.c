@@ -18,10 +18,23 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-static void	set_canvas(t_canvas *canvas, const t_gui *gui)
+static void	set_canvas(t_canvas *canvas, t_gui *gui, bool max_size)
 {
+	int		screen_x;
+	int		screen_y;
+
+	if (max_size)
+	{
+		mlx_get_screen_size(gui->mlx, &screen_x, &screen_y);
+		if (screen_x < (int)gui->x_size || screen_y < (int)gui->y_size)
+			verbose("Note: decreased resolution\n");
+		if (screen_x < (int)gui->x_size)
+			gui->x_size = screen_x;
+		if (screen_y < (int)gui->y_size)
+			gui->y_size = screen_y;
+	}
 	canvas->mlx_img = mlx_new_image(
-		gui->mlx, (int)gui->x_resolution, (int)gui->y_resolution);
+		gui->mlx, (int)gui->x_size, (int)gui->y_size);
 	if (canvas->mlx_img == NULL)
 		exit_e("Can't create canvas image 1");
 	canvas->data = mlx_get_data_addr(canvas->mlx_img, &canvas->bpp,
@@ -30,59 +43,41 @@ static void	set_canvas(t_canvas *canvas, const t_gui *gui)
 		exit_e("Can't create canvas image 2");
 }
 
-void	display_scene(t_gui *gui)
-{
-	render(gui);
-	mlx_put_image_to_window(gui->mlx, gui->window, gui->canvas.mlx_img, 0, 0);
-}
-
 static int	on_keypress(int keycode, t_gui *gui)
 {
 	if (keycode == XK_Escape)
 		exit_success(gui);
-	else
-		display_scene(gui);
+	return (0);
+}
+
+static int	on_cross(t_gui *gui)
+{
+	exit_success(gui);
 	return (0);
 }
 
 static void	open_window(t_gui *gui)
 {
-	int		screen_x;
-	int		screen_y;
-
-	mlx_get_screen_size(gui->mlx, &screen_x, &screen_y);
-	if (screen_x < (int)gui->x_resolution)
-	{
-		gui->x_resolution = screen_x;
-		gui->x_size = (double)screen_x;
-		verbose("Note: decreased x resolution\n");
-	}
-	if (screen_y < (int)gui->y_resolution)
-	{
-		gui->y_resolution = screen_y;
-		gui->y_size = (double)screen_y;
-		verbose("Note: decreased y resolution\n");
-	}
 	gui->window = mlx_new_window(
-		gui->mlx, (int)gui->x_resolution, (int)gui->y_resolution, "miniRT");
+		gui->mlx, (int)gui->x_size, (int)gui->y_size, "miniRT");
 	if (gui->window == NULL)
 		exit_e("malloc");
 	mlx_key_hook(gui->window, on_keypress, gui);
-	mlx_hook(gui->window, 33, 0L, mlx_loop_end, gui->mlx);
-	display_scene(gui);
+	mlx_hook(gui->window, 33, 0L, on_cross, gui);
+	gui_display_scene(gui);
 	mlx_loop(gui->mlx);
 }
 
 t_gui		*gui_init(const char *rt_filename, bool create_window)
 {
 	t_gui	*gui;
-	
+
 	gui = calloc_safe(sizeof(t_gui));
 	gui->mlx = mlx_init();
 	if (gui->mlx == NULL)
 		exit_e("malloc");
 	parse_rt(gui, rt_filename);
-	set_canvas(&gui->canvas, gui);
+	set_canvas(&gui->canvas, gui, create_window);
 	if (create_window)
 		open_window(gui);
 	return (gui);

@@ -23,9 +23,9 @@ void	set_ray(t_ray *ray,
 	double x, double y, const t_gui *gui)
 {
 	const double fov_scale = tan(gui->camera->fov * 0.5);
-	const double aspect_ratio = gui->x_size / gui->y_size;
-	const double px = (2 * (x + 0.5) / gui->x_size - 1) * aspect_ratio * fov_scale;
-	const double py = (2 * (y + 0.5) / gui->y_size - 1) * fov_scale;
+	const double aspect_ratio = (double)gui->x_size / (double)gui->y_size;
+	const double px = (2 * (x + 0.5) / (double)gui->x_size - 1) * aspect_ratio * fov_scale;
+	const double py = (2 * (y + 0.5) / (double)gui->y_size - 1) * fov_scale;
 
 	ray->origin = gui->camera->origin;
 	t_vec3 positive_x;
@@ -115,10 +115,10 @@ t_rgb	get_color(t_ray ray, const t_gui *gui)
 
 void	render(t_gui *gui)
 {
-	double	x;
-	double	y;
-	t_rgb	color;
-	static	t_ray ray;
+	unsigned	x;
+	unsigned	y;
+	t_rgb		color;
+	t_ray		ray;
 
 	y = 0;
 	while (y < gui->y_size)

@@ -21,6 +21,7 @@ char	*gui_get_pixel_data(const t_gui *gui, unsigned long x, unsigned long y);
 void	gui_set_pixel(t_gui *gui, double x, double y, t_rgb color);
 t_rgb	gui_get_pixel(t_gui *gui, unsigned long x, unsigned long y);
 void	gui_write_canvas(t_gui *gui);
+void	gui_display_scene(t_gui *gui);
 void	exit_success(t_gui *gui);
 int		save_bmp(const t_gui *gui);
 

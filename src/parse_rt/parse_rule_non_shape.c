@@ -58,10 +58,8 @@ void	set_resolution(t_gui *gui, char *line)
 	char	**items;
 
 	items = split_clamp(line, 3);
-	gui->x_resolution = (unsigned long)strtonum_clamp(items[1], '\0', 1, LONG_MAX);
-	gui->y_resolution = (unsigned long)strtonum_clamp(items[2], '\0', 1, LONG_MAX);
-	gui->x_size = (double)gui->x_resolution;
-	gui->y_size = (double)gui->y_resolution;
+	gui->x_size = (unsigned)strtonum_clamp(items[1], '\0', 1, LONG_MAX);
+	gui->y_size = (unsigned)strtonum_clamp(items[2], '\0', 1, LONG_MAX);
 	ft_free_until_null_char(items);
 }
 

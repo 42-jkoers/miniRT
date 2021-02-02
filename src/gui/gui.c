@@ -14,6 +14,7 @@
 
 #include "constants.h"
 #include "parse_rt.h"
+#include "ray.h"
 #include "../lib/minilibx-linux/mlx.h"
 #include "../lib/libft/include/libft.h"
 #include <stdlib.h>
@@ -70,4 +71,14 @@ void	exit_success(t_gui *gui)
 	}
 	free(gui);
 	exit(0);
+}
+
+void	gui_display_scene(t_gui *gui)
+{
+	clock_t tic = clock(); // illegal
+	render(gui);
+	clock_t toc = clock();
+	printf("render in: %lf s\n", (double)(toc - tic) / CLOCKS_PER_SEC);
+
+	mlx_put_image_to_window(gui->mlx, gui->window, gui->canvas.mlx_img, 0, 0);
 }

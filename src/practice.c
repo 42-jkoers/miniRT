@@ -19,8 +19,8 @@
 
 void	fill_random(t_gui *gui)
 {
-	double	x;
-	double	y;
+	unsigned	x;
+	unsigned	y;
 	t_rgb			color;
 
 	color.b = 64;

@@ -68,19 +68,19 @@ static void			write_image(uint8_t *buf, const t_gui *gui)
 	unsigned long	y;
 
 	buf_i = g_header_size;
-	y = gui->y_resolution;
+	y = gui->y_size;
 	while (y > 0)
 	{
 		y--;
 		x = 0;
-		while (x < gui->x_resolution)
+		while (x < gui->x_size)
 		{
 			ft_memcpy(buf + buf_i, gui_get_pixel_data(gui, x, y), 3);
 			buf_i += 3;
 			x++;
 		}
-		if ((gui->x_resolution * 3) % 4 != 0)
-			buf_i += 4 - (gui->x_resolution * 3) % 4;
+		if ((gui->x_size * 3) % 4 != 0)
+			buf_i += 4 - (gui->x_size * 3) % 4;
 	}
 }
 
@@ -93,11 +93,11 @@ int				save_bmp(const t_gui *gui)
 	fd = open("scene.bmp", O_WRONLY | O_CREAT, 0777);
 	if (fd < 0)
 		return (-1);
-	file_size = bmp_size(gui->x_resolution, gui->y_resolution);
+	file_size = bmp_size(gui->x_size, gui->y_size);
 	buf = ft_calloc(1, file_size);
 	if (buf == NULL)
 		exit_e("malloc");
-	header(buf, gui->x_resolution, gui->y_resolution, file_size);
+	header(buf, gui->x_size, gui->y_size, file_size);
 	write_image(buf, gui);
 	if (write(fd, buf, file_size) != (ssize_t)file_size)
 	{
