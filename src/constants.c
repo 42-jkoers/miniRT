@@ -55,19 +55,26 @@ void	exit_e(char *msg)
 
 void	exit_range(long num, long min, long max)
 {
-	printf("Number %li out of range [%li %li]\n", num, min, max); // illegal
+	printf("Number %li out of range [%li %li]\n", num, min, max);
 	exit(1);
 }
 
 void	exit_ranged(double num, double min, double max)
 {
-	printf("Double %lf out of range [%lf %lf]\n", num, min, max); // illegal
+	printf("Double %lf out of range [%lf %lf]\n", num, min, max);
 	exit(1);
 }
 
 void	exit_char(char got, char expected)
 {
-	printf("Expected <%c>, got <%c>\n", got, expected); // illegal
+	if (ft_isprint(expected))
+		printf("Expected <%c>, ", expected);
+	else
+		printf("Expected <%x>, ", expected);
+	if (ft_isprint(got))
+		printf("got <%c>\n", got);
+	else
+		printf("got <%x>\n", got);
 	exit(1);
 }
 
