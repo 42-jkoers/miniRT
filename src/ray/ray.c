@@ -19,106 +19,84 @@
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 
-void	set_ray(t_ray *ray,
-	double x, double y, const t_gui *gui)
+// get closest object pointer from *shapes
+t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 {
-	const double fov_scale = tan(gui->camera.fov * 0.5);
-	const double aspect_ratio = (double)gui->x_size / (double)gui->y_size;
-	const double px = (2 * (x + 0.5) / (double)gui->x_size - 1) * aspect_ratio * fov_scale;
-	const double py = (2 * (y + 0.5) / (double)gui->y_size - 1) * fov_scale;
-
-	ray->origin = gui->camera.origin;
-	t_vec3 positive_x;
-	if (gui->camera.dir.x == 0.0 && gui->camera.dir.z == 0.0)
-		positive_x = vec(1.0, 0.0, 0.0);
-	else
-		positive_x = cross(gui->camera.dir, vec(0.0, 1.0, 0.0));
-	t_vec3 negative_y = cross(gui->camera.dir, positive_x);
-	t_vec3 scaled_x = scale(positive_x, px);
-	t_vec3 scaled_y = scale(negative_y, py);
-	ray->dir = add(add(scaled_x, scaled_y), gui->camera.dir);
-	normalize(&ray->dir);
-}
-
-static t_rgb	set_brightness(t_rgb color, double brightness)
-{
-	// amount = 1 - amount;
-	// printf("%lf\n", amount);
-	color.r = (double)color.r * /* 0.2126 * */ brightness;
-	color.g = (double)color.g * /* 0.7152 * */ brightness;
-	color.b = (double)color.b * /* 0.0722 * */ brightness;
-	return (color);
-}
-
-static double	max_dbl(double a, double b)
-{
-	return (a > b ? a : b);
-}
-
-static double	min_dbl(double a, double b)
-{
-	return (a < b ? a : b);
-}
-
-// static double	abs_dbl(double d)
-// {
-// 	return (d < 0.0 ? 0.0 : d);
-// }
-
-t_rgb	compute_color(t_hit hit, t_obj obj, const t_gui *gui)
-{
-	size_t	i;
-	t_light	*light;
-	t_vec3	to_light;
-	double	dim_n;
-
-	if (!hit.hit)
-		return ((struct s_rgb){0, 0, 0});
-	i = 0;
-	while (ft_arr_voidp_get(gui->lights, i) != NULL)
-	{
-		light = (t_light *)ft_arr_voidp_get(gui->lights, i);
-		// light is not obstructed by objects for now
-		to_light = unit(subtract(light->origin, hit.point));
-		dim_n = 1 * light->brightness * max_dbl(0.0, dot(hit.normal, to_light));
-		dim_n = min_dbl(dim_n, 1.0);
-		return (set_brightness(obj.color, dim_n));
-		i++;
-	}
-	return ((struct s_rgb){0, 0, 0});
-}
-
-t_rgb	get_color(t_ray ray, const t_gui *gui)
-{
-	size_t	i;
-	t_obj	*obj;
-	t_obj	closest_obj;
-	t_hit	closest_hit;
-	t_hit	hit;
+	size_t		i;
+	t_obj		*obj;
+	t_hit		hit;
+	t_bounce	bounce;
+	double		closest_dist;
 
 	i = 0;
-	closest_hit.hit = false;
-	closest_hit.dist = DOUBLE_MAX;
-	while (ft_arr_voidp_get(gui->shapes, i) != NULL)
+	bounce.obj = NULL;
+	closest_dist = DOUBLE_MAX;
+	while (ft_arr_voidp_get((t_arr_voidp *)shapes, i) != NULL)
 	{
-		obj = ft_arr_voidp_get(gui->shapes, i);
+		obj = ft_arr_voidp_get((t_arr_voidp *)shapes, i);
 		hit = g_hit_shape[obj->shape](obj->pos, ray);
-		if (hit.hit && hit.dist < closest_hit.dist)
+		if (hit.hit && hit.dist < closest_dist)
 		{
-			closest_hit = hit;
-			closest_obj = *obj;
+			closest_dist = hit.dist;
+			bounce.obj = obj;
+			bounce.color = obj->color;
+			bounce.point = hit.point;
+			bounce.normal = hit.normal;
 		}
 		i++;
 	}
-	return (compute_color(closest_hit, closest_obj, gui));
+	return (bounce);
 }
 
-void	render(t_gui *gui)
+// assuming to_find has bounced
+bool		is_obstructed(
+	t_bounce to_find,
+	const t_light *light,
+	const t_arr_voidp *shapes)
+{
+	t_ray		ray;
+	t_bounce	found;
+
+	ray.origin = light->origin;
+	ray.dir = unit(subtract(light->origin, to_find.point));
+	found = get_bounce(shapes, ray);
+	if (found.obj == NULL)
+		return (false);
+	return (to_find.obj == found.obj);
+}
+
+t_rgb		compute_color(t_bounce bounce, const t_gui *gui)
+{
+	size_t	i;
+	t_light	*light;
+	t_rgb	color;
+	double	intensity;
+
+	if (bounce.obj == NULL)
+		return (shadow(gui));
+	i = 0;
+	color = bounce.color;
+	while (ft_arr_voidp_get(gui->lights, i) != NULL)
+	{
+		light = ft_arr_voidp_get(gui->lights, i);
+		if (!is_obstructed(bounce, light, gui->shapes))
+		{
+			intensity = relative_intensity(bounce.point, bounce.normal, light);
+			apply_scalar(&color, light->color, intensity);
+		}
+		i++;
+	}
+	apply_scalar(&color, gui->ambient.color, gui->ambient.brightness);
+	return (color);
+}
+
+void		render(t_gui *gui)
 {
 	unsigned	x;
 	unsigned	y;
 	t_rgb		color;
-	t_ray		ray;
+	t_ray		camera_ray;
+	t_bounce	bounce;
 
 	y = 0;
 	while (y < gui->y_size)
@@ -126,8 +104,9 @@ void	render(t_gui *gui)
 		x = 0;
 		while (x < gui->x_size)
 		{
-			set_ray(&ray, x, y, gui);
-			color = get_color(ray, gui);
+			camera_ray = ray_from_pix(x, y, gui);
+			bounce = get_bounce(gui->shapes, camera_ray);
+			color = compute_color(bounce, gui);
 			gui_set_pixel(gui, x, y, color);
 			x++;
 		}
