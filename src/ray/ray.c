@@ -12,7 +12,7 @@
 
 #include "ray.h"
 #include "gui.h"
-
+#include "intersect.h"
 #include "constants.h"
 #include "vector.h"
 #include "../lib/minilibx-linux/mlx.h"
