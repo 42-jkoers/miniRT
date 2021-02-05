@@ -31,6 +31,8 @@ void	verbose(char *str);
 void	trace(char *str);
 void	*malloc_safe(size_t size);
 void	*calloc_safe(size_t size);
+double	max_dbl(double a, double b);
+double	min_dbl(double a, double b);
 
 typedef enum
 {
@@ -165,6 +167,14 @@ typedef struct	s_hit
 	t_vec3	point;
 	t_vec3	normal;
 }				t_hit;
+
+typedef struct	s_bounce
+{
+	t_obj	*obj;
+	t_rgb	color;
+	t_vec3	point;
+	t_vec3	normal;
+}				t_bounce;
 
 # define ALLOW_ABNORMAL_DIR 1
 # define VERBOSE 0

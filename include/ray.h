@@ -15,7 +15,12 @@
 
 # include "constants.h"
 
-t_hit (*g_hit_shape[SHAPE_LAST])(t_pos, t_ray);
+extern t_hit (*g_hit_shape[SHAPE_LAST])(t_pos, t_ray);
+
+t_ray	ray_from_pix(double x, double y, const t_gui *gui);
+double	relative_intensity(t_vec3 point, t_vec3 normal, const t_light *light);
+void	apply_scalar(t_rgb *color, t_rgb scalar, double intensity);
+t_rgb	shadow(const t_gui *gui);
 
 void	render(t_gui *gui);
 

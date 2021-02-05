@@ -42,7 +42,7 @@ double	angle(t_vec3 a, t_vec3 b)
 t_vec3	cross(t_vec3 a, t_vec3 b)
 {
 	t_vec3 v;
-	
+
 	v.x = a.y * b.z - a.z * b.y;
 	v.y = a.z * b.x - a.x * b.z;
 	v.z = a.x * b.y - a.y * b.x;
@@ -52,7 +52,7 @@ t_vec3	cross(t_vec3 a, t_vec3 b)
 t_vec3	multiply(t_vec3 a, t_vec3 b)
 {
 	t_vec3 v;
-	
+
 	v.x = a.x * b.x;
 	v.y = a.y * b.y;
 	v.z = a.z * b.z;
@@ -69,7 +69,7 @@ t_vec3	add(t_vec3 a, t_vec3 b)
 	return (v);
 }
 
-t_vec3	subtract(t_vec3 a, t_vec3 b) // a - b
+t_vec3	subtract(t_vec3 a, t_vec3 b) // a - b or to, from
 {
 	t_vec3	v;
 
@@ -92,7 +92,7 @@ t_vec3	scale(t_vec3 v, double r)
 void	normalize(t_vec3 *v)
 {
 	double len;
-	
+
 	len = length(*v);
 	if (len != 0.0)
 	{

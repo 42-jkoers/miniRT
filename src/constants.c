@@ -116,6 +116,16 @@ void	*calloc_safe(size_t size)
 	return (p);
 }
 
+double	max_dbl(double a, double b)
+{
+	return (a > b ? a : b);
+}
+
+double	min_dbl(double a, double b)
+{
+	return (a < b ? a : b);
+}
+
 // static t_msg (*shape_parser[SHAPE_LAST])(char *line, t_gui *gui) = {
 // 	[RULE_SPHERE] = add_sphere,
 // 	[RULE_PLANE] = add_plane,
