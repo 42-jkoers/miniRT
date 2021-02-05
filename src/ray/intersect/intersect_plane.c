@@ -17,7 +17,7 @@
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 
-t_hit hit_plane(t_pos pos, t_ray ray)
+t_hit	hit_plane(t_pos pos, t_ray ray)
 {
  	double	denom;
 	double	t;
