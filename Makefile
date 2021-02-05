@@ -81,8 +81,8 @@ dev:
 
 rt:
 	@$(MAKE) > /dev/null
-	@./miniRT rt/standard.rt
-	@while inotifywait -qq -e close_write rt/standard.rt; do make > /dev/null && ./miniRT rt/standard.rt; done
+	@./miniRT rt/standard.rt --save
+	@while inotifywait -qq -e close_write rt/standard.rt; do make > /dev/null && ./miniRT rt/standard.rt --save; done
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
