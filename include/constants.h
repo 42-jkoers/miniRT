@@ -182,6 +182,7 @@ typedef struct	s_bounce
 # define UNITS_PER_PIXEL 1.0
 # define DOUBLE_MAX 9999999999.0
 # define DOUBLE_MIN -9999999999.0
+# define EPSILON 1e-7
 
 typedef enum
 {

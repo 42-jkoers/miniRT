@@ -19,7 +19,6 @@
 
 t_hit	hit_triangle(t_pos pos, t_ray ray)
 {
-	static const double EPSILON = 1e-8;
 	t_vec3 edge1, edge2, h, s, q;
 	double a, f, u, v;
 	edge1 = subtract(pos.tr.p2, pos.tr.p1);
