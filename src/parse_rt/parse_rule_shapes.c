@@ -65,7 +65,7 @@ void	add_square(t_arr_voidp **shapes, char *line)
 	obj->shape = SHAPE_SQUARE;
 	items = split_clamp(line, 5);
 	set_point(&obj->pos.sq.origin, items[1]);
-	set_dir(&obj->pos.sq.dir, items[2]);
+	set_dir(&obj->pos.sq.normal, items[2]);
 	obj->pos.sq.size = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX);
 	set_color(&obj->color, items[4]);
 	ft_free_until_null_char(items);

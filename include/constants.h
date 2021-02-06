@@ -120,7 +120,7 @@ typedef struct		s_cylinder
 typedef struct		s_square
 {
 	t_vec3			origin;
-	t_vec3			dir;
+	t_vec3			normal;
 	double			size;
 }					t_square;
 

@@ -108,6 +108,11 @@ t_vec3	unit(t_vec3 v)
 	return (v);
 }
 
+t_vec3	point(t_vec3 origin, t_vec3 dir, double t)
+{
+	return (add(origin, scale(dir, t)));
+}
+
 #include <stdio.h>
 void	log_vec3(char *id, t_vec3 v)
 {
