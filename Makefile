@@ -84,6 +84,11 @@ rt:
 	@./miniRT rt/standard.rt --save
 	@while inotifywait -qq -e close_write rt/standard.rt; do make > /dev/null && ./miniRT rt/standard.rt --save; done
 
+rtall:
+	@$(MAKE) > /dev/null
+	@./miniRT rt/standard.rt --save
+	@while inotifywait -qq -e close_write rt/* do find rt/ -name "*.rt" -exec ./miniRT {} --save; mv scene.bmp {}.bmp \;; done
+
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
 

@@ -31,9 +31,9 @@ t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 	i = 0;
 	bounce.obj = NULL;
 	closest_dist = DOUBLE_MAX;
-	while (ft_arr_voidp_get((t_arr_voidp *)shapes, i) != NULL)
+	while (arr_get(shapes, i) != NULL)
 	{
-		obj = ft_arr_voidp_get((t_arr_voidp *)shapes, i);
+		obj = arr_get(shapes, i);
 		hit = g_hit_shape[obj->shape](obj->pos, ray);
 		if (hit.hit && hit.dist < closest_dist)
 		{
@@ -69,25 +69,25 @@ t_rgb		compute_color(t_bounce bounce, const t_gui *gui)
 {
 	size_t	i;
 	t_light	*light;
-	t_rgb	color;
+	t_rgb	scalar;
 	double	intensity;
 
 	if (bounce.obj == NULL)
 		return (shadow(gui));
 	i = 0;
-	color = bounce.color;
-	while (ft_arr_voidp_get(gui->lights, i) != NULL)
+	scalar =
+		add_color(rgb(0, 0, 0), gui->ambient.color, gui->ambient.brightness);
+	while (arr_get(gui->lights, i) != NULL)
 	{
-		light = ft_arr_voidp_get(gui->lights, i);
+		light = arr_get(gui->lights, i);
 		if (!is_obstructed(bounce, light, gui->shapes))
 		{
 			intensity = relative_intensity(bounce.point, bounce.normal, light);
-			apply_scalar(&color, light->color, intensity);
+			scalar = add_color(scalar, light->color, intensity);
 		}
 		i++;
 	}
-	apply_scalar(&color, gui->ambient.color, gui->ambient.brightness);
-	return (color);
+	return (multiply_color(bounce.color, scalar));
 }
 
 void		render(t_gui *gui)

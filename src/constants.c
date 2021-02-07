@@ -126,6 +126,11 @@ double	min_dbl(double a, double b)
 	return (a < b ? a : b);
 }
 
+void	*arr_get(const t_arr_voidp *arr, size_t i)
+{
+	return (ft_arr_voidp_get((t_arr_voidp *)arr, i));
+}
+
 // static t_msg (*shape_parser[SHAPE_LAST])(char *line, t_gui *gui) = {
 // 	[RULE_SPHERE] = add_sphere,
 // 	[RULE_PLANE] = add_plane,

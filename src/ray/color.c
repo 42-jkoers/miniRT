@@ -26,23 +26,42 @@ double	relative_intensity(t_vec3 point, t_vec3 normal, const t_light *light)
 	return (intensity);
 }
 
-void	apply_scalar(t_rgb *color, t_rgb scalar, double intensity)
+t_rgb	add_color(t_rgb color, t_rgb additive, double intensity)
 {
-	const double	inv_intensity = 1.0 - intensity;
-    const double	r = (scalar.r * intensity) + color->r * inv_intensity;
-    const double	g = (scalar.g * intensity) + color->g * inv_intensity;
-    const double	b = (scalar.b * intensity) + color->b * inv_intensity;
+    const double	r = color.r + ((double)additive.r * intensity);
+    const double	g = color.g + ((double)additive.g * intensity);
+    const double	b = color.b + ((double)additive.b * intensity);
+	t_rgb			new;
 
-	color->r = (unsigned char)round(r);
-	color->g = (unsigned char)round(g);
-	color->b = (unsigned char)round(b);
+	new.r = (unsigned char)round(fmin(r, 255.0));
+	new.g = (unsigned char)round(fmin(g, 255.0));
+	new.b = (unsigned char)round(fmin(b, 255.0));
+	return (new);
+}
+
+t_rgb	multiply_color(t_rgb color, t_rgb multication)
+{
+	const double	r = color.r * (double)(multication.r / 255.0);
+    const double	g = color.g * (double)(multication.g / 255.0);
+    const double	b = color.b * (double)(multication.b / 255.0);
+	t_rgb			new;
+
+	new.r = (unsigned char)round(r);
+	new.g = (unsigned char)round(g);
+	new.b = (unsigned char)round(b);
+	return (new);
+}
+
+t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b)
+{
+	return ((t_rgb){r, g, b});
 }
 
 t_rgb	shadow(const t_gui *gui)
 {
 	t_rgb	color;
 
-	color = (t_rgb){0, 0, 0};
-	apply_scalar(&color, gui->ambient.color, gui->ambient.brightness);
+	color = rgb(0, 0, 0);
+	color = add_color(color, gui->ambient.color, gui->ambient.brightness);
 	return (color);
 }

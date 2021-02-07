@@ -33,6 +33,7 @@ void	*malloc_safe(size_t size);
 void	*calloc_safe(size_t size);
 double	max_dbl(double a, double b);
 double	min_dbl(double a, double b);
+void	*arr_get(const t_arr_voidp *arr, size_t i);
 
 typedef enum
 {
