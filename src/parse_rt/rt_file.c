@@ -18,27 +18,32 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+bool	is_rule(char *line, t_rule rule)
+{
+	return (ft_strcmp(line, g_rule_id[rule]) == ' ');
+}
+
 void	parse_rt_line(char *line, t_gui *gui)
 {
 	if (line[0] == '\0'  || line[0] == '#') // illegal
 		;
-	else if (ft_strcmp(line, g_rule_id[RULE_RESOLUTION]) == ' ')
+	else if (is_rule(line, RULE_RESOLUTION))
 		set_resolution(gui, line);
-	else if (ft_strcmp(line, g_rule_id[RULE_SPHERE]) == ' ')
+	else if (is_rule(line, RULE_SPHERE))
 		add_sphere(&gui->shapes, line);
-	else if (ft_strcmp(line, g_rule_id[RULE_PLANE]) == ' ')
+	else if (is_rule(line, RULE_PLANE))
 		add_plane(&gui->shapes, line);
-	else if (ft_strcmp(line, g_rule_id[RULE_SQUARE]) == ' ')
+	else if (is_rule(line, RULE_SQUARE))
 		add_square(&gui->shapes, line);
-	else if (ft_strcmp(line, g_rule_id[RULE_CYLINDER]) == ' ')
+	else if (is_rule(line, RULE_CYLINDER))
 		add_cylinder(&gui->shapes, line);
-	else if (ft_strcmp(line, g_rule_id[RULE_TRIANGLE]) == ' ')
+	else if (is_rule(line, RULE_TRIANGLE))
 		add_triangle(&gui->shapes, line);
-	else if (ft_strcmp(line, g_rule_id[RULE_AMBIENT]) == ' ')
+	else if (is_rule(line, RULE_AMBIENT))
 		set_ambient(&gui->ambient, line);
-	else if (ft_strcmp(line, g_rule_id[RULE_CAMERA]) == ' ')
+	else if (is_rule(line, RULE_CAMERA))
 		add_camera(gui, line);
-	else if (ft_strcmp(line, g_rule_id[RULE_LIGHT]) == ' ')
+	else if (is_rule(line, RULE_LIGHT))
 		add_light(&gui->lights, line);
 	else
 		exit_e("Unknown rule");
