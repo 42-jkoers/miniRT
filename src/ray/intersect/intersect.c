@@ -21,4 +21,5 @@ t_hit (*g_hit_shape[SHAPE_LAST])(t_pos, t_ray) = {
 	[SHAPE_SPHERE] = hit_sphere,
 	[SHAPE_TRIANGLE] = hit_triangle,
 	[SHAPE_PLANE] = hit_plane,
+	[SHAPE_SQUARE] = hit_square,
 };
