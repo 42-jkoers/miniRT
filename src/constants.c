@@ -70,11 +70,11 @@ void	exit_char(char got, char expected)
 	if (ft_isprint(expected))
 		printf("Expected <%c>, ", expected);
 	else
-		printf("Expected <%x>, ", expected);
+		printf("Expected <x%x>, ", expected);
 	if (ft_isprint(got))
 		printf("got <%c>\n", got);
 	else
-		printf("got <%x>\n", got);
+		printf("got <x%x>\n", got);
 	exit(1);
 }
 
