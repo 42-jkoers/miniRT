@@ -21,7 +21,6 @@ void	gui_render_next_camera(t_gui *gui)
 	gui->camera_i++;
 	if (gui->camera_i >= gui->cameras->length)
 		gui->camera_i = 0;
-	printf("%li\n", gui->camera_i);
 	ft_memcpy(
 		&gui->camera, arr_get(gui->cameras, gui->camera_i), sizeof(t_camera));
 	gui_display_scene(gui);
