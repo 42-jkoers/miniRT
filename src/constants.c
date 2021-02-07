@@ -42,27 +42,28 @@ char *g_rule_name[RULE_LAST] = {
 	[RULE_LIGHT] = "Light source",
 };
 
-void	exit_e(char *msg)
+void	exit_e(const char *msg)
 {
 	size_t	len;
 
-	len = ft_strlen(msg);
-	ft_putstr(msg);
+	printf("%s", msg);
+	len = ft_strlen((char *)msg);
 	if (len > 0 && msg[len - 1] != '\n')
-		ft_putstr("\n");
+		printf("\n");
+	printf ("At line <%s>\n", g_failed_rule);
 	exit(1);
 }
 
 void	exit_range(long num, long min, long max)
 {
 	printf("Number %li out of range [%li %li]\n", num, min, max);
-	exit(1);
+	exit_e("");
 }
 
 void	exit_ranged(double num, double min, double max)
 {
 	printf("Double %lf out of range [%lf %lf]\n", num, min, max);
-	exit(1);
+	exit_e("");
 }
 
 void	exit_char(char got, char expected)
@@ -76,25 +77,6 @@ void	exit_char(char got, char expected)
 	else
 		printf("got <x%x>\n", got);
 	exit(1);
-}
-
-void	exit_errno(char *msg)
-{
-	ft_putstr("errno : ");
-	ft_putstr(strerror(errno));
-	exit_e(msg);
-}
-
-void	verbose(char *str)
-{
-	if (VERBOSE)
-		ft_putstr(str);
-}
-
-void	trace(char *str)
-{
-	if (TRACE)
-		ft_putstr(str);
 }
 
 void	*malloc_safe(size_t size)
@@ -130,11 +112,3 @@ void	*arr_get(const t_arr_voidp *arr, size_t i)
 {
 	return (ft_arr_voidp_get((t_arr_voidp *)arr, i));
 }
-
-// static t_msg (*shape_parser[SHAPE_LAST])(char *line, t_gui *gui) = {
-// 	[RULE_SPHERE] = add_sphere,
-// 	[RULE_PLANE] = add_plane,
-// 	[RULE_SQUARE] = add_square,
-// 	[RULE_CYLINDER] = add_cylinder,
-// 	[RULE_TRIANGLE] = add_triangle
-// };

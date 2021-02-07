@@ -22,15 +22,13 @@
 # include <stdio.h> // illegal
 # include <time.h> // illegal
 
-void	exit_e(char *msg);
+void	exit_e(const char *msg);
 void	exit_range(long num, long min, long max);
 void	exit_ranged(double num, double min, double max);
 void	exit_char(char got, char expected);
-void	exit_errno(char *msg);
-void	verbose(char *str);
-void	trace(char *str);
 void	*malloc_safe(size_t size);
 void	*calloc_safe(size_t size);
+
 double	max_dbl(double a, double b);
 double	min_dbl(double a, double b);
 void	*arr_get(const t_arr_voidp *arr, size_t i);
@@ -202,5 +200,6 @@ typedef enum
 }					t_rule;
 extern char *g_rule_id[RULE_LAST];
 extern char *g_rule_name[RULE_LAST];
+char *g_failed_rule;
 
 #endif

@@ -27,7 +27,7 @@ static void	set_canvas(t_canvas *canvas, t_gui *gui, bool max_size)
 	{
 		mlx_get_screen_size(gui->mlx, &screen_x, &screen_y);
 		if (screen_x < (int)gui->x_size || screen_y < (int)gui->y_size)
-			verbose("Note: decreased resolution\n");
+			printf("Note: decreased resolution to fit screen\n");
 		if (screen_x < (int)gui->x_size)
 			gui->x_size = screen_x;
 		if (screen_y < (int)gui->y_size)

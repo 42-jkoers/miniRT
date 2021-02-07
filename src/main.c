@@ -20,6 +20,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <errno.h>
 
 void	time_render(t_gui *gui)
 {
@@ -32,13 +34,13 @@ void	time_render(t_gui *gui)
 int		main(int argc, const char *argv[])
 {
 	t_gui	*gui;
-	
+
 	if (argc == 3 && ft_strcmp((char *)argv[2], "--save") == 0)
 	{
 		gui = gui_init(argv[1], false);
 		time_render(gui);
 		if (save_bmp(gui) != 0)
-			exit_errno("Can't create bmp");
+			exit_e(strerror(errno));
 		exit_success(gui);
 	}
 	else if (argc == 2)

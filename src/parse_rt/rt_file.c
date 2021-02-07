@@ -13,24 +13,10 @@
 #include "parse_rt.h"
 #include "parse_rt.h"
 #include "constants.h"
-#include "unsorted.h"
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-// bool	has_duplicate_rules(char **rt)
-// {
-// 	return (false);
-// }
-
-void	search_missing_rules(t_gui *gui)
-{
-	if (gui->x_size == 0 || gui->y_size == 0)
-		exit_e("Missing size rule");
-	if (gui->cameras == NULL)
-		exit_e("Missing camera rule");
-}
 
 void	parse_rt_line(char *line, t_gui *gui)
 {
@@ -58,38 +44,24 @@ void	parse_rt_line(char *line, t_gui *gui)
 		exit_e("Unknown rule");
 }
 
-void	clearline(void) // libft
-{
-	ft_putstr("\33[2K\r");
-}
-
-void	foreach_arr(char **rt, t_gui *gui)
-{
-	size_t	i;
-
-	i = 0;
-	while (rt[i])
-	{
-		verbose("Reading: ");
-		verbose(rt[i]);
-		parse_rt_line(rt[i], gui);
-		if (VERBOSE)
-			clearline();
-		i++;
-	}
-}
-
 void	parse_rt(t_gui *gui, const char *rt_filename)
 {
-	size_t	rt_lines;
-	char	**rt;
+	size_t		rt_lines;
+	char		**rt;
+	size_t		i;
 
 	rt = ft_split_file(rt_filename, &rt_lines);
 	if (rt == NULL || rt_lines == 0)
 		exit_e("Empty rt file");
-	foreach_arr(rt, gui);
+	exit_on_illegal_rule_n(rt);
+	i = 0;
+	while (rt[i])
+	{
+		g_failed_rule = rt[i];
+		parse_rt_line(rt[i], gui);
+		i++;
+	}
 	ft_free_until_null_char(rt);
-	search_missing_rules(gui);
 	if (VERBOSE)
 		log_shapes(gui->shapes);
 }
