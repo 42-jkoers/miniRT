@@ -47,6 +47,8 @@ static int	on_keypress(int keycode, t_gui *gui)
 {
 	if (keycode == XK_Escape)
 		exit_success(gui);
+	if (keycode == NEXT_CAMERA_KEY)
+		gui_render_next_camera(gui);
 	return (0);
 }
 

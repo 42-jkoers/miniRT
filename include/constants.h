@@ -99,6 +99,7 @@ typedef struct		s_gui
 	t_arr_voidp		*shapes;
 	t_arr_voidp		*lights;
 	t_arr_voidp		*cameras;
+	size_t			camera_i;
 	t_ambient		ambient;
 	unsigned		x_size;
 	unsigned		y_size;
@@ -184,6 +185,7 @@ typedef struct	s_bounce
 # define DOUBLE_MAX 9999999999.0
 # define DOUBLE_MIN -9999999999.0
 # define EPSILON 1e-7
+# define NEXT_CAMERA_KEY XK_c
 
 typedef enum
 {
