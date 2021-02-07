@@ -88,6 +88,9 @@ rtall:
 	@$(MAKE) > /dev/null
 	@find rt/ -name "*.rt" -exec ./miniRT {} --save \; -exec mv scene.bmp {}.bmp \;
 
+silent:
+	@$(MAKE) > /dev/null
+
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
 
