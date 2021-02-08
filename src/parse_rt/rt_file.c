@@ -25,7 +25,7 @@ bool	is_rule(char *line, t_rule rule)
 
 void	parse_rt_line(char *line, t_gui *gui)
 {
-	if (line[0] == '\0'  || line[0] == '#') // illegal
+	if (line[0] == '\0'  || (ALLOW_RT_COMMENTS && line[0] == '#'))
 		;
 	else if (is_rule(line, RULE_RESOLUTION))
 		set_resolution(gui, line);
@@ -58,7 +58,8 @@ void	parse_rt(t_gui *gui, const char *rt_filename)
 	rt = ft_split_file(rt_filename, &rt_lines);
 	if (rt == NULL || rt_lines == 0)
 		exit_e("Empty rt file");
-	exit_on_illegal_rule_n(rt);
+	if (!ALLOW_UNSET_RULES)
+		exit_on_illegal_rule_n(rt);
 	i = 0;
 	while (rt[i])
 	{

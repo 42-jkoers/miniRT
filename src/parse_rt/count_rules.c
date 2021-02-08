@@ -48,6 +48,7 @@ void		exit_on_illegal_rule_n(char **rt)
 {
 	unsigned	rules_n[RULE_LAST];
 
+	ft_bzero(rules_n, sizeof(rules_n));
 	count_rules(rules_n, rt);
 	if (rules_n[RULE_RESOLUTION] != 1)
 		exit_not_one_declaration(RULE_RESOLUTION, rules_n[RULE_RESOLUTION]);

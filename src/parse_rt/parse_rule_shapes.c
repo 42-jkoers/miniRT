@@ -108,20 +108,25 @@ void	add_triangle(t_arr_voidp **shapes, char *line)
 		exit_e("malloc");
 }
 
-void	log_shapes(t_arr_voidp *shapes)
+void	log_shapes(const t_arr_voidp *shapes)
 {
-	t_shape	shape;
-	size_t	i;
+	t_obj		*obj;
+	size_t		i;
+	unsigned	shape_n[SHAPE_LAST];
 
 	i = 0;
-	ft_putstr("Shapes found:\n");
-	while (ft_arr_voidp_get(shapes, i) != NULL)
+	ft_bzero(shape_n, sizeof(shape_n));
+	printf("Shapes found:\n");
+	while (arr_get(shapes, i) != NULL)
 	{
-		ft_memcpy(&shape, ft_arr_voidp_get(shapes, i), sizeof(t_shape));
-		if (shape < SHAPE_LAST)
-			printf("\tFound %s\n", g_rule_name[shape]); // illegal
-		else
-			ft_putstr("\tSomething has gone horribly wrong\n");
+		obj = arr_get(shapes, i);
+		shape_n[obj->shape] += 1;
+		i++;
+	}
+	i = 0;
+	while (i < SHAPE_LAST)
+	{
+		printf("%13s %u\n", g_rule_name[i], shape_n[i]);
 		i++;
 	}
 }

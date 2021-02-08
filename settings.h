@@ -17,14 +17,14 @@
 ** README
 ** This the settings file for the miniRT project.
 ** After changing a setting you of course have to recompile with make re
-** The first line of every setting is a question that the question property
+** The first line of every setting is a question that the property
 ** answer to.
 */
 
 /*
 ** Bool: Enable verbose logging? :boolean
 */
-# define VERBOSE 0
+# define VERBOSE 1
 
 /*
 ** Allow non-normalized direction vector in .rt file? :boolean
@@ -37,6 +37,16 @@
 ** display resolution? :boolean
 ** This max resolution is always ignored when exporting a bmp file.
 */
-# define MAX_WINDOW_SIZE 1
+# define MAX_WINDOW_SIZE 0
+
+/*
+** Allow missing rules in the .rt file such as the R (resolution) rule? :boolean
+*/
+# define ALLOW_UNSET_RULES 1
+
+/*
+** Allow comments (line prefixed by #) .rt file? :boolean
+*/
+# define ALLOW_RT_COMMENTS 1
 
 #endif

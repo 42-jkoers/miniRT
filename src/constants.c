@@ -37,7 +37,7 @@ char *g_rule_name[RULE_LAST] = {
 	[RULE_CYLINDER] = "Cylinder",
 	[RULE_TRIANGLE] = "Triangle",
 	[RULE_RESOLUTION] = "Resolution",
-	[RULE_AMBIENT] = "Brightness",
+	[RULE_AMBIENT] = "Ambient brightness",
 	[RULE_CAMERA] = "Camera",
 	[RULE_LIGHT] = "Light source",
 };

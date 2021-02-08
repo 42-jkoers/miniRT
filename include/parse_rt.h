@@ -34,7 +34,7 @@ void	add_square(t_arr_voidp **shapes, char *line);
 void	add_cylinder(t_arr_voidp **shapes, char *line);
 void	add_triangle(t_arr_voidp **shapes, char *line);
 
-void	log_shapes(t_arr_voidp *shapes);
+void	log_shapes(const t_arr_voidp *shapes);
 
 void	add_camera(t_gui *gui, char *line);
 void	add_light(t_arr_voidp **lights, char *line);
