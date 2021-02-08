@@ -23,7 +23,7 @@ static void	set_canvas(t_canvas *canvas, t_gui *gui, bool max_size)
 	int		screen_x;
 	int		screen_y;
 
-	if (max_size)
+	if (max_size && MAX_WINDOW_SIZE)
 	{
 		mlx_get_screen_size(gui->mlx, &screen_x, &screen_y);
 		if (screen_x < (int)gui->x_size || screen_y < (int)gui->y_size)

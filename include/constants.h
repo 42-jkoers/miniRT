@@ -16,6 +16,7 @@
 # include <X11/keysymdef.h>
 # include <X11/keysym.h>
 # include "../lib/libft/include/libft.h"
+# include "../settings.h"
 # include <stdbool.h>
 # include <sys/types.h>
 
@@ -176,9 +177,6 @@ typedef struct	s_bounce
 	t_vec3	normal;
 }				t_bounce;
 
-# define ALLOW_ABNORMAL_DIR 1
-# define VERBOSE 0
-# define TRACE 1
 # define UNITS_PER_PIXEL 1.0
 # define DOUBLE_MAX 9999999999.0
 # define DOUBLE_MIN -9999999999.0
