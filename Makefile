@@ -21,6 +21,7 @@ HEADERDIR		= include
 OBJEXT      	= o
 BUILDDIR    	= obj
 
+SETTINGS		= settings.h
 LIBDIR			= lib
 LINKS			= -L$(LIBDIR)/minilibx-linux -lmlx -lXext -lX11 -lm
 SOURCELINKS		= -lm
@@ -38,12 +39,12 @@ VPATH = $(shell find $(SRCDIR) -type d | tr '\n' ':' | sed -r 's/(.*):/\1/')
 all:
 	$(MAKE) -j4 $(NAME)
 
-$(NAME): $(BUILDDIR)/ $(OBJ) $(HEADERS) $(LIBS)
+$(NAME): $(BUILDDIR)/ $(OBJ) $(HEADERS) $(LIBS) $(SETTINGS)
 	$(CC) $(CFLAGS)-I$(HEADERDIR) $(BUILDDIR)/*.$(OBJEXT) -o $(NAME) $(LIBS) $(LINKS)
 
 # sources
 
-$(BUILDDIR)/%.$(OBJEXT): %.$(SRCEXT) $(HEADERS)
+$(BUILDDIR)/%.$(OBJEXT): %.$(SRCEXT) $(HEADERS) $(SETTINGS)
 	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $(BUILDDIR)/$(notdir $@) $(SOURCELINKS)
 
 # libs
