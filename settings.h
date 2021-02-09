@@ -24,7 +24,7 @@
 /*
 ** Bool: Enable verbose logging? :boolean
 */
-# define VERBOSE 1
+# define VERBOSE 0
 
 /*
 ** Allow non-normalized direction vector in .rt file? :boolean

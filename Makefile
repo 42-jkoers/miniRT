@@ -50,10 +50,10 @@ $(BUILDDIR)/%.$(OBJEXT): %.$(SRCEXT) $(HEADERS) $(SETTINGS)
 # libs
 
 $(LIBDIR)/minilibx-linux/libmlx.a:
-	make -C $(LIBDIR)/minilibx-linux/
+	$(MAKE) -C $(LIBDIR)/minilibx-linux/
 
 $(LIBDIR)/libft/bin/libft.a:
-	make -C $(LIBDIR)/libft/
+	$(MAKE) -C $(LIBDIR)/libft/
 
 clean:
 # make -C $(LIBDIR)/minilibx-linux/ clean
@@ -87,7 +87,7 @@ rt:
 
 rtall:
 	@$(MAKE) > /dev/null
-	@find rt/ -name "*.rt" -exec ./miniRT {} --save \; -exec mv scene.bmp {}.bmp \;
+	@find rt/ -name "*.rt" -exec ./miniRT {} --save \; -exec mv scene.bmp renders/{}.bmp \;
 
 silent:
 	@$(MAKE) > /dev/null
