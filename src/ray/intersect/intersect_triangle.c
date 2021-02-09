@@ -46,5 +46,7 @@ t_hit	hit_triangle(t_pos pos, t_ray ray)
 	hit.dist = length(scale(ray.dir, t));
 	hit.point = scale(ray.origin, hit.dist); // outIntersectionPoint = rayOrigin + rayVector * t;
 	hit.normal = cross(subtract(pos.tr.p2, pos.tr.p1), subtract(pos.tr.p3, pos.tr.p1)); // N = (v1-v0).crossProduct(v2-v0);
+	hit.normal = scale(hit.normal, -1);
+	normalize(&hit.normal);
 	return (hit);
 }
