@@ -17,9 +17,10 @@
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 
-t_hit (*g_hit_shape[SHAPE_LAST])(t_pos, t_ray) = {
-	[SHAPE_SPHERE] = hit_sphere,
-	[SHAPE_TRIANGLE] = hit_triangle,
+t_hit	(*g_hit_shape[SHAPE_LAST])(t_pos, t_ray) = {
+	[SHAPE_CYLINDER] = hit_cylinder,
 	[SHAPE_PLANE] = hit_plane,
+	[SHAPE_SPHERE] = hit_sphere,
 	[SHAPE_SQUARE] = hit_square,
+	[SHAPE_TRIANGLE] = hit_triangle,
 };

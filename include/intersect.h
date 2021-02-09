@@ -15,10 +15,11 @@
 
 # include "constants.h"
 
-t_hit	hit_sphere(t_pos pos, t_ray ray);
-t_hit	hit_triangle(t_pos pos, t_ray ray);
+t_hit	hit_cylinder(t_pos pos, t_ray ray);
 t_hit	hit_plane(t_pos pos, t_ray ray);
+t_hit	hit_sphere(t_pos pos, t_ray ray);
 t_hit	hit_square(t_pos pos, t_ray ray);
+t_hit	hit_triangle(t_pos pos, t_ray ray);
 
 extern t_hit (*g_hit_shape[SHAPE_LAST])(t_pos, t_ray);
 

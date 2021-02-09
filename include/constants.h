@@ -109,10 +109,10 @@ typedef struct		s_gui
 	t_canvas		canvas;
 }					t_gui;
 
-
 typedef struct		s_cylinder
 {
-	t_vec3			origin;
+	t_vec3			origin; // aka base1
+	t_vec3			base2;
 	t_vec3			dir;
 	double			radius;
 	double			height;

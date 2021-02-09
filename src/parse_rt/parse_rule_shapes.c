@@ -15,13 +15,8 @@
 #include "gui.h"
 #include "constants.h"
 #include "parse_rt.h"
+#include "vector.h"
 #include <stdlib.h>
-
-/*
-** #include <time.h>
-** clock_t begin = clock();
-** printf("%f s\n", (double)(clock() - begin) / CLOCKS_PER_SEC);
-*/
 
 void	add_sphere(t_arr_voidp **shapes, char *line)
 {
@@ -76,16 +71,18 @@ void	add_square(t_arr_voidp **shapes, char *line)
 void	add_cylinder(t_arr_voidp **shapes, char *line)
 {
 	t_obj	*obj;
-	char		**items;
+	char	**items;
 
 	obj = malloc_safe(sizeof(t_obj));
 	obj->shape = SHAPE_CYLINDER;
 	items = split_clamp(line, 6);
 	set_point(&obj->pos.cy.origin, items[1]);
 	set_dir(&obj->pos.cy.dir, items[2]);
-	obj->pos.cy.radius = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX);
+	obj->pos.cy.radius = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX) * 0.5;
 	obj->pos.cy.height = strtodbl_clamp(items[4], '\0', 0.0, DOUBLE_MAX);
 	set_color(&obj->color, items[5]);
+	obj->pos.cy.base2 =
+		point(obj->pos.cy.origin, obj->pos.cy.dir, obj->pos.cy.height);
 	ft_free_until_null_char(items);
 	if (ft_arr_voidp_push(shapes, obj) == NULL)
 		exit_e("malloc");
