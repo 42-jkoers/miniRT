@@ -51,7 +51,7 @@ t_hit		hit_square(t_pos pos, t_ray ray)
 	subsection = hit_square_plane_subsection(pos, ray);
 	if (!subsection.hit)
 		return ((t_hit){false});
-	hit.point = point(pos.sq.origin, ray.dir, subsection.dist);
+	hit.point = translate(pos.sq.origin, ray.dir, subsection.dist);
 	if (!is_inside_square(pos, hit.point))
 		return ((t_hit){false});
 	hit.hit = true;

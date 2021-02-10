@@ -19,7 +19,10 @@
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 
-// get closest object pointer from *shapes
+/*
+** Get closest object pointer from *shapes
+*/
+
 t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 {
 	size_t		i;
@@ -48,7 +51,10 @@ t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 	return (bounce);
 }
 
-// assuming to_find has bounced
+/*
+**  Assuming to_find has bounced
+*/
+
 bool		is_obstructed(
 	t_bounce to_find,
 	const t_light *light,

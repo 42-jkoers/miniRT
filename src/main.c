@@ -23,14 +23,6 @@
 #include <string.h>
 #include <errno.h>
 
-void	time_render(t_gui *gui)
-{
-	clock_t tic = clock();
-	render(gui);
-	clock_t toc = clock();
-	printf("render in: %lf s\n", (double)(toc - tic) / CLOCKS_PER_SEC);
-}
-
 int		main(int argc, const char *argv[])
 {
 	t_gui	*gui;
@@ -38,7 +30,7 @@ int		main(int argc, const char *argv[])
 	if (argc == 3 && ft_strcmp((char *)argv[2], "--save") == 0)
 	{
 		gui = gui_init(argv[1], false);
-		time_render(gui);
+		render(gui);
 		if (save_bmp(gui) != 0)
 			exit_e(strerror(errno));
 		exit_success(gui);

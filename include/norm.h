@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   unsorted.c                                         :+:    :+:            */
+/*   norm.h                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/01/05 14:22:31 by jkoers        #+#    #+#                 */
-/*   Updated: 2021/01/09 00:23:47 by jkoers        ########   odam.nl         */
+/*   Created: 2021/02/10 14:48:54 by jkoers        #+#    #+#                 */
+/*   Updated: 2021/02/10 14:48:54 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
+#ifndef NORM_H
+# define NORM_H
 
+# include "constants.h"
 
-// clock_t tic = clock();
-// 
-// clock_t toc = clock();
-// printf("Elapsed: %lf\n", (double)(toc - tic) / CLOCKS_PER_SEC);
-
-double	radians(double degrees)
+typedef struct	s_ray_from_pix
 {
-	return (degrees * M_PI / 180);
-}
+	double		fov;
+	double		aspect_ratio;
+	double		px;
+	double		py;
+	t_ray		ray;
+	t_vec3		positive_x;
+	t_vec3		negative_y;
+	t_vec3		scaled_x;
+	t_vec3		scaled_y;
+}				t_ray_from_pix;
 
-double	degrees(double radians)
-{
-	return (radians * 180 / M_PI);
-}
+#endif

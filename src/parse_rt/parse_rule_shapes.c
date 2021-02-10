@@ -21,7 +21,7 @@
 void	add_sphere(t_arr_voidp **shapes, char *line)
 {
 	t_obj	*obj;
-	char		**items;
+	char	**items;
 
 	obj = malloc_safe(sizeof(t_obj));
 	obj->shape = SHAPE_SPHERE;
@@ -82,7 +82,7 @@ void	add_cylinder(t_arr_voidp **shapes, char *line)
 	obj->pos.cy.height = strtodbl_clamp(items[4], '\0', 0.0, DOUBLE_MAX);
 	set_color(&obj->color, items[5]);
 	obj->pos.cy.base2 =
-		point(obj->pos.cy.origin, obj->pos.cy.dir, obj->pos.cy.height);
+		translate(obj->pos.cy.origin, obj->pos.cy.dir, obj->pos.cy.height);
 	ft_free_until_null_char(items);
 	if (ft_arr_voidp_push(shapes, obj) == NULL)
 		exit_e("malloc");
@@ -103,27 +103,4 @@ void	add_triangle(t_arr_voidp **shapes, char *line)
 	ft_free_until_null_char(items);
 	if (ft_arr_voidp_push(shapes, obj) == NULL)
 		exit_e("malloc");
-}
-
-void	log_shapes(const t_arr_voidp *shapes)
-{
-	t_obj		*obj;
-	size_t		i;
-	unsigned	shape_n[SHAPE_LAST];
-
-	i = 0;
-	ft_bzero(shape_n, sizeof(shape_n));
-	printf("Shapes found:\n");
-	while (arr_get(shapes, i) != NULL)
-	{
-		obj = arr_get(shapes, i);
-		shape_n[obj->shape] += 1;
-		i++;
-	}
-	i = 0;
-	while (i < SHAPE_LAST)
-	{
-		printf("%13s %u\n", g_rule_name[i], shape_n[i]);
-		i++;
-	}
 }

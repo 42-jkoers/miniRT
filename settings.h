@@ -49,4 +49,9 @@
 */
 # define ALLOW_RT_COMMENTS 1
 
+/*
+** Fulfill stupid assignment requirements? :boolean
+*/
+# define STUPID 0
+
 #endif

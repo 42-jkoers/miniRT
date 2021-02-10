@@ -28,9 +28,9 @@ double	relative_intensity(t_vec3 point, t_vec3 normal, const t_light *light)
 
 t_rgb	add_color(t_rgb color, t_rgb additive, double intensity)
 {
-    const double	r = color.r + ((double)additive.r * intensity);
-    const double	g = color.g + ((double)additive.g * intensity);
-    const double	b = color.b + ((double)additive.b * intensity);
+	const double	r = color.r + ((double)additive.r * intensity);
+	const double	g = color.g + ((double)additive.g * intensity);
+	const double	b = color.b + ((double)additive.b * intensity);
 	t_rgb			new;
 
 	new.r = (unsigned char)round(fmin(r, 255.0));
@@ -42,8 +42,8 @@ t_rgb	add_color(t_rgb color, t_rgb additive, double intensity)
 t_rgb	multiply_color(t_rgb color, t_rgb multication)
 {
 	const double	r = color.r * (double)(multication.r / 255.0);
-    const double	g = color.g * (double)(multication.g / 255.0);
-    const double	b = color.b * (double)(multication.b / 255.0);
+	const double	g = color.g * (double)(multication.g / 255.0);
+	const double	b = color.b * (double)(multication.b / 255.0);
 	t_rgb			new;
 
 	new.r = (unsigned char)round(r);

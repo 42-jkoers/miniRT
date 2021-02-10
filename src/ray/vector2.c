@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   vector.c                                           :+:    :+:            */
+/*   vector2.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
@@ -14,42 +14,50 @@
 #include "constants.h"
 #include <math.h>
 
-t_vec3	vec(double x, double y, double z)
-{
-	t_vec3 v;
+/*
+** = a - b or to, from
+*/
 
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	return (v);
-}
-
-double	length(t_vec3 v)
-{
-	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
-}
-
-double	dot(t_vec3 a, t_vec3 b)
-{
-	return (a.x * b.x + a.y * b.y + a.z * b.z);
-}
-
-t_vec3	cross(t_vec3 a, t_vec3 b)
-{
-	t_vec3 v;
-
-	v.x = a.y * b.z - a.z * b.y;
-	v.y = a.z * b.x - a.x * b.z;
-	v.z = a.x * b.y - a.y * b.x;
-	return (v);
-}
-
-t_vec3	add(t_vec3 a, t_vec3 b)
+t_vec3	subtract(t_vec3 a, t_vec3 b)
 {
 	t_vec3	v;
 
-	v.x = a.x + b.x;
-	v.y = a.y + b.y;
-	v.z = a.z + b.z;
+	v.x = a.x - b.x;
+	v.y = a.y - b.y;
+	v.z = a.z - b.z;
 	return (v);
+}
+
+t_vec3	scale(t_vec3 v, double r)
+{
+	t_vec3	vec;
+
+	vec.x = v.x * r;
+	vec.y = v.y * r;
+	vec.z = v.z * r;
+	return (vec);
+}
+
+void	normalize(t_vec3 *v)
+{
+	double	len;
+
+	len = length(*v);
+	if (len != 0.0)
+	{
+		v->x /= len;
+		v->y /= len;
+		v->z /= len;
+	}
+}
+
+t_vec3	unit(t_vec3 v)
+{
+	normalize(&v);
+	return (v);
+}
+
+t_vec3	translate(t_vec3 origin, t_vec3 dir, double t)
+{
+	return (add(origin, scale(dir, t)));
 }

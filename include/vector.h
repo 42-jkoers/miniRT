@@ -16,19 +16,15 @@
 # include "constants.h"
 
 t_vec3	vec(double x, double y, double z);
-double	length(t_vec3 v); // also magnitude
+double	length(t_vec3 v);
 double	dot(t_vec3 a, t_vec3 b);
-double	angle(t_vec3 a, t_vec3 b);
 t_vec3	cross(t_vec3 a, t_vec3 b);
 t_vec3	add(t_vec3 a, t_vec3 b);
-t_vec3	subtract(t_vec3 a, t_vec3 b); // a - b
+t_vec3	subtract(t_vec3 a, t_vec3 b);
 t_vec3	scale(t_vec3 v, double r);
 t_vec3	unit(t_vec3 v);
-t_vec3	multiply(t_vec3 a, t_vec3 b);
-t_vec3	point(t_vec3 origin, t_vec3 dir, double t);
+t_vec3	translate(t_vec3 origin, t_vec3 dir, double t);
 
 void	normalize(t_vec3 *v);
-
-void	log_vec3(char *id, t_vec3 v);
 
 #endif

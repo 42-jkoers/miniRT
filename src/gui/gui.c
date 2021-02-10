@@ -21,7 +21,7 @@
 
 char	*gui_get_pixel_data(const t_gui *gui, unsigned x, unsigned y)
 {
-    return (gui->canvas.data +
+	return (gui->canvas.data +
 		y * gui->canvas.line_length + x * (gui->canvas.bpp / 8));
 }
 
@@ -33,7 +33,6 @@ void	gui_set_pixel(t_gui *gui, unsigned x, unsigned y, t_rgb color)
 	pixel_data[0] = (uint8_t)color.b;
 	pixel_data[1] = (uint8_t)color.g;
 	pixel_data[2] = (uint8_t)color.r;
-	// gui->canvas.data[pixel + 3] = 0; // alpha is ignored by rest of codebase
 }
 
 t_rgb	gui_get_pixel(t_gui *gui, unsigned x, unsigned y)
@@ -50,7 +49,8 @@ t_rgb	gui_get_pixel(t_gui *gui, unsigned x, unsigned y)
 
 void	exit_success(t_gui *gui)
 {
-	// printf("Done\n");
+	if (STUPID)
+		printf("Done\n");
 	if (gui == NULL)
 		exit(1);
 	ft_arr_voidp_free(gui->shapes, free);
@@ -70,10 +70,6 @@ void	exit_success(t_gui *gui)
 
 void	gui_display_scene(t_gui *gui)
 {
-	clock_t tic = clock(); // illegal
 	render(gui);
-	clock_t toc = clock();
-	printf("render in: %lf s\n", (double)(toc - tic) / CLOCKS_PER_SEC);
-
 	mlx_put_image_to_window(gui->mlx, gui->window, gui->canvas.mlx_img, 0, 0);
 }

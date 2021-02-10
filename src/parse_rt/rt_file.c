@@ -18,6 +18,29 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void	log_shapes(const t_arr_voidp *shapes)
+{
+	t_obj		*obj;
+	size_t		i;
+	unsigned	shape_n[SHAPE_LAST];
+
+	i = 0;
+	ft_bzero(shape_n, sizeof(shape_n));
+	printf("Shapes found:\n");
+	while (arr_get(shapes, i) != NULL)
+	{
+		obj = arr_get(shapes, i);
+		shape_n[obj->shape] += 1;
+		i++;
+	}
+	i = 0;
+	while (i < SHAPE_LAST)
+	{
+		printf("%13s %u\n", g_rule_name[i], shape_n[i]);
+		i++;
+	}
+}
+
 bool	is_rule(char *line, t_rule rule)
 {
 	return (ft_strcmp(line, g_rule_id[rule]) == ' ');
@@ -25,7 +48,7 @@ bool	is_rule(char *line, t_rule rule)
 
 void	parse_rt_line(char *line, t_gui *gui)
 {
-	if (line[0] == '\0'  || (ALLOW_RT_COMMENTS && line[0] == '#'))
+	if (line[0] == '\0' || (ALLOW_RT_COMMENTS && line[0] == '#'))
 		;
 	else if (is_rule(line, RULE_RESOLUTION))
 		set_resolution(gui, line);

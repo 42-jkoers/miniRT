@@ -84,7 +84,7 @@ static void			write_image(uint8_t *buf, const t_gui *gui)
 	}
 }
 
-int				save_bmp(const t_gui *gui)
+int					save_bmp(const t_gui *gui)
 {
 	uint8_t	*buf;
 	int		fd;

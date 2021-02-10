@@ -112,7 +112,7 @@ t_hit			hit_cylinder(t_pos pos, t_ray ray)
 	hit.hit = intersect_cy(&hit.dist, ray, pos.cy);
 	if (!hit.hit)
 		return ((t_hit){false});
-	hit.point = point(ray.origin, ray.dir, hit.dist);
+	hit.point = translate(ray.origin, ray.dir, hit.dist);
 	hit.normal = normal_in(hit.point, pos.cy);
 	return (hit);
 }
