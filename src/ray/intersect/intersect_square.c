@@ -17,7 +17,7 @@
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 
-static bool	is_inside_square(t_pos pos, t_vec3 hit_p)
+static bool		is_inside_square(t_pos pos, t_vec3 hit_p)
 {
 	t_vec3	dist;
 	double	border;
@@ -33,7 +33,10 @@ static bool	is_inside_square(t_pos pos, t_vec3 hit_p)
 	return (true);
 }
 
-// converting square position data to plane position data
+/*
+** Converting square position data to plane position data
+*/
+
 static t_hit	hit_square_plane_subsection(t_pos pos, t_ray ray)
 {
 	t_pos	subsection;
@@ -43,7 +46,7 @@ static t_hit	hit_square_plane_subsection(t_pos pos, t_ray ray)
 	return (hit_plane(subsection, ray));
 }
 
-t_hit		hit_square(t_pos pos, t_ray ray)
+t_hit			hit_square(t_pos pos, t_ray ray)
 {
 	t_hit	hit;
 	t_hit	subsection;
@@ -55,8 +58,7 @@ t_hit		hit_square(t_pos pos, t_ray ray)
 	if (!is_inside_square(pos, hit.point))
 		return ((t_hit){false});
 	hit.hit = true;
-	// hit.point = point(pos.sq.origin, ray.dir, subsection.dist);
 	hit.dist = subsection.dist;
-	hit.normal = scale(pos.sq.normal, -1.0); // TODO: Is this correct?
+	hit.normal = unit(scale(pos.sq.normal, -1.0));
 	return (hit);
 }

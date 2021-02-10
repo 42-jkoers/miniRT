@@ -19,23 +19,23 @@
 
 t_hit	hit_sphere(t_pos pos, t_ray ray)
 {
-	t_vec3	l;		// distance sphere ray
-	double	tca;	// distance sphere ray on ray dir
-	double	d2;		// distance from center sp to ray squared
+	t_vec3	l;
+	double	tca;
+	double	d2;
 	double	thc;
 	t_hit	hit;
 
 	l = subtract(pos.sp.origin, ray.origin);
 	tca = dot(l, ray.dir);
-	if (tca < 0)
-		return ((t_hit){false});	// sphere is behind ray origin
+	if (tca < 0.0)
+		return ((t_hit){false});
 	d2 = dot(l, l) - tca * tca;
 	if (d2 > pos.sp.radius2)
-		return ((t_hit){false});	// sphere is too small to intersect with ray
+		return ((t_hit){false});
 	thc = sqrt(pos.sp.radius2 - d2);
 	hit.hit = true;
 	hit.dist = tca - thc;
 	hit.point = add(ray.origin, scale(ray.dir, hit.dist));
-	hit.normal = unit(subtract(hit.point, pos.sp.origin)); // N = P - center;
+	hit.normal = unit(subtract(hit.point, pos.sp.origin));
 	return (hit);
 }

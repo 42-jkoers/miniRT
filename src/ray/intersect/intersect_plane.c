@@ -19,13 +19,13 @@
 
 t_hit	hit_plane(t_pos pos, t_ray ray)
 {
- 	double	denom;
+	double	denom;
 	double	t;
-    t_vec3	p0l0;
+	t_vec3	p0l0;
 	t_hit	hit;
 
 	denom = dot(pos.pl.normal, ray.dir);
-	if (denom < 1e-6) // how small?
+	if (denom < EPSILON)
 		return ((t_hit){false});
 	p0l0 = subtract(pos.pl.origin, ray.origin);
 	t = dot(p0l0, pos.pl.normal) / denom;
@@ -33,7 +33,7 @@ t_hit	hit_plane(t_pos pos, t_ray ray)
 		return ((t_hit){false});
 	hit.hit = true;
 	hit.dist = t;
-	hit.normal = scale(pos.pl.normal, -1.0); // TODO: Is this correct?
+	hit.normal = unit(scale(pos.pl.normal, -1.0));
 	hit.point = scale(ray.origin, t);
 	return (hit);
 }
