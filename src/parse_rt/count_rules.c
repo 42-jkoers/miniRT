@@ -11,12 +11,11 @@
 /* ************************************************************************** */
 
 #include "parse_rt.h"
-#include "parse_rt.h"
 #include "constants.h"
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <stdio.h>
 
 static void	count_rules(unsigned *rules_n, char **rt)
 {

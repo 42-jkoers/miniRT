@@ -11,15 +11,12 @@
 /* ************************************************************************** */
 
 #include "../lib/libft/include/libft.h"
-#include "../lib/minilibx-linux/mlx.h"
+#include "constants.h"
 #include "gui.h"
-#include "practice.h"
 #include "ray.h"
 #include "vector.h"
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include <stdio.h>
 #include <string.h>
 #include <errno.h>
 

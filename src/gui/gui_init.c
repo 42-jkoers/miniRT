@@ -15,8 +15,8 @@
 #include "parse_rt.h"
 #include "../lib/minilibx-linux/mlx.h"
 #include "ray.h"
-#include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static void	set_canvas(t_canvas *canvas, t_gui *gui, bool max_size)
 {

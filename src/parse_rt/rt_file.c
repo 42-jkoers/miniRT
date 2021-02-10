@@ -17,8 +17,9 @@
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 
-void	log_shapes(const t_arr_voidp *shapes)
+void		log_shapes(const t_arr_voidp *shapes)
 {
 	t_obj		*obj;
 	size_t		i;
@@ -41,12 +42,12 @@ void	log_shapes(const t_arr_voidp *shapes)
 	}
 }
 
-bool	is_rule(char *line, t_rule rule)
+static bool	is_rule(char *line, t_rule rule)
 {
 	return (ft_strcmp(line, g_rule_id[rule]) == ' ');
 }
 
-void	parse_rt_line(char *line, t_gui *gui)
+static void	parse_rt_line(char *line, t_gui *gui)
 {
 	if (line[0] == '\0' || (ALLOW_RT_COMMENTS && line[0] == '#'))
 		;
@@ -72,7 +73,7 @@ void	parse_rt_line(char *line, t_gui *gui)
 		exit_e("Unknown rule");
 }
 
-void	parse_rt(t_gui *gui, const char *rt_filename)
+void		parse_rt(t_gui *gui, const char *rt_filename)
 {
 	size_t		rt_lines;
 	char		**rt;

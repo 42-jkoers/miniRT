@@ -21,8 +21,8 @@ double	relative_intensity(t_vec3 point, t_vec3 normal, const t_light *light)
 	double	intensity;
 
 	to_light = unit(subtract(light->origin, point));
-	intensity = 1 * light->brightness * max_dbl(0.0, dot(normal, to_light));
-	intensity = min_dbl(intensity, 1.0);
+	intensity = 1 * light->brightness * fmin(0.0, dot(normal, to_light));
+	intensity = fmin(intensity, 1.0);
 	return (intensity);
 }
 

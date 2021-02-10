@@ -11,10 +11,8 @@
 /* ************************************************************************** */
 
 #include "intersect.h"
-
 #include "constants.h"
 #include "vector.h"
-#include "../lib/libft/include/libft.h"
 #include <math.h>
 
 static bool		is_inside_square(t_pos pos, t_vec3 hit_p)

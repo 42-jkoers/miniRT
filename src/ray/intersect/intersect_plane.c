@@ -11,11 +11,8 @@
 /* ************************************************************************** */
 
 #include "intersect.h"
-
 #include "constants.h"
 #include "vector.h"
-#include "../lib/libft/include/libft.h"
-#include <math.h>
 
 t_hit	hit_plane(t_pos pos, t_ray ray)
 {

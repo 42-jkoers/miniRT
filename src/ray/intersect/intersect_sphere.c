@@ -11,10 +11,8 @@
 /* ************************************************************************** */
 
 #include "intersect.h"
-
 #include "constants.h"
 #include "vector.h"
-#include "../lib/libft/include/libft.h"
 #include <math.h>
 
 t_hit	hit_sphere(t_pos pos, t_ray ray)

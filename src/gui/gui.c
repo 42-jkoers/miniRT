@@ -18,6 +18,7 @@
 #include "../lib/minilibx-linux/mlx.h"
 #include "../lib/libft/include/libft.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 char	*gui_get_pixel_data(const t_gui *gui, unsigned x, unsigned y)
 {

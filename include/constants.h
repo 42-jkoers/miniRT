@@ -20,19 +20,18 @@
 # include <stdbool.h>
 # include <sys/types.h>
 
-# include <stdio.h> // illegal
-# include <time.h> // illegal
+# define DOUBLE_MAX	9999999999.0
+# define DOUBLE_MIN	-9999999999.0
+# define EPSILON	1e-7
 
-void	exit_e(const char *msg);
-void	exit_range(long num, long min, long max);
-void	exit_ranged(double num, double min, double max);
-void	exit_char(char got, char expected);
-void	*malloc_safe(size_t size);
-void	*calloc_safe(size_t size);
+void				exit_e(const char *msg);
+void				exit_range(long num, long min, long max);
+void				exit_ranged(double num, double min, double max);
+void				exit_char(char got, char expected);
+void				*malloc_safe(size_t size);
+void				*calloc_safe(size_t size);
 
-double	max_dbl(double a, double b);
-double	min_dbl(double a, double b);
-void	*arr_get(const t_arr_voidp *arr, size_t i);
+void				*arr_get(const t_arr_voidp *arr, size_t i);
 
 typedef enum
 {
@@ -42,7 +41,25 @@ typedef enum
 	SHAPE_CYLINDER,
 	SHAPE_TRIANGLE,
 	SHAPE_LAST
-}					t_shape;
+}	t_shape;
+
+typedef enum
+{
+	RULE_SPHERE,
+	RULE_PLANE,
+	RULE_SQUARE,
+	RULE_CYLINDER,
+	RULE_TRIANGLE,
+	RULE_RESOLUTION,
+	RULE_AMBIENT,
+	RULE_CAMERA,
+	RULE_LIGHT,
+	RULE_LAST
+}	t_rule;
+
+extern char			*g_rule_id[RULE_LAST];
+extern char			*g_rule_name[RULE_LAST];
+char				*g_failed_rule;
 
 typedef struct		s_rgb
 {
@@ -111,7 +128,7 @@ typedef struct		s_gui
 
 typedef struct		s_cylinder
 {
-	t_vec3			origin; // aka base1
+	t_vec3			origin;
 	t_vec3			base2;
 	t_vec3			dir;
 	double			radius;
@@ -147,59 +164,36 @@ typedef struct		s_triangle
 	t_vec3			edge2;
 }					t_triangle;
 
-typedef union	s_pos
+typedef union
 {
-	t_cylinder	cy;
-	t_square	sq;
-	t_plane		pl;
-	t_sphere	sp;
-	t_triangle	tr;
-}				t_pos;
+	t_cylinder		cy;
+	t_square		sq;
+	t_plane			pl;
+	t_sphere		sp;
+	t_triangle		tr;
+}	t_pos;
 
-typedef struct	s_obj
+typedef struct		s_obj
 {
 	t_shape			shape;
 	t_rgb			color;
 	t_pos			pos;
-}				t_obj;
+}					t_obj;
 
-typedef struct	s_hit
+typedef struct		s_hit
 {
-	bool	hit;
-	double	dist;
-	t_vec3	point;
-	t_vec3	normal;
-}				t_hit;
+	bool			hit;
+	double			dist;
+	t_vec3			point;
+	t_vec3			normal;
+}					t_hit;
 
-typedef struct	s_bounce
+typedef struct		s_bounce
 {
-	t_obj	*obj;
-	t_rgb	color;
-	t_vec3	point;
-	t_vec3	normal;
-}				t_bounce;
-
-# define UNITS_PER_PIXEL 1.0
-# define DOUBLE_MAX 9999999999.0
-# define DOUBLE_MIN -9999999999.0
-# define EPSILON 1e-7
-# define NEXT_CAMERA_KEY XK_c
-
-typedef enum
-{
-	RULE_SPHERE,
-	RULE_PLANE,
-	RULE_SQUARE,
-	RULE_CYLINDER,
-	RULE_TRIANGLE,
-	RULE_RESOLUTION,
-	RULE_AMBIENT,
-	RULE_CAMERA,
-	RULE_LIGHT,
-	RULE_LAST
-}					t_rule;
-extern char *g_rule_id[RULE_LAST];
-extern char *g_rule_name[RULE_LAST];
-char *g_failed_rule;
+	t_obj			*obj;
+	t_rgb			color;
+	t_vec3			point;
+	t_vec3			normal;
+}					t_bounce;
 
 #endif

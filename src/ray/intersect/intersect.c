@@ -11,11 +11,7 @@
 /* ************************************************************************** */
 
 #include "intersect.h"
-
 #include "constants.h"
-#include "vector.h"
-#include "../lib/libft/include/libft.h"
-#include <math.h>
 
 t_hit	(*g_hit_shape[SHAPE_LAST])(t_pos, t_ray) = {
 	[SHAPE_CYLINDER] = hit_cylinder,

@@ -13,7 +13,6 @@
 #ifndef GUI_H
 # define GUI_H
 
-# include "../lib/libft/include/libft.h"
 # include "constants.h"
 
 t_gui	*gui_init(const char *rt_filename, bool create_window);

@@ -15,15 +15,13 @@
 #include "intersect.h"
 #include "constants.h"
 #include "vector.h"
-#include "../lib/minilibx-linux/mlx.h"
-#include "../lib/libft/include/libft.h"
 #include <math.h>
 
 /*
 ** Get closest object pointer from *shapes
 */
 
-t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
+static t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 {
 	size_t		i;
 	t_obj		*obj;
@@ -55,7 +53,7 @@ t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 **  Assuming to_find has bounced
 */
 
-bool		is_obstructed(
+static bool		is_obstructed(
 	t_bounce to_find,
 	const t_light *light,
 	const t_arr_voidp *shapes)
@@ -71,7 +69,7 @@ bool		is_obstructed(
 	return (to_find.obj == found.obj);
 }
 
-t_rgb		compute_color(t_bounce bounce, const t_gui *gui)
+static t_rgb	compute_color(t_bounce bounce, const t_gui *gui)
 {
 	size_t	i;
 	t_light	*light;
@@ -96,7 +94,7 @@ t_rgb		compute_color(t_bounce bounce, const t_gui *gui)
 	return (multiply_color(bounce.color, scalar));
 }
 
-void		render(t_gui *gui)
+void			render(t_gui *gui)
 {
 	unsigned	x;
 	unsigned	y;
