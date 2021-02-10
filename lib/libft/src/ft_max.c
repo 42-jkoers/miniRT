@@ -22,7 +22,7 @@ unsigned long	ft_max_u(unsigned long a, unsigned long b)
 	return (a > b ? a : b);
 }
 
-double			fmin(double a, double b)
+double			ft_maxf(double a, double b)
 {
 	return (a > b ? a : b);
 }

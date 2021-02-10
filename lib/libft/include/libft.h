@@ -109,7 +109,7 @@ long				ft_strtonum(char *str);
 unsigned long		ft_strtonum_u(char *str);
 long				ft_max(long a, long b);
 unsigned long		ft_max_u(unsigned long a, unsigned long b);
-double				fmin(double a, double b);
+double				ft_maxf(double a, double b);
 long				ft_min(long a, long b);
 unsigned long		ft_min_u(unsigned long a, unsigned long b);
 double				ft_minf(double a, double b);
