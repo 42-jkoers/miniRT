@@ -14,6 +14,7 @@
 #include "constants.h"
 #include "vector.h"
 #include <math.h>
+#include <stdio.h>
 
 double	relative_intensity(t_vec3 point, t_vec3 normal, const t_light *light)
 {
@@ -21,7 +22,7 @@ double	relative_intensity(t_vec3 point, t_vec3 normal, const t_light *light)
 	double	intensity;
 
 	to_light = unit(subtract(light->origin, point));
-	intensity = 1 * light->brightness * fmin(0.0, dot(normal, to_light));
+	intensity = 1 * light->brightness * fmax(0.0, dot(normal, to_light));
 	intensity = fmin(intensity, 1.0);
 	return (intensity);
 }
@@ -41,14 +42,14 @@ t_rgb	add_color(t_rgb color, t_rgb additive, double intensity)
 
 t_rgb	multiply_color(t_rgb color, t_rgb multication)
 {
-	const double	r = color.r * (double)(multication.r / 255.0);
-	const double	g = color.g * (double)(multication.g / 255.0);
-	const double	b = color.b * (double)(multication.b / 255.0);
+	const double	r = color.r * ((double)multication.r / 255.0);
+	const double	g = color.g * ((double)multication.g / 255.0);
+	const double	b = color.b * ((double)multication.b / 255.0);
 	t_rgb			new;
 
-	new.r = (unsigned char)round(r);
-	new.g = (unsigned char)round(g);
-	new.b = (unsigned char)round(b);
+	new.r = (unsigned char)round(fmin(r, 255.0));
+	new.g = (unsigned char)round(fmin(g, 255.0));
+	new.b = (unsigned char)round(fmin(b, 255.0));
 	return (new);
 }
 

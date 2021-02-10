@@ -37,7 +37,8 @@ void		log_shapes(const t_arr_voidp *shapes)
 	i = 0;
 	while (i < SHAPE_LAST)
 	{
-		printf("%13s %u\n", g_rule_name[i], shape_n[i]);
+		if (shape_n[i] > 0)
+			printf("   %-10s %u\n", g_rule_name[i], shape_n[i]);
 		i++;
 	}
 }
