@@ -59,7 +59,6 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_lstshift.c \
 				  $(SRCDIR)/ft_lstsize.c \
 				  $(SRCDIR)/ft_max.c \
-				  $(SRCDIR)/ft_max_u.c \
 				  $(SRCDIR)/ft_memccpy.c \
 				  $(SRCDIR)/ft_memchr.c \
 				  $(SRCDIR)/ft_memcmp.c \
@@ -68,7 +67,6 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_memmove.c \
 				  $(SRCDIR)/ft_memset.c \
 				  $(SRCDIR)/ft_min.c \
-				  $(SRCDIR)/ft_min_u.c \
 				  $(SRCDIR)/ft_numlen.c \
 				  $(SRCDIR)/ft_numlen_u.c \
 				  $(SRCDIR)/ft_numtobase.c \

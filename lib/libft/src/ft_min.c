@@ -12,7 +12,17 @@
 
 #include "libft.h"
 
-long	ft_min(long a, long b)
+long			ft_min(long a, long b)
+{
+	return (a < b ? a : b);
+}
+
+unsigned long	ft_min_u(unsigned long a, unsigned long b)
+{
+	return (a < b ? a : b);
+}
+
+double			ft_minf(double a, double b)
 {
 	return (a < b ? a : b);
 }
