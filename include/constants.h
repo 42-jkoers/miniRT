@@ -140,9 +140,11 @@ typedef struct		s_sphere
 
 typedef struct		s_triangle
 {
+	t_vec3			p0;
 	t_vec3			p1;
 	t_vec3			p2;
-	t_vec3			p3;
+	t_vec3			edge1;
+	t_vec3			edge2;
 }					t_triangle;
 
 typedef union	s_pos

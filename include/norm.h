@@ -28,4 +28,17 @@ typedef struct	s_ray_from_pix
 	t_vec3		scaled_y;
 }				t_ray_from_pix;
 
+typedef struct	s_hit_triangle
+{
+	t_vec3	h;
+	t_vec3	s;
+	t_vec3	q;
+	double	a;
+	double	f;
+	double	u;
+	double	v;
+	double	t;
+	t_hit	hit;
+}				t_hit_triangle;
+
 #endif

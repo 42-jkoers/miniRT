@@ -96,11 +96,13 @@ void	add_triangle(t_arr_voidp **shapes, char *line)
 	obj = malloc_safe(sizeof(t_obj));
 	obj->shape = SHAPE_TRIANGLE;
 	items = split_clamp(line, 5);
-	set_point(&obj->pos.tr.p1, items[1]);
-	set_point(&obj->pos.tr.p2, items[2]);
-	set_point(&obj->pos.tr.p3, items[3]);
+	set_point(&obj->pos.tr.p0, items[1]);
+	set_point(&obj->pos.tr.p1, items[2]);
+	set_point(&obj->pos.tr.p2, items[3]);
 	set_color(&obj->color, items[4]);
 	ft_free_until_null_char(items);
+	obj->pos.tr.edge1 = subtract(obj->pos.tr.p1, obj->pos.tr.p0);
+	obj->pos.tr.edge2 = subtract(obj->pos.tr.p2, obj->pos.tr.p0);
 	if (ft_arr_voidp_push(shapes, obj) == NULL)
 		exit_e("malloc");
 }
