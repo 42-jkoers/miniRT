@@ -33,6 +33,7 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_atoi.c \
 				  $(SRCDIR)/ft_bzero.c \
 				  $(SRCDIR)/ft_calloc.c \
+				  $(SRCDIR)/ft_degrees.c \
 				  $(SRCDIR)/ft_free_2d.c \
 				  $(SRCDIR)/ft_free_until_null.c \
 				  $(SRCDIR)/ft_get_next_line.c \
@@ -84,6 +85,7 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_putendl_fd.c \
 				  $(SRCDIR)/ft_putnbr_fd.c \
 				  $(SRCDIR)/ft_putstr.c \
+				  $(SRCDIR)/ft_radians.c \
 				  $(SRCDIR)/ft_putstr_fd.c \
 				  $(SRCDIR)/ft_realloc.c \
 				  $(SRCDIR)/ft_split.c \

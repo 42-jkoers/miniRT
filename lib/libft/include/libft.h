@@ -17,6 +17,7 @@
 # include <stdbool.h>
 # include <stddef.h>
 # include <unistd.h>
+# define CLEARLINE "\33[2K\r"
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -144,6 +145,8 @@ ssize_t				ft_arrchrn(char **arr, char *search, size_t search_len);
 ssize_t				ft_arrnchr(char **arr, size_t arr_len, char *search);
 ssize_t				ft_arrnchrn(char **arr, size_t arr_len, char *search,
 					size_t search_len);
+double				ft_degrees(double radians);
+double				ft_radians(double degrees);
 
 /*
 ** typedef struct		s_arr_long
