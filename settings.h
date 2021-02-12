@@ -59,4 +59,14 @@
 
 # define NEXT_CAMERA_KEY XK_c
 
+/*
+** Enable multithreading? :boolean
+*/
+# define MULTITHREADING 1
+
+/*
+** What number of threads should the program use? :unsigned int [0 n]
+*/
+# define THREADS 8
+
 #endif

@@ -13,7 +13,7 @@
 NAME      		= miniRT
 
 CC          	= gcc
-CFLAGS      	= -Wall -Wextra -Wuninitialized -O2
+CFLAGS      	= -Wall -Wextra -Wuninitialized -O3
 
 SRCEXT      	= c
 SRCDIR      	= src
@@ -23,8 +23,8 @@ BUILDDIR    	= obj
 
 SETTINGS		= settings.h
 LIBDIR			= lib
-LINKS			= -L$(LIBDIR)/minilibx-linux -lmlx -lXext -lX11 -lm
-SOURCELINKS		= -lm
+LINKS			= -L$(LIBDIR)/minilibx-linux -lmlx -lXext -lX11 -lm -lpthread
+SOURCELINKS		= -lm -lpthread
 LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
 				  $(LIBDIR)/libft/bin/libft.a
 HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
@@ -87,7 +87,7 @@ rt:
 
 rtall:
 	@$(MAKE) > /dev/null
-	@find rt/ -name "*.rt" -exec ./miniRT {} --save \; -exec mv scene.bmp renders/{}.bmp \;
+	@find rt/ -name "*.rt" -exec echo {} \; -exec ./miniRT {} --save \; -exec mv scene.bmp renders/{}.bmp \;
 
 silent:
 	@$(MAKE) > /dev/null

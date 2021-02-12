@@ -56,6 +56,7 @@ void	exit_success(t_gui *gui)
 		exit(1);
 	ft_arr_voidp_free(gui->shapes, free);
 	ft_arr_voidp_free(gui->cameras, free);
+	ft_arr_voidp_free(gui->lights, free);
 	if (gui->window)
 		mlx_destroy_window(gui->mlx, gui->window);
 	if (gui->canvas.mlx_img)
