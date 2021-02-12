@@ -20,7 +20,6 @@
 ** README
 ** This the settings file for the miniRT project.
 ** After changing a setting you of course have to recompile with make re
-** The first line of every setting is a question that the property
 ** answer to.
 */
 
@@ -65,8 +64,13 @@
 # define MULTITHREADING 1
 
 /*
-** What number of threads should the program use? :unsigned int [0 n]
+** What number of threads should the program use? :unsigned int [1 n]
 */
-# define THREADS 8
+# define THREADS 7
+
+/*
+**  :unsigned int --> 1, 4, 16, 32, ect
+*/
+# define ANTI_ALIASING_LEVEL 1
 
 #endif

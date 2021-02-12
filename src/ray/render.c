@@ -14,6 +14,7 @@
 #include "gui.h"
 #include "constants.h"
 #include <pthread.h>
+#include <math.h>
 
 void	render_singlethread(t_gui *gui)
 {
@@ -77,7 +78,7 @@ void	render(t_gui *gui)
 	t_job	jobs[THREADS];
 	size_t	i;
 
-	if (!MULTITHREADING)
+	if (!MULTITHREADING || THREADS >= (unsigned)round(gui->y_size))
 		return (render_singlethread(gui));
 	define_jobs(jobs, THREADS, gui);
 	i = 0;

@@ -76,12 +76,13 @@ static bool		clear_path(
 			same_point(to_find.point, found.point, EPSILON));
 }
 
-static t_rgb	bounce_color(t_bounce bounce, const t_gui *gui)
+static t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
 {
-	size_t	i;
-	t_light	*light;
-	t_rgb	scalar;
-	double	intensity;
+	size_t			i;
+	t_light			*light;
+	t_rgb			scalar;
+	double			intensity;
+	const t_bounce	bounce = get_bounce(gui->shapes, ray);
 
 	if (bounce.obj == NULL)
 		return (shadow(gui));
@@ -103,12 +104,26 @@ static t_rgb	bounce_color(t_bounce bounce, const t_gui *gui)
 
 t_rgb			compute_color(unsigned x, unsigned y, const t_gui *gui)
 {
-	t_rgb		color;
-	t_ray		camera_ray;
-	t_bounce	bounce;
 
-	camera_ray = ray_from_pix(x, y, gui);
-	bounce = get_bounce(gui->shapes, camera_ray);
-	color = bounce_color(bounce, gui);
+	const double	aa = 1.0 / sqrt(ANTI_ALIASING_LEVEL);
+	double			x_off;
+	double			y_off;
+	t_rgb			color;
+	t_ray			camera_ray;
+
+	color = rgb(0, 0, 0);
+	y_off = 0.0;
+	while (y_off < 1.0)
+	{
+		x_off = 0.0;
+		while (x_off < 1.0)
+		{
+			camera_ray = ray_from_pix(x + x_off, y + y_off, gui);
+			color = add_color(color,
+				ray_to_color(camera_ray, gui), 1.0 / ANTI_ALIASING_LEVEL);
+			x_off += aa;
+		}
+		y_off += aa;
+	}
 	return (color);
 }

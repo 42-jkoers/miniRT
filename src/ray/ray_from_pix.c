@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ray_from_pixel.c                                   :+:    :+:            */
+/*   ray_from_pix.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
@@ -53,8 +53,8 @@ t_ray		ray_from_pix(double x, double y, const t_gui *gui)
 
 	n.fov = tan(gui->camera.fov * 0.5);
 	n.aspect_ratio = (double)gui->x_size / (double)gui->y_size;
-	n.px = (2 * (x + 0.5) / gui->x_size - 1) * n.aspect_ratio * n.fov;
-	n.py = (2 * (y + 0.5) / (double)gui->y_size - 1) * n.fov;
+	n.px = (2 * x / gui->x_size - 1) * n.aspect_ratio * n.fov;
+	n.py = (2 * y / (double)gui->y_size - 1) * n.fov;
 	n.ray.origin = gui->camera.origin;
 	if (gui->camera.dir.x == 0.0 && gui->camera.dir.z == 0.0)
 		n.positive_x = vec(1.0, 0.0, 0.0);
