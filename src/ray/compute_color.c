@@ -16,15 +16,15 @@
 #include "vector.h"
 #include <math.h>
 
-// t_rgb			compute_color(unsigned x, unsigned y, const t_gui *gui)
-// {
-// 	t_ray		camera_ray;
+static t_rgb	compute_color_no_aa(unsigned x, unsigned y, const t_gui *gui)
+{
+	t_ray		camera_ray;
 
-// 	camera_ray = ray_from_pix(x, y, gui);
-// 	return (ray_to_color(camera_ray, gui));
-// }
+	camera_ray = ray_from_pix(x, y, gui);
+	return (ray_to_color(camera_ray, gui));
+}
 
-t_rgb			add_colors(const t_rgb *colors, unsigned n)
+static t_rgb	add_colors(const t_rgb *colors, unsigned n)
 {
 	double		r;
 	double		g;
@@ -50,13 +50,14 @@ t_rgb			add_colors(const t_rgb *colors, unsigned n)
 
 t_rgb			compute_color(unsigned x, unsigned y, const t_gui *gui)
 {
-
 	const double	aa = 1.0 / sqrt(ANTI_ALIASING_LEVEL);
 	double			x_off;
 	double			y_off;
 	t_rgb			colors[ANTI_ALIASING_LEVEL];
 	size_t			i;
 
+	if (DISABLE_ANTI_ALIASING)
+		return (compute_color_no_aa(x, y, gui));
 	i = 0;
 	y_off = EPSILON;
 	while (y_off < 1.0 && i < ANTI_ALIASING_LEVEL)

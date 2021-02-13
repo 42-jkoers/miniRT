@@ -68,6 +68,12 @@
 */
 # define THREADS 7
 
+
+/*
+**  :boolean
+*/
+# define DISABLE_ANTI_ALIASING 0
+
 /*
 **  :unsigned int --> 1, 4, 16, 32, ect
 */
