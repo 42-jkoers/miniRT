@@ -71,6 +71,6 @@
 /*
 **  :unsigned int --> 1, 4, 16, 32, ect
 */
-# define ANTI_ALIASING_LEVEL 1
+# define ANTI_ALIASING_LEVEL 4
 
 #endif

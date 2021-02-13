@@ -16,90 +16,36 @@
 #include "vector.h"
 #include <math.h>
 
-/*
-** Get closest object pointer from *shapes
-*/
+// t_rgb			compute_color(unsigned x, unsigned y, const t_gui *gui)
+// {
+// 	t_ray		camera_ray;
 
-static t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
+// 	camera_ray = ray_from_pix(x, y, gui);
+// 	return (ray_to_color(camera_ray, gui));
+// }
+
+t_rgb			add_colors(const t_rgb *colors, unsigned n)
 {
-	size_t		i;
-	t_obj		*obj;
-	t_hit		hit;
-	t_bounce	bounce;
-	double		closest_dist;
+	double		r;
+	double		g;
+	double		b;
+	unsigned	i;
 
+	r = 0.0;
+	g = 0.0;
+	b = 0.0;
 	i = 0;
-	bounce.obj = NULL;
-	closest_dist = DOUBLE_MAX;
-	while (arr_get(shapes, i) != NULL)
+	while (i < n)
 	{
-		obj = arr_get(shapes, i);
-		hit = g_hit_shape[obj->shape](obj->pos, ray);
-		if (hit.hit && hit.dist < closest_dist)
-		{
-			closest_dist = hit.dist;
-			bounce.obj = obj;
-			bounce.color = obj->color;
-			bounce.point = hit.point;
-			bounce.normal = hit.normal;
-		}
+		r += colors[i].r;
+		g += colors[i].g;
+		b += colors[i].b;
 		i++;
 	}
-	return (bounce);
-}
-
-static bool		same_point(t_vec3 p1, t_vec3 p2, double range)
-{
-	return ((p1.x >= p2.x - range && p1.x <= p2.x + range) &&
-			(p1.y >= p2.y - range && p1.y <= p2.y + range) &&
-			(p1.z >= p2.z - range && p1.z <= p2.z + range));
-}
-
-/*
-**  Assuming to_find has bounced
-*/
-
-static bool		clear_path(
-	t_bounce to_find,
-	const t_light *light,
-	const t_arr_voidp *shapes)
-{
-	t_ray		ray;
-	t_bounce	found;
-
-	ray.origin = light->origin;
-	ray.dir = unit(subtract(light->origin, to_find.point));
-	found = get_bounce(shapes, ray);
-	if (found.obj == NULL)
-		return (false);
-	return (to_find.obj == found.obj &&
-			same_point(to_find.point, found.point, EPSILON));
-}
-
-static t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
-{
-	size_t			i;
-	t_light			*light;
-	t_rgb			scalar;
-	double			intensity;
-	const t_bounce	bounce = get_bounce(gui->shapes, ray);
-
-	if (bounce.obj == NULL)
-		return (shadow(gui));
-	i = 0;
-	scalar =
-		add_color(rgb(0, 0, 0), gui->ambient.color, gui->ambient.brightness);
-	while (arr_get(gui->lights, i) != NULL)
-	{
-		light = arr_get(gui->lights, i);
-		if (!clear_path(bounce, light, gui->shapes))
-		{
-			intensity = relative_intensity(bounce.point, bounce.normal, light);
-			scalar = add_color(scalar, light->color, intensity);
-		}
-		i++;
-	}
-	return (multiply_color(bounce.color, scalar));
+	r /= n;
+	g /= n;
+	b /= n;
+	return (rgb(round(r), round(g), round(b)));
 }
 
 t_rgb			compute_color(unsigned x, unsigned y, const t_gui *gui)
@@ -108,22 +54,22 @@ t_rgb			compute_color(unsigned x, unsigned y, const t_gui *gui)
 	const double	aa = 1.0 / sqrt(ANTI_ALIASING_LEVEL);
 	double			x_off;
 	double			y_off;
-	t_rgb			color;
-	t_ray			camera_ray;
+	t_rgb			colors[ANTI_ALIASING_LEVEL];
+	size_t			i;
 
-	color = rgb(0, 0, 0);
-	y_off = 0.0;
-	while (y_off < 1.0)
+	i = 0;
+	y_off = EPSILON;
+	while (y_off < 1.0 && i < ANTI_ALIASING_LEVEL)
 	{
-		x_off = 0.0;
-		while (x_off < 1.0)
+		x_off = EPSILON;
+		while (x_off < 1.0 && i < ANTI_ALIASING_LEVEL)
 		{
-			camera_ray = ray_from_pix(x + x_off, y + y_off, gui);
-			color = add_color(color,
-				ray_to_color(camera_ray, gui), 1.0 / ANTI_ALIASING_LEVEL);
+			colors[i] =
+				ray_to_color(ray_from_pix(x + x_off, y + y_off, gui), gui);
+			i++;
 			x_off += aa;
 		}
 		y_off += aa;
 	}
-	return (color);
+	return (add_colors(colors, ANTI_ALIASING_LEVEL));
 }
