@@ -13,7 +13,7 @@
 NAME      		= miniRT
 
 CC          	= gcc
-CFLAGS      	= -Wall -Wextra -Wuninitialized -O3
+CFLAGS      	= -Wall -Wextra -Wuninitialized -O2
 
 SRCEXT      	= c
 SRCDIR      	= src
@@ -28,7 +28,7 @@ SOURCELINKS		= -lm -lpthread
 LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
 				  $(LIBDIR)/libft/bin/libft.a
 HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
-SRC     		= $(shell find $(SRCDIR) -name "*.$(SRCEXT)" -exec basename {} \;)
+SRC     	= $(shell find $(SRCDIR) -name "*.$(SRCEXT)" -exec basename {} \;)
 OBJ				= $(addprefix $(BUILDDIR)/, $(SRC:.$(SRCEXT)=.$(OBJEXT)))
 STARTGREEN		= @echo "\033[38;2;0;255;0m\c"
 RESETCOLOR		= @echo "\033[0m\c"
@@ -40,12 +40,14 @@ all:
 	$(MAKE) -j4 $(NAME)
 
 $(NAME): $(BUILDDIR)/ $(OBJ) $(HEADERS) $(LIBS) $(SETTINGS)
-	$(CC) $(CFLAGS)-I$(HEADERDIR) $(BUILDDIR)/*.$(OBJEXT) -o $(NAME) $(LIBS) $(LINKS)
+	$(CC) $(CFLAGS) -I$(HEADERDIR) $(BUILDDIR)/*.$(OBJEXT) -o $(NAME) \
+$(LIBS) $(LINKS)
 
 # sources
 
 $(BUILDDIR)/%.$(OBJEXT): %.$(SRCEXT) $(HEADERS) $(SETTINGS)
-	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $(BUILDDIR)/$(notdir $@) $(SOURCELINKS)
+	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $(BUILDDIR)/$(notdir $@) \
+$(SOURCELINKS)
 
 # libs
 
@@ -83,11 +85,14 @@ dev:
 rt:
 	@$(MAKE) > /dev/null
 	@./miniRT rt/standard.rt --save
-	@while inotifywait -qq -e close_write rt/standard.rt; do make > /dev/null && ./miniRT rt/standard.rt --save; done
+	@while inotifywait -qq -e close_write rt/standard.rt; do \
+make > /dev/null && ./miniRT rt/standard.rt --save \
+&& convert scene.bmp scene.png; done
 
 rtall:
 	@$(MAKE) > /dev/null
-	@find rt/ -name "*.rt" -exec echo {} \; -exec ./miniRT {} --save \; -exec mv scene.bmp renders/{}.bmp \;
+	@find rt/ -name "*.rt" -exec echo {} \; -exec ./miniRT {} --save \; \
+-exec mv scene.bmp renders/{}.bmp \;
 
 silent:
 	@$(MAKE) > /dev/null
