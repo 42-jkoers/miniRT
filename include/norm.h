@@ -41,4 +41,29 @@ typedef struct	s_hit_triangle
 	t_hit	hit;
 }				t_hit_triangle;
 
+typedef struct	s_intersect_base
+{
+	t_vec3 normal;
+	t_vec3 p0;
+	double A;
+	double B;
+	double C;
+	double D;
+	double dist;
+	t_vec3 p;
+}				t_intersect_base;
+
+typedef struct	s_intersect_cy
+{
+	double a;
+	double b;
+	double c;
+	double delta;
+	double y;
+	double dist;
+	bool b1;
+	bool b2;
+
+}				t_intersect_cy;
+
 #endif
