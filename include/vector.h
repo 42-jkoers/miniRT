@@ -25,6 +25,12 @@ t_vec3	scale(t_vec3 v, double r);
 t_vec3	unit(t_vec3 v);
 t_vec3	translate(t_vec3 origin, t_vec3 dir, double t);
 
+typedef union
+{
+	double		f;
+	uint64_t	i;
+}	t_rsqrt;
+
 void	normalize(t_vec3 *v);
 
 #endif

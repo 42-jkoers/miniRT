@@ -12,7 +12,6 @@
 
 #include "vector.h"
 #include "constants.h"
-#include <math.h>
 
 /*
 ** = a - b or to, from
@@ -36,25 +35,6 @@ t_vec3	scale(t_vec3 v, double r)
 	vec.y = v.y * r;
 	vec.z = v.z * r;
 	return (vec);
-}
-
-void	normalize(t_vec3 *v)
-{
-	double	len;
-
-	len = length(*v);
-	if (len != 0.0)
-	{
-		v->x /= len;
-		v->y /= len;
-		v->z /= len;
-	}
-}
-
-t_vec3	unit(t_vec3 v)
-{
-	normalize(&v);
-	return (v);
 }
 
 t_vec3	translate(t_vec3 origin, t_vec3 dir, double t)
