@@ -55,7 +55,6 @@
 #include "norm.h"
 #include "constants.h"
 #include "vector.h"
-#include <math.h>
 
 t_hit	hit_triangle(t_pos pos, t_ray ray)
 {

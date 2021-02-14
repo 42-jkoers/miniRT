@@ -13,7 +13,7 @@
 NAME      		= miniRT
 
 CC          	= gcc
-CFLAGS      	= -Wall -Wextra -Wuninitialized -O2
+CFLAGS      	= -Wall -Wextra -Werror -Wuninitialized -O2
 
 SRCEXT      	= c
 SRCDIR      	= src
