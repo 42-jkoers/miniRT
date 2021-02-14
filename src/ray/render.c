@@ -78,7 +78,7 @@ void	render(t_gui *gui)
 	t_job	jobs[THREADS];
 	size_t	i;
 
-	if (!MULTITHREADING || THREADS >= (unsigned)round(gui->y_size))
+	if (!ENABLE_MULTITHREADING || THREADS >= (unsigned)round(gui->y_size))
 		return (render_singlethread(gui));
 	define_jobs(jobs, THREADS, gui);
 	i = 0;

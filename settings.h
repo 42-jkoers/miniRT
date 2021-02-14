@@ -61,13 +61,12 @@
 /*
 ** Enable multithreading? :boolean
 */
-# define MULTITHREADING 1
+# define ENABLE_MULTITHREADING 1
 
 /*
 ** What number of threads should the program use? :unsigned int [1 n]
 */
 # define THREADS 7
-
 
 /*
 **  :boolean
