@@ -38,14 +38,14 @@ void		log_shapes(const t_arr_voidp *shapes)
 	while (i < SHAPE_LAST)
 	{
 		if (shape_n[i] > 0)
-			printf("   %-10s %u\n", g_rule_name[i], shape_n[i]);
+			printf("   %-10s %u\n", rule_name(i), shape_n[i]);
 		i++;
 	}
 }
 
 static bool	is_rule(char *line, t_rule rule)
 {
-	return (ft_strcmp(line, g_rule_id[rule]) == ' ');
+	return (ft_strcmp(line, rule_id(rule)) == ' ');
 }
 
 static void	parse_rt_line(char *line, t_gui *gui)

@@ -57,8 +57,8 @@ typedef enum
 	RULE_LAST
 }	t_rule;
 
-extern char			*g_rule_id[RULE_LAST];
-extern char			*g_rule_name[RULE_LAST];
+char				*rule_id(t_rule i);
+char				*rule_name(t_rule i);
 char				*g_failed_rule;
 
 typedef struct		s_rgb

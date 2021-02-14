@@ -63,24 +63,20 @@ static void	open_window(t_gui *gui)
 	gui->window = mlx_new_window(
 		gui->mlx, (int)gui->x_size, (int)gui->y_size, "miniRT");
 	if (gui->window == NULL)
-		exit_e("malloc");
+		exit_e("mlx_new_window() failed");
 	mlx_key_hook(gui->window, on_keypress, gui);
 	mlx_hook(gui->window, 33, 0L, on_cross, gui);
 	gui_display_scene(gui);
 	mlx_loop(gui->mlx);
 }
 
-t_gui		*gui_init(const char *rt_filename, bool create_window)
+void	gui_init(t_gui *gui, const char *rt_filename, bool create_window)
 {
-	t_gui	*gui;
-
-	gui = calloc_safe(sizeof(t_gui));
 	gui->mlx = mlx_init();
 	if (gui->mlx == NULL)
-		exit_e("malloc");
+		exit_e("mlx_init() failed");
 	parse_rt(gui, rt_filename);
 	set_canvas(&gui->canvas, gui, create_window);
 	if (create_window)
 		open_window(gui);
-	return (gui);
 }

@@ -28,7 +28,7 @@ static void	count_rules(unsigned *rules_n, char **rt)
 		rule_i = 0;
 		while (rule_i < RULE_LAST)
 		{
-			if (ft_strcmp(rt[i], (char *)g_rule_id[rule_i]) == ' ')
+			if (ft_strcmp(rt[i], (char *)rule_id(rule_i)) == ' ')
 				rules_n[i] += 1;
 			rule_i++;
 		}
@@ -39,7 +39,7 @@ static void	count_rules(unsigned *rules_n, char **rt)
 static void	exit_not_one_declaration(t_rule rule, unsigned got)
 {
 	printf("Rule %s (%s) has %u occurrences, only 1 declaration allowed\n",
-		g_rule_id[rule], g_rule_name[rule], got);
+		rule_id(rule), rule_name(rule), got);
 	exit(1);
 }
 
@@ -56,7 +56,7 @@ void		exit_on_illegal_rule_n(char **rt)
 	if (rules_n[RULE_CAMERA] == 1)
 	{
 		printf("0 %s (%s) found, expected at least 1\n",
-			g_rule_id[RULE_CAMERA], g_rule_name[RULE_CAMERA]);
+			rule_id(RULE_CAMERA), rule_name(RULE_CAMERA));
 		exit(1);
 	}
 }

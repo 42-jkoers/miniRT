@@ -18,6 +18,8 @@ void	exit_e(const char *msg)
 {
 	size_t	len;
 
+	if (STUPID)
+		printf("Error\n");
 	printf("%s", msg);
 	len = ft_strlen((char *)msg);
 	if (len > 0 && msg[len - 1] != '\n')

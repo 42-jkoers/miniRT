@@ -15,7 +15,7 @@
 
 # include "constants.h"
 
-t_gui	*gui_init(const char *rt_filename, bool create_window);
+void	gui_init(t_gui *gui, const char *rt_filename, bool create_window);
 char	*gui_get_pixel_data(const t_gui *gui, unsigned x, unsigned y);
 void	gui_set_pixel(t_gui *gui, unsigned x, unsigned y, t_rgb color);
 t_rgb	gui_get_pixel(t_gui *gui, unsigned x, unsigned y);
