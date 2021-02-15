@@ -72,6 +72,7 @@ static void	open_window(t_gui *gui)
 
 void	gui_init(t_gui *gui, const char *rt_filename, bool create_window)
 {
+	ft_bzero(gui, sizeof(t_gui));
 	gui->mlx = mlx_init();
 	if (gui->mlx == NULL)
 		exit_e("mlx_init() failed");

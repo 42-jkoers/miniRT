@@ -51,7 +51,6 @@ void	*do_job(void *p)
 		}
 		y++;
 	}
-	pthread_exit(NULL);
 	return (NULL);
 }
 
