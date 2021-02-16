@@ -27,7 +27,8 @@ typedef struct	s_job
 t_rgb			compute_color(unsigned x, unsigned y, const t_gui *gui);
 t_ray			ray_from_pix(double x, double y, const t_gui *gui);
 double			relative_intensity(
-					t_vec3 point, t_vec3 normal, const t_light *light);
+					t_vec3 p, t_vec3 n, bool is2d, const t_light *light);
+
 t_rgb			ray_to_color(t_ray ray, const t_gui *gui);
 
 t_rgb			shadow(const t_gui *gui);

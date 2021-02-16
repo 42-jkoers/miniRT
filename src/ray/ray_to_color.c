@@ -47,6 +47,17 @@ static t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 	return (bounce);
 }
 
+static bool		is2d(const t_obj *obj)
+{
+	if (obj->shape == SHAPE_TRIANGLE)
+		return (true);
+	if (obj->shape == SHAPE_PLANE)
+		return (true);
+	if (obj->shape == SHAPE_SQUARE)
+		return (true);
+	return (false);
+}
+
 static bool		same_point(t_vec3 p1, t_vec3 p2, double range)
 {
 	return ((p1.x >= p2.x - range && p1.x <= p2.x + range) &&
@@ -93,7 +104,8 @@ t_rgb			ray_to_color(t_ray ray, const t_gui *gui)
 		light = arr_get(gui->lights, i);
 		if (!clear_path(bounce, light, gui->shapes))
 		{
-			intensity = relative_intensity(bounce.point, bounce.normal, light);
+			intensity = relative_intensity(
+				bounce.point, bounce.normal, is2d(bounce.obj), light);
 			scalar = add_color(scalar, light->color, intensity);
 		}
 		i++;
