@@ -1,6 +1,7 @@
 *.o
 *.a
 *.pdf
+*.bmp
 miniRT
 mlx-test
 a.out

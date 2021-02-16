@@ -28,16 +28,15 @@ SOURCELINKS		= -lm -lpthread
 LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
 				  $(LIBDIR)/libft/bin/libft.a
 HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
-SRC     	= $(shell find $(SRCDIR) -name "*.$(SRCEXT)" -exec basename {} \;)
+SRC			= $(shell find $(SRCDIR) -name "*.$(SRCEXT)" -exec basename {} \;)
 OBJ				= $(addprefix $(BUILDDIR)/, $(SRC:.$(SRCEXT)=.$(OBJEXT)))
 STARTGREEN		= @echo "\033[38;2;0;255;0m\c"
 RESETCOLOR		= @echo "\033[0m\c"
 
 VPATH = $(shell find $(SRCDIR) -type d | tr '\n' ':' | sed -r 's/(.*):/\1/')
-# main
 
-all:
-	$(MAKE) -j4 $(NAME)
+all bonus:
+	make -j4 $(NAME)
 
 $(NAME): $(BUILDDIR)/ $(OBJ) $(HEADERS) $(LIBS) $(SETTINGS)
 	$(CC) $(CFLAGS) -I$(HEADERDIR) $(BUILDDIR)/*.$(OBJEXT) -o $(NAME) \
@@ -58,7 +57,7 @@ $(LIBDIR)/libft/bin/libft.a:
 	$(MAKE) -C $(LIBDIR)/libft/
 
 clean:
-# make -C $(LIBDIR)/minilibx-linux/ clean
+	make -C $(LIBDIR)/minilibx-linux/ clean
 	make -C $(LIBDIR)/libft/ clean
 ifneq "$(BUILDDIR)" "."
 	/bin/rm -rf $(BUILDDIR)/
@@ -74,13 +73,17 @@ re:
 	$(MAKE) fclean
 	$(MAKE) all
 
-sync:
-	cp -rf ~/GitHub/libft/ $(LIBDIR)
-	rm -rf $(LIBDIR)/libft/.git/
-	make -C $(LIBDIR)/libft/
+$(BUILDDIR)/:
+	mkdir -p $(BUILDDIR)
 
-dev:
-	make > /dev/null && valgrind -q ./miniRT
+eval:
+	$(MAKE) > /dev/null
+	@echo ""
+	find eval/ -name "*.rt" -exec echo {} \; -exec ./miniRT {} --save \; \
+-exec mv scene.bmp {}.bmp \;
+
+evalclean:
+	find eval/ -name "*.bmp" -exec rm {} \;
 
 rt:
 	@$(MAKE) > /dev/null
@@ -97,7 +100,4 @@ rtall:
 silent:
 	@$(MAKE) > /dev/null
 
-$(BUILDDIR)/:
-	mkdir -p $(BUILDDIR)
-
-.PHONY: all clean fclean re sync rt
+.PHONY: all clean fclean re sync rt rtall silent eval

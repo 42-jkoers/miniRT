@@ -35,7 +35,7 @@ int		main(int argc, const char *argv[])
 		gui_init(&gui, argv[1], true);
 		exit_success(&gui);
 	}
-
+	else
 		printf("Invalid args\n");
 	return (0);
 }
