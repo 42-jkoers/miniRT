@@ -57,6 +57,6 @@ t_hit	hit_square(t_pos pos, t_ray ray)
 		return ((t_hit){false});
 	hit.hit = true;
 	hit.dist = subsection.dist;
-	hit.normal = unit(scale(pos.sq.normal, -1.0));
+	hit.normal = unit(pos.sq.normal);
 	return (hit);
 }
