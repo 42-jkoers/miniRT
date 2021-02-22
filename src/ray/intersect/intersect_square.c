@@ -15,7 +15,7 @@
 #include "vector.h"
 #include <math.h>
 
-static bool		is_inside_square(t_pos pos, t_vec3 hit_p)
+static bool	is_inside_square(t_pos pos, t_vec3 hit_p)
 {
 	t_vec3	dist;
 	double	border;
@@ -44,7 +44,7 @@ static t_hit	hit_square_plane_subsection(t_pos pos, t_ray ray)
 	return (hit_plane(subsection, ray));
 }
 
-t_hit			hit_square(t_pos pos, t_ray ray)
+t_hit	hit_square(t_pos pos, t_ray ray)
 {
 	t_hit	hit;
 	t_hit	subsection;

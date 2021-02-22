@@ -18,7 +18,7 @@
 #include <string.h>
 #include <errno.h>
 
-int		main(int argc, const char *argv[])
+int	main(int argc, const char *argv[])
 {
 	t_gui	gui;
 

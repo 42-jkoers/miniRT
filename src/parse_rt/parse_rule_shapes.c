@@ -81,8 +81,8 @@ void	add_cylinder(t_arr_voidp **shapes, char *line)
 	obj->pos.cy.radius = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX) * 0.5;
 	obj->pos.cy.height = strtodbl_clamp(items[4], '\0', 0.0, DOUBLE_MAX);
 	set_color(&obj->color, items[5]);
-	obj->pos.cy.base2 =
-		translate(obj->pos.cy.origin, obj->pos.cy.dir, obj->pos.cy.height);
+	obj->pos.cy.base2 = translate(
+			obj->pos.cy.origin, obj->pos.cy.dir, obj->pos.cy.height);
 	ft_free_until_null_char(items);
 	if (ft_arr_voidp_push(shapes, obj) == NULL)
 		exit_e("malloc");

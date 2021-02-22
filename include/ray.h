@@ -16,15 +16,15 @@
 # include "constants.h"
 # include <pthread.h>
 
-typedef struct	s_job
+typedef struct s_job
 {
-	pthread_t	tid;
-	unsigned	start_y;
-	unsigned	num_rows;
-	t_gui		*gui;
+	pthread_t		tid;
+	unsigned int	start_y;
+	unsigned int	num_rows;
+	t_gui			*gui;
 }				t_job;
 
-t_rgb			compute_color(unsigned x, unsigned y, const t_gui *gui);
+t_rgb			compute_color(unsigned int x, unsigned int y, const t_gui *gui);
 t_ray			ray_from_pix(double x, double y, const t_gui *gui);
 double			relative_intensity(
 					t_vec3 p, t_vec3 n, bool is2d, const t_light *light);

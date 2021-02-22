@@ -13,9 +13,6 @@
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
-# include <X11/keysymdef.h>
-# include <X11/keysym.h>
-
 /*
 ** README
 ** This the settings file for the miniRT project.
@@ -56,7 +53,7 @@
 */
 # define STUPID 0
 
-# define NEXT_CAMERA_KEY XK_c
+# define NEXT_CAMERA_KEY 0x0063
 
 /*
 ** Enable multithreading? :boolean

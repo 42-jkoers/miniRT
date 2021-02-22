@@ -47,7 +47,7 @@ static t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 	return (bounce);
 }
 
-static bool		is2d(const t_obj *obj)
+static bool	is2d(const t_obj *obj)
 {
 	if (obj->shape == SHAPE_TRIANGLE)
 		return (true);
@@ -58,54 +58,52 @@ static bool		is2d(const t_obj *obj)
 	return (false);
 }
 
-static bool		same_point(t_vec3 p1, t_vec3 p2, double range)
+static bool	same_point(t_vec3 p1, t_vec3 p2, double range)
 {
-	return ((p1.x >= p2.x - range && p1.x <= p2.x + range) &&
-			(p1.y >= p2.y - range && p1.y <= p2.y + range) &&
-			(p1.z >= p2.z - range && p1.z <= p2.z + range));
+	return ((p1.x >= p2.x - range && p1.x <= p2.x + range)
+		&& (p1.y >= p2.y - range && p1.y <= p2.y + range)
+		&& (p1.z >= p2.z - range && p1.z <= p2.z + range));
 }
 
 /*
 **  Assuming to_find has bounced
 */
 
-static bool		clear_path(
-	t_bounce to_find,
-	const t_light *light,
-	const t_arr_voidp *shapes)
+static bool	clear(t_bounce to_find, const t_light *l, const t_arr_voidp *shapes)
 {
 	t_ray		ray;
 	t_bounce	found;
 
-	ray.origin = light->origin;
-	ray.dir = unit(subtract(light->origin, to_find.point));
+	ray.origin = l->origin;
+	ray.dir = unit(subtract(l->origin, to_find.point));
 	found = get_bounce(shapes, ray);
 	if (found.obj == NULL)
 		return (false);
-	return (to_find.obj == found.obj &&
-			same_point(to_find.point, found.point, EPSILON));
+	return (to_find.obj == found.obj
+		&& same_point(to_find.point, found.point, EPSILON));
 }
 
-t_rgb			ray_to_color(t_ray ray, const t_gui *gui)
+t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
 {
-	size_t			i;
-	t_light			*light;
-	t_rgb			scalar;
-	double			intensity;
-	const t_bounce	bounce = get_bounce(gui->shapes, ray);
+	size_t		i;
+	t_light		*light;
+	t_rgb		scalar;
+	double		intensity;
+	t_bounce	bounce;
 
+	bounce = get_bounce(gui->shapes, ray);
 	if (bounce.obj == NULL)
 		return (shadow(gui));
 	i = 0;
-	scalar =
-		add_color(rgb(0, 0, 0), gui->ambient.color, gui->ambient.brightness);
+	scalar = add_color(
+			rgb(0, 0, 0), gui->ambient.color, gui->ambient.brightness);
 	while (arr_get(gui->lights, i) != NULL)
 	{
 		light = arr_get(gui->lights, i);
-		if (!clear_path(bounce, light, gui->shapes))
+		if (!clear(bounce, light, gui->shapes))
 		{
 			intensity = relative_intensity(
-				bounce.point, bounce.normal, is2d(bounce.obj), light);
+					bounce.point, bounce.normal, is2d(bounce.obj), light);
 			scalar = add_color(scalar, light->color, intensity);
 		}
 		i++;

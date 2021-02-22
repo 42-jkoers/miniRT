@@ -138,37 +138,37 @@
 
 static t_vec3	normal_in(t_vec3 p, t_cylinder cy)
 {
-	if (p.x < cy.origin.x + cy.radius &&
-		p.x > cy.origin.x - cy.radius &&
-		p.z < cy.origin.z + cy.radius &&
-		p.z > cy.origin.z - cy.radius)
+	if (p.x < cy.origin.x + cy.radius
+		&& p.x > cy.origin.x - cy.radius
+		&& p.z < cy.origin.z + cy.radius
+		&& p.z > cy.origin.z - cy.radius)
 	{
-		if (p.y < cy.origin.y + cy.height + EPSILON &&
-			p.y > cy.origin.y + cy.height - EPSILON)
+		if (p.y < cy.origin.y + cy.height + EPSILON
+			&& p.y > cy.origin.y + cy.height - EPSILON)
 			return ((t_vec3){0, 1, 0});
-		if (p.y < cy.origin.y + EPSILON &&
-			p.y > cy.origin.y - EPSILON)
+		if (p.y < cy.origin.y + EPSILON
+			&& p.y > cy.origin.y - EPSILON)
 			return ((t_vec3){0, -1, 0});
 	}
 	return (unit(subtract(p, (t_vec3){cy.origin.x, p.y, cy.origin.z})));
 }
 
-static bool		intersect_base(t_ray ray, t_vec3 c, double *t, t_cylinder cy)
+static bool	intersect_base(t_ray ray, t_vec3 c, double *t, t_cylinder cy)
 {
-	t_intersect_base n;
+	t_intersect_base	n;
 
 	n.normal = normal_in(c, cy);
 	n.p0 = vec(ray.origin.x - cy.origin.x,
-		ray.origin.y - cy.origin.y, ray.origin.z - cy.origin.z);
+			ray.origin.y - cy.origin.y, ray.origin.z - cy.origin.z);
 	n.A = n.normal.x;
 	n.B = n.normal.y;
 	n.C = n.normal.z;
-	n.D = -(n.A * (c.x - cy.origin.x) + n.B * (c.y - cy.origin.y) + n.C *
-		(c.z - cy.origin.z));
+	n.D = - (n.A * (c.x - cy.origin.x) + n.B * (c.y - cy.origin.y) + n.C
+			* (c.z - cy.origin.z));
 	if (n.A * ray.dir.x + n.B * ray.dir.y + n.C * ray.dir.z == 0.0)
 		return (false);
-	n.dist = -(n.A * n.p0.x + n.B * n.p0.y + n.C * n.p0.z + n.D) /
-		(n.A * ray.dir.x + n.B * ray.dir.y + n.C * ray.dir.z);
+	n.dist = - (n.A * n.p0.x + n.B * n.p0.y + n.C * n.p0.z + n.D)
+		/ (n.A * ray.dir.x + n.B * ray.dir.y + n.C * ray.dir.z);
 	if (n.dist < EPSILON)
 		return (false);
 	n.p.x = n.p0.x + n.dist * ray.dir.x;
@@ -180,14 +180,14 @@ static bool		intersect_base(t_ray ray, t_vec3 c, double *t, t_cylinder cy)
 	return (true);
 }
 
-static bool		intersect_cy(double *t, t_ray ray, t_cylinder cy)
+static bool	intersect_cy(double *t, t_ray ray, t_cylinder cy)
 {
-	t_intersect_cy n;
+	t_intersect_cy	n;
 
 	n.a = ray.dir.x * ray.dir.x + ray.dir.z * ray.dir.z;
 	n.b = ray.dir.x * ray.origin.x + ray.dir.z * ray.origin.z;
-	n.c = ray.origin.x * ray.origin.x + ray.origin.z *
-		ray.origin.z - cy.radius * cy.radius;
+	n.c = ray.origin.x * ray.origin.x + ray.origin.z
+		* ray.origin.z - cy.radius * cy.radius;
 	n.delta = n.b * n.b - n.a * n.c;
 	if (n.delta < EPSILON)
 		return (false);
@@ -208,7 +208,7 @@ static bool		intersect_cy(double *t, t_ray ray, t_cylinder cy)
 	return (true);
 }
 
-t_hit			hit_cylinder(t_pos pos, t_ray ray)
+t_hit	hit_cylinder(t_pos pos, t_ray ray)
 {
 	t_hit	hit;
 

@@ -19,11 +19,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void		log_shapes(const t_arr_voidp *shapes)
+void	log_shapes(const t_arr_voidp *shapes)
 {
-	t_obj		*obj;
-	size_t		i;
-	unsigned	shape_n[SHAPE_LAST];
+	t_obj			*obj;
+	size_t			i;
+	unsigned int	shape_n[SHAPE_LAST];
 
 	i = 0;
 	ft_bzero(shape_n, sizeof(shape_n));
@@ -74,7 +74,7 @@ static void	parse_rt_line(char *line, t_gui *gui)
 		exit_e("Unknown rule");
 }
 
-void		parse_rt(t_gui *gui, const char *rt_filename)
+void	parse_rt(t_gui *gui, const char *rt_filename)
 {
 	size_t		rt_lines;
 	char		**rt;

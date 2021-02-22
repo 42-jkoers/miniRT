@@ -22,8 +22,8 @@
 
 char	*gui_get_pixel_data(const t_gui *gui, unsigned x, unsigned y)
 {
-	return (gui->canvas.data +
-		y * gui->canvas.line_length + x * (gui->canvas.bpp / 8));
+	return (gui->canvas.data
+		+ y * gui->canvas.line_length + x * (gui->canvas.bpp / 8));
 }
 
 void	gui_set_pixel(t_gui *gui, unsigned x, unsigned y, t_rgb color)

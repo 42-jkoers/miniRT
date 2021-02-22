@@ -34,11 +34,11 @@ static void	set_canvas(t_canvas *canvas, t_gui *gui, bool max_size)
 			gui->y_size = screen_y;
 	}
 	canvas->mlx_img = mlx_new_image(
-		gui->mlx, (int)gui->x_size, (int)gui->y_size);
+			gui->mlx, (int)gui->x_size, (int)gui->y_size);
 	if (canvas->mlx_img == NULL)
 		exit_e("Can't create canvas image 1");
 	canvas->data = mlx_get_data_addr(canvas->mlx_img, &canvas->bpp,
-		&canvas->line_length, &canvas->byte_order);
+			&canvas->line_length, &canvas->byte_order);
 	if (canvas->data == NULL)
 		exit_e("Can't create canvas image 2");
 }
@@ -61,7 +61,7 @@ static int	on_cross(t_gui *gui)
 static void	open_window(t_gui *gui)
 {
 	gui->window = mlx_new_window(
-		gui->mlx, (int)gui->x_size, (int)gui->y_size, "miniRT");
+			gui->mlx, (int)gui->x_size, (int)gui->y_size, "miniRT");
 	if (gui->window == NULL)
 		exit_e("mlx_new_window() failed");
 	mlx_key_hook(gui->window, on_keypress, gui);

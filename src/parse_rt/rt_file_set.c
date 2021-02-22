@@ -29,7 +29,7 @@ void	set_point(t_vec3 *origin, char *str)
 
 void	set_dir(t_vec3 *dir, char *str)
 {
-	double len;
+	double	len;
 
 	if (ft_strcount(str, ',') != 2)
 		exit_e("Wrong number of args in direction vector");

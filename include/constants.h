@@ -22,18 +22,18 @@
 
 # define DOUBLE_MAX	9999999999.0
 # define DOUBLE_MIN	-9999999999.0
-# define EPSILON	1e-7
+# define EPSILON	(1e-7)
 
-void				exit_e(const char *msg);
-void				exit_range(long num, long min, long max);
-void				exit_ranged(double num, double min, double max);
-void				exit_char(char got, char expected);
-void				*malloc_safe(size_t size);
-void				*calloc_safe(size_t size);
+void	exit_e(const char *msg);
+void	exit_range(long num, long min, long max);
+void	exit_ranged(double num, double min, double max);
+void	exit_char(char got, char expected);
+void	*malloc_safe(size_t size);
+void	*calloc_safe(size_t size);
 
-void				*arr_get(const t_arr_voidp *arr, size_t i);
+void	*arr_get(const t_arr_voidp *arr, size_t i);
 
-typedef enum
+typedef enum e_shape
 {
 	SHAPE_SPHERE,
 	SHAPE_PLANE,
@@ -43,7 +43,7 @@ typedef enum
 	SHAPE_LAST
 }	t_shape;
 
-typedef enum
+typedef enum e_rule
 {
 	RULE_SPHERE,
 	RULE_PLANE,
@@ -57,31 +57,31 @@ typedef enum
 	RULE_LAST
 }	t_rule;
 
-char				*rule_id(t_rule i);
-char				*rule_name(t_rule i);
-char				*g_failed_rule;
+char	*rule_id(t_rule i);
+char	*rule_name(t_rule i);
+char	*g_failed_rule;
 
-typedef struct		s_rgb
+typedef struct s_rgb
 {
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
 }					t_rgb;
 
-typedef struct		s_vec3
+typedef struct s_vec3
 {
 	double			x;
 	double			y;
 	double			z;
 }					t_vec3;
 
-typedef struct		s_ray
+typedef struct s_ray
 {
 	t_vec3			origin;
 	t_vec3			dir;
 }					t_ray;
 
-typedef struct		s_canvas
+typedef struct s_canvas
 {
 	void			*mlx_img;
 	char			*data;
@@ -90,35 +90,35 @@ typedef struct		s_canvas
 	int				byte_order;
 }					t_canvas;
 
-typedef struct		s_ambient
+typedef struct s_ambient
 {
 	double			brightness;
 	t_rgb			color;
 }					t_ambient;
 
-typedef struct		s_camera
+typedef struct s_camera
 {
 	t_vec3			origin;
 	t_vec3			dir;
 	double			fov;
 }					t_camera;
 
-typedef struct		s_light
+typedef struct s_light
 {
 	t_vec3			origin;
 	double			brightness;
 	t_rgb			color;
 }					t_light;
 
-typedef struct		s_gui
+typedef struct s_gui
 {
 	t_arr_voidp		*shapes;
 	t_arr_voidp		*lights;
 	t_arr_voidp		*cameras;
 	size_t			camera_i;
 	t_ambient		ambient;
-	unsigned		x_size;
-	unsigned		y_size;
+	unsigned int	x_size;
+	unsigned int	y_size;
 	t_camera		camera;
 
 	void			*mlx;
@@ -126,7 +126,7 @@ typedef struct		s_gui
 	t_canvas		canvas;
 }					t_gui;
 
-typedef struct		s_cylinder
+typedef struct s_cylinder
 {
 	t_vec3			origin;
 	t_vec3			base2;
@@ -135,27 +135,27 @@ typedef struct		s_cylinder
 	double			height;
 }					t_cylinder;
 
-typedef struct		s_square
+typedef struct s_square
 {
 	t_vec3			origin;
 	t_vec3			normal;
 	double			size;
 }					t_square;
 
-typedef struct		s_plane
+typedef struct s_plane
 {
 	t_vec3			origin;
 	t_vec3			normal;
 }					t_plane;
 
-typedef struct		s_sphere
+typedef struct s_sphere
 {
 	t_vec3			origin;
 	double			radius;
 	double			radius2;
 }					t_sphere;
 
-typedef struct		s_triangle
+typedef struct s_triangle
 {
 	t_vec3			p0;
 	t_vec3			p1;
@@ -164,7 +164,7 @@ typedef struct		s_triangle
 	t_vec3			edge2;
 }					t_triangle;
 
-typedef union
+typedef union u_pos
 {
 	t_cylinder		cy;
 	t_square		sq;
@@ -173,14 +173,14 @@ typedef union
 	t_triangle		tr;
 }	t_pos;
 
-typedef struct		s_obj
+typedef struct s_obj
 {
 	t_shape			shape;
 	t_rgb			color;
 	t_pos			pos;
 }					t_obj;
 
-typedef struct		s_hit
+typedef struct s_hit
 {
 	bool			hit;
 	double			dist;
@@ -188,7 +188,7 @@ typedef struct		s_hit
 	t_vec3			normal;
 }					t_hit;
 
-typedef struct		s_bounce
+typedef struct s_bounce
 {
 	t_obj			*obj;
 	t_rgb			color;

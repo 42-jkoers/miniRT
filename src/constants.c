@@ -59,7 +59,7 @@ void	*malloc_safe(size_t size)
 
 void	*calloc_safe(size_t size)
 {
-	void *p;
+	void	*p;
 
 	p = malloc_safe(size);
 	ft_bzero(p, size);

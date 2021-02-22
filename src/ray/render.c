@@ -18,8 +18,8 @@
 
 void	render_singlethread(t_gui *gui)
 {
-	unsigned	x;
-	unsigned	y;
+	unsigned int	x;
+	unsigned int	y;
 
 	y = 0;
 	while (y < gui->y_size)
@@ -36,10 +36,11 @@ void	render_singlethread(t_gui *gui)
 
 void	*do_job(void *p)
 {
-	unsigned	x;
-	unsigned	y;
-	const t_job	*job = (t_job *)p;
+	unsigned int	x;
+	unsigned int	y;
+	t_job			*job;
 
+	job = (t_job *)p;
 	y = job->start_y;
 	while (y < job->start_y + job->num_rows)
 	{
@@ -54,11 +55,12 @@ void	*do_job(void *p)
 	return (NULL);
 }
 
-void	define_jobs(t_job *jobs, unsigned n, t_gui *gui)
+void	define_jobs(t_job *jobs, unsigned int n, t_gui *gui)
 {
-	unsigned		i;
-	const unsigned	rows_per_thread = gui->y_size / n;
+	unsigned int	i;
+	unsigned int	rows_per_thread;
 
+	rows_per_thread = gui->y_size / n;
 	i = 0;
 	while (i < n)
 	{

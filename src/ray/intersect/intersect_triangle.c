@@ -80,7 +80,7 @@ t_hit	hit_triangle(t_pos pos, t_ray ray)
 	n.hit.dist = n.t;
 	n.hit.point = scale(ray.origin, n.hit.dist);
 	n.hit.normal = cross(
-		subtract(pos.tr.p1, pos.tr.p0), subtract(pos.tr.p2, pos.tr.p0));
+			subtract(pos.tr.p1, pos.tr.p0), subtract(pos.tr.p2, pos.tr.p0));
 	normalize(&n.hit.normal);
 	return (n.hit);
 }

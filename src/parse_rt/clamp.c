@@ -22,7 +22,7 @@ long	strtonum_clamp(char *str, char end, long min, long max)
 
 	if (str[0] == '\0')
 		exit_char(str[0], '\0');
-	i = str[0] == '+' || str[0] == '-' ? 1 : 0;
+	i = str[0] == '+' || str[0] == '-';
 	while (ft_isdigit(str[i]))
 		i++;
 	if (str[i] != end)
@@ -40,7 +40,7 @@ double	strtodbl_clamp(char *str, char end, double min, double max)
 
 	if (str[0] == '\0')
 		exit_char(str[0], '\0');
-	i = str[0] == '+' || str[0] == '-' ? 1 : 0;
+	i = str[0] == '+' || str[0] == '-';
 	while (ft_isdigit(str[i]))
 		i++;
 	if (str[i] == '.')
