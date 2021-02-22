@@ -53,7 +53,7 @@ void	exit_on_illegal_rule_n(char **rt)
 		exit_not_one_declaration(RULE_RESOLUTION, rules_n[RULE_RESOLUTION]);
 	if (rules_n[RULE_AMBIENT] != 1)
 		exit_not_one_declaration(RULE_AMBIENT, rules_n[RULE_AMBIENT]);
-	if (rules_n[RULE_CAMERA] == 1)
+	if (rules_n[RULE_CAMERA] == 0)
 	{
 		printf("0 %s (%s) found, expected at least 1\n",
 			rule_id(RULE_CAMERA), rule_name(RULE_CAMERA));
