@@ -79,7 +79,7 @@ void	parse_rt(t_gui *gui, const char *rt_filename)
 	rt = ft_split_file(rt_filename, &rt_lines);
 	if (rt == NULL || rt_lines == 0)
 		exit_e("Empty rt file");
-	if (!ALLOW_UNSET_RULES)
+	if (COUNT_RULES)
 		exit_on_illegal_rule_n(rt);
 	i = 0;
 	while (rt[i])

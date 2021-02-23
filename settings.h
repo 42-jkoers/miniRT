@@ -39,9 +39,10 @@
 # define MAX_WINDOW_SIZE 0
 
 /*
-** Allow missing rules in the .rt file such as the R (resolution) rule? :boolean
+** Count rules to check for duplicates or missing? :boolean
+** For example: when enabled the R (resolution) rule can only exist once
 */
-# define ALLOW_UNSET_RULES 1
+# define COUNT_RULES 1
 
 /*
 ** Allow comments (line prefixed by #) .rt file? :boolean
