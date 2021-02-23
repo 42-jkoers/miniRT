@@ -66,7 +66,10 @@ void	set_ambient(t_ambient *ambient, char *line)
 	char	**items;
 
 	items = split_clamp(line, 3);
-	ambient->brightness = strtodbl_clamp(items[1], '\0', 0.0, LONG_MAX);
+	ambient->brightness = strtodbl_clamp(items[1], '\0', 0.0, DOUBLE_MAX);
 	set_color(&ambient->color, items[2]);
+	ambient->scalar.r = round(ambient->color.r * ambient->brightness);
+	ambient->scalar.g = round(ambient->color.g * ambient->brightness);
+	ambient->scalar.b = round(ambient->color.b * ambient->brightness);
 	ft_free_until_null_char(items);
 }

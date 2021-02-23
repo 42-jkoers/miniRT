@@ -31,7 +31,7 @@ double			relative_intensity(
 
 t_rgb			ray_to_color(t_ray ray, const t_gui *gui);
 
-t_rgb			shadow(const t_gui *gui);
+t_rgb			no_bounce(const t_gui *gui);
 
 t_rgb			rgb(unsigned char r, unsigned char g, unsigned char b);
 t_rgb			add_color(t_rgb color, t_rgb additive, double intensity);

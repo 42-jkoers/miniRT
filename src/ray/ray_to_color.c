@@ -66,7 +66,8 @@ static bool	same_point(t_vec3 p1, t_vec3 p2, double range)
 }
 
 /*
-**  Assuming to_find has bounced
+** If there is a clear path between *l and te bounce point to_find.
+** Assuming to_find has bounced
 */
 
 static bool	clear(t_bounce to_find, const t_light *l, const t_arr_voidp *shapes)
@@ -93,10 +94,9 @@ t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
 
 	bounce = get_bounce(gui->shapes, ray);
 	if (bounce.obj == NULL)
-		return (shadow(gui));
+		return (no_bounce(gui));
 	i = 0;
-	scalar = add_color(
-			rgb(0, 0, 0), gui->ambient.color, gui->ambient.brightness);
+	scalar = gui->ambient.scalar;
 	while (arr_get(gui->lights, i) != NULL)
 	{
 		light = arr_get(gui->lights, i);

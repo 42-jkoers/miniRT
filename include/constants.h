@@ -94,6 +94,7 @@ typedef struct s_ambient
 {
 	double			brightness;
 	t_rgb			color;
+	t_rgb			scalar;
 }					t_ambient;
 
 typedef struct s_camera

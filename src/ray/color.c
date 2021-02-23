@@ -63,11 +63,10 @@ t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b)
 	return ((t_rgb){r, g, b});
 }
 
-t_rgb	shadow(const t_gui *gui)
+t_rgb	no_bounce(const t_gui *gui)
 {
 	t_rgb	color;
 
 	color = rgb(0, 0, 0);
-	color = add_color(color, gui->ambient.color, gui->ambient.brightness);
 	return (color);
 }
