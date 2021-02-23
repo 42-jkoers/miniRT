@@ -15,7 +15,7 @@
 
 void	ft_lstshift(t_list **lst, void (*del)(void*))
 {
-	t_list *next;
+	t_list	*next;
 
 	if (lst == NULL || *lst == NULL)
 		return ;

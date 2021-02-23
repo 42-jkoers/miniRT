@@ -14,7 +14,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-int			ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
 	int		result;
 	bool	is_negative;
@@ -31,5 +31,8 @@ int			ft_atoi(char *str)
 		result -= (int)(*str - '0');
 		str++;
 	}
-	return (is_negative ? result : (-result));
+	if (is_negative)
+		return (result);
+	else
+		return (0 - result);
 }

@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 
-char		*ft_strndup(char *str, size_t len)
+char	*ft_strndup(char *str, size_t len)
 {
 	char	*dup;
 	size_t	str_len;

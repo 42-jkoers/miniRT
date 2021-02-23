@@ -16,7 +16,7 @@
 
 char	*ft_strndup_unsafe(char *str, size_t len)
 {
-	char *dup;
+	char	*dup;
 
 	dup = malloc((len + 1) * sizeof(char));
 	if (dup == NULL)

@@ -36,7 +36,7 @@ static size_t	count_words(char *s, char c)
 	}
 }
 
-static void		cpy_words(char *s, char c, char **split, size_t num_words)
+static void	cpy_words(char *s, char c, char **split, size_t num_words)
 {
 	char	*sep;
 	size_t	word_i;
@@ -49,8 +49,7 @@ static void		cpy_words(char *s, char c, char **split, size_t num_words)
 		{
 			if (s - sep > 1)
 			{
-				split[word_i] = ft_strndup_unsafe(
-					sep + 1, (size_t)(s - sep - 1));
+				split[word_i] = ft_strndup_unsafe(sep + 1, s - sep - 1);
 				if (split[word_i] == NULL)
 					return (ft_free_2d((void **)split, word_i));
 				word_i++;
@@ -62,7 +61,7 @@ static void		cpy_words(char *s, char c, char **split, size_t num_words)
 	split[num_words] = NULL;
 }
 
-char			**ft_split_length(char const *s, char c, size_t *length)
+char	**ft_split_length(char const *s, char c, size_t *length)
 {
 	char	**split;
 	size_t	num_words;

@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 
-void		ft_arr_voidp_free(t_arr_voidp *arr, void (*del)(void *))
+void	ft_arr_voidp_free(t_arr_voidp *arr, void (*del)(void *))
 {
 	size_t		i;
 
@@ -36,7 +36,7 @@ void		ft_arr_voidp_free(t_arr_voidp *arr, void (*del)(void *))
 	arr = NULL;
 }
 
-void		ft_arr_voidp_shift(t_arr_voidp **arr, void (*del)(void *))
+void	ft_arr_voidp_shift(t_arr_voidp **arr, void (*del)(void *))
 {
 	if (arr == NULL || *arr == NULL || (*arr)->length == 0)
 		return ;
@@ -46,7 +46,7 @@ void		ft_arr_voidp_shift(t_arr_voidp **arr, void (*del)(void *))
 	(*arr)->length -= 1;
 }
 
-void		ft_arr_voidp_pop(t_arr_voidp **arr, void (*del)(void *))
+void	ft_arr_voidp_pop(t_arr_voidp **arr, void (*del)(void *))
 {
 	if (arr == NULL || *arr == NULL || (*arr)->length == 0)
 		return ;
@@ -55,7 +55,7 @@ void		ft_arr_voidp_pop(t_arr_voidp **arr, void (*del)(void *))
 	(*arr)->length -= 1;
 }
 
-void		**ft_arr_voidp_concat(t_arr_voidp *arr, size_t *length)
+void	**ft_arr_voidp_concat(t_arr_voidp *arr, size_t *length)
 {
 	void	**res;
 

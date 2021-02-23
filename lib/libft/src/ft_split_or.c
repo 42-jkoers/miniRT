@@ -36,7 +36,7 @@ static size_t	count_words(char *s, char *splitters)
 	}
 }
 
-static void		free_strings(char **strings, size_t n)
+static void	free_strings(char **strings, size_t n)
 {
 	while (n > 0)
 	{
@@ -47,8 +47,8 @@ static void		free_strings(char **strings, size_t n)
 	free(strings);
 }
 
-static void		cpy_words(\
-char *s, char *splitters, char **split, size_t num_words)
+static void	cpy_words(
+		char *s, char *splitters, char **split, size_t num_words)
 {
 	char	*sep;
 	size_t	word_i;
@@ -61,8 +61,7 @@ char *s, char *splitters, char **split, size_t num_words)
 		{
 			if (s - sep > 1)
 			{
-				split[word_i] = ft_strndup_unsafe(
-					sep + 1, (size_t)(s - sep - 1));
+				split[word_i] = ft_strndup_unsafe(sep + 1, s - sep - 1);
 				if (split[word_i] == NULL)
 				{
 					free_strings(split, word_i);
@@ -83,8 +82,7 @@ char *s, char *splitters, char **split, size_t num_words)
 **              ft_split_or("foo,,bar", ",a") --> {"foo", "b", "r", NULL}
 */
 
-char			**ft_split_or(
-	const char *s, const char *spitters, size_t *length)
+char	**ft_split_or(const char *s, const char *spitters, size_t *length)
 {
 	char	**split;
 	size_t	num_words;

@@ -23,7 +23,7 @@
 #  define BUFFER_SIZE 4096
 # endif
 
-typedef struct		s_buf
+typedef struct s_buf
 {
 	char			*data;
 	ssize_t			size;

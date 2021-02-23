@@ -50,7 +50,7 @@ static void	*ft_arr_voidp_grow(t_arr_voidp *arr, size_t new_size)
 	return (arr->table);
 }
 
-void		*ft_arr_voidp_set(t_arr_voidp **arr, size_t i, void *value)
+void	*ft_arr_voidp_set(t_arr_voidp **arr, size_t i, void *value)
 {
 	if (arr == NULL || *arr == NULL)
 	{
@@ -69,7 +69,7 @@ void		*ft_arr_voidp_set(t_arr_voidp **arr, size_t i, void *value)
 	return (*((*arr)->table + (*arr)->start_i + i));
 }
 
-void		*ft_arr_voidp_get(t_arr_voidp *arr, size_t i)
+void	*ft_arr_voidp_get(t_arr_voidp *arr, size_t i)
 {
 	if (arr == NULL)
 		return (NULL);
@@ -78,7 +78,7 @@ void		*ft_arr_voidp_get(t_arr_voidp *arr, size_t i)
 	return (arr->table[arr->start_i + i]);
 }
 
-void		*ft_arr_voidp_push(t_arr_voidp **arr, void *value)
+void	*ft_arr_voidp_push(t_arr_voidp **arr, void *value)
 {
 	size_t	i;
 

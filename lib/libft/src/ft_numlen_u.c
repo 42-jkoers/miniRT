@@ -15,7 +15,7 @@
 
 size_t	ft_numlen_u(unsigned long num, unsigned long base)
 {
-	size_t digits;
+	size_t	digits;
 
 	if (num == 0)
 		return (1);

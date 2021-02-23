@@ -20,7 +20,7 @@ char	**ft_split_file(const char *filename, size_t *num_lines)
 {
 	char		*read;
 	int			fd;
-	t_arr_voidp *arr;
+	t_arr_voidp	*arr;
 
 	fd = open((char *)filename, O_RDONLY);
 	if (fd < 0)

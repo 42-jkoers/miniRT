@@ -14,7 +14,7 @@
 
 void	ft_lstpush_front(t_list **lst, void *content)
 {
-	t_list *old_front;
+	t_list	*old_front;
 
 	old_front = *lst;
 	*lst = ft_lstnew(content);

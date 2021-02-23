@@ -27,7 +27,10 @@ char	*ft_numtobase(long num, char *base)
 	if (result == NULL)
 		return (NULL);
 	result[numlen] = '\0';
-	divider = num < 0 ? -((long)base_n) : (long)base_n;
+	if (num < 0)
+		divider = 0 - base_n;
+	else
+		divider = base_n;
 	while (numlen > 0)
 	{
 		numlen--;

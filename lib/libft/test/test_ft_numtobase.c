@@ -15,7 +15,7 @@
 
 int	main(void)
 {
-	char *num;
+	char	*num;
 
 	num = ft_numtobase(255, "01");
 	ft_putstr_fd(num, 1);

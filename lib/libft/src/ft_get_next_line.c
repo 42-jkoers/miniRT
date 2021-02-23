@@ -61,29 +61,16 @@ static int	join(t_buf **fd, size_t total_size, char **line)
 	(*fd)->size -= (total_size - i) + 1;
 	if ((*fd)->size < 0)
 		shift(fd);
-	return (*fd ? 1 : 0);
+	if (*fd)
+		return (1);
+	else
+		return (0);
 }
 
-/*
-** @description Reads file line by line, mallocs line in char **line
-** @return      1: success
-**              0: end of file reached
-**             -1: malloc error
-*/
-
-int			ft_get_next_line(const int fd, char **line)
+int	until_end(t_buf **fds, const int fd, size_t total_size, char **line)
 {
-	static t_buf	*fds[FD_SETSIZE];
-	t_buf			*cur;
-	size_t			total_size;
+	t_buf	*cur;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || line == NULL)
-		return (error(fd < 0 ? NULL : &fds[fd]));
-	total_size = 0;
-	if (!fds[fd])
-		fds[fd] = new_buf(0);
-	else if (found_end(fds[fd], &total_size))
-		return (join(&fds[fd], total_size, line));
 	cur = fds[fd];
 	while (cur)
 	{
@@ -93,9 +80,39 @@ int			ft_get_next_line(const int fd, char **line)
 		cur = cur->next;
 		cur->size = read(fd, cur->data, BUFFER_SIZE);
 		if (cur->size == -1 || cur->size == 0)
-			return (cur->size == error(&fds[fd]) ? -1 : 0);
+		{
+			error(&fds[fd]);
+			if (cur->size == -1)
+				return (-1);
+			else
+				return (0);
+		}
 		if (found_end(cur, &total_size))
 			return (join(&fds[fd], total_size, line));
 	}
 	return (error(&fds[fd]));
+}
+
+/*
+** @description Reads file line by line, mallocs line in char **line
+** @return      1: success
+**              0: end of file reached
+**             -1: malloc error
+*/
+
+int	ft_get_next_line(const int fd, char **line)
+{
+	static t_buf	*fds[FD_SETSIZE];
+	size_t			total_size;
+
+	if (fd < 0)
+		return (error(NULL));
+	if (BUFFER_SIZE <= 0 || line == NULL)
+		return (error(&fds[fd]));
+	total_size = 0;
+	if (!fds[fd])
+		fds[fd] = new_buf(0);
+	else if (found_end(fds[fd], &total_size))
+		return (join(&fds[fd], total_size, line));
+	return (until_end(fds, fd, total_size, line));
 }

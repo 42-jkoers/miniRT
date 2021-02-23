@@ -31,5 +31,8 @@ long	ft_strtonum(char *str)
 		result -= (long)(*str - '0');
 		str++;
 	}
-	return (is_negative ? result : (-result));
+	if (is_negative)
+		return (result);
+	else
+		return (0 - result);
 }

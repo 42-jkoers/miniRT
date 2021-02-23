@@ -12,17 +12,26 @@
 
 #include "libft.h"
 
-long			ft_max(long a, long b)
+long	ft_max(long a, long b)
 {
-	return (a > b ? a : b);
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }
 
 unsigned long	ft_max_u(unsigned long a, unsigned long b)
 {
-	return (a > b ? a : b);
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }
 
-double			ft_maxf(double a, double b)
+double	ft_maxf(double a, double b)
 {
-	return (a > b ? a : b);
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }

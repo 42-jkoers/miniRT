@@ -16,7 +16,7 @@
 
 void	ft_free_until_null_void(void **arr)
 {
-	size_t i;
+	size_t	i;
 
 	if (arr == NULL)
 		return ;
@@ -31,7 +31,7 @@ void	ft_free_until_null_void(void **arr)
 
 void	ft_free_until_null_char(char **arr)
 {
-	size_t i;
+	size_t	i;
 
 	if (arr == NULL)
 		return ;

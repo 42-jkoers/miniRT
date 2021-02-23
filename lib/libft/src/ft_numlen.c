@@ -23,7 +23,7 @@ size_t	ft_numlen(long num, unsigned long base)
 	len = 0;
 	if (num < 0)
 	{
-		divider = -((long)base);
+		divider = 0 - (long)base;
 		len += 1;
 	}
 	else

@@ -13,13 +13,13 @@
 #include "libft.h"
 #include <unistd.h>
 
-static void			ft_itoa_buf(int n, char *buf)
+static void	ft_itoa_buf(int n, char *buf)
 {
 	unsigned long	len;
 	unsigned long	is_negative;
 
 	len = (unsigned long)ft_numlen(n, 10);
-	is_negative = (unsigned long)(n < 0 ? 1 : 0);
+	is_negative = n < 0;
 	if (is_negative)
 		buf[0] = '-';
 	buf[len] = '\0';
@@ -31,9 +31,9 @@ static void			ft_itoa_buf(int n, char *buf)
 	}
 }
 
-void				ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	char buf[22];
+	char	buf[22];
 
 	ft_itoa_buf(n, buf);
 	ft_putstr_fd(buf, fd);

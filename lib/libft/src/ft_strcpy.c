@@ -15,7 +15,7 @@
 
 char	*ft_strcpy(char *dest, char *src)
 {
-	size_t src_len;
+	size_t	src_len;
 
 	src_len = ft_strlen(src);
 	ft_memcpy(dest, src, (src_len + 1) * sizeof(char));

@@ -13,17 +13,25 @@
 #include "libft.h"
 #include <stdbool.h>
 
+static bool	skip_nondigit(char **str)
+{
+	bool	is_negative;
+
+	while (ft_isspace(**str))
+		(*str)++;
+	is_negative = **str == '-';
+	if (**str == '-' || **str == '+')
+		(*str)++;
+	return (is_negative);
+}
+
 double	ft_strtodbl(char *str)
 {
 	double	result;
 	bool	is_negative;
 	double	decimals;
 
-	while (ft_isspace(*str))
-		str++;
-	is_negative = *str == '-';
-	if (*str == '-' || *str == '+')
-		str++;
+	is_negative = skip_nondigit(&str);
 	result = 0;
 	while (ft_isdigit(*str))
 	{
@@ -32,12 +40,15 @@ double	ft_strtodbl(char *str)
 	}
 	if (*str == '.')
 		str++;
-	decimals = 1;
+	decimals = 1.0;
 	while (ft_isdigit(*str))
 	{
 		decimals *= 10.0;
 		result -= (double)(*str - '0') / decimals;
 		str++;
 	}
-	return (is_negative ? result : -result);
+	if (is_negative)
+		return (result);
+	else
+		return (0.0 - result);
 }

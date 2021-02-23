@@ -15,7 +15,7 @@
 
 void	shift(t_buf **fd)
 {
-	t_buf *next;
+	t_buf	*next;
 
 	if (*fd == NULL)
 		return ;

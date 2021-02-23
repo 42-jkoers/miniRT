@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int		main(void)
+int	main(void)
 {
 	t_arr_voidp	*arr;
 	size_t		i;

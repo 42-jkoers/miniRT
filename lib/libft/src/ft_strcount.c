@@ -15,7 +15,7 @@
 
 size_t	ft_strcount(char *str, char search)
 {
-	size_t n;
+	size_t	n;
 
 	if (str == NULL)
 		return (0);

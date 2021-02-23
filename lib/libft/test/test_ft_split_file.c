@@ -17,7 +17,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-int		main(void)
+int	main(void)
 {
 	char	**lines;
 	size_t	i;

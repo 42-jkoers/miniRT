@@ -24,7 +24,7 @@ char	*ft_numtostr(long num)
 	res = malloc((numlen + 1) * sizeof(char));
 	if (res == NULL)
 		return (NULL);
-	stop_at = num < 0 ? 1 : 0;
+	stop_at = num < 0;
 	if (num < 0)
 		res[0] = '-';
 	res[numlen] = '\0';

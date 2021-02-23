@@ -14,5 +14,8 @@
 
 long	ft_abs(long num)
 {
-	return (num < 0 ? -num : num);
+	if (num < 0)
+		return (0 - num);
+	else
+		return (num);
 }

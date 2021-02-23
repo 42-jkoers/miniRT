@@ -71,14 +71,8 @@ SOURCES			= $(SRCDIR)/ft_abs.c \
 				  $(SRCDIR)/ft_numlen_u.c \
 				  $(SRCDIR)/ft_numtobase.c \
 				  $(SRCDIR)/ft_numtobase_u.c \
-				  $(SRCDIR)/ft_numtohexstr_precision_u.c \
-				  $(SRCDIR)/ft_numtohexstr_u.c \
 				  $(SRCDIR)/ft_numtostr.c \
-				  $(SRCDIR)/ft_numtostr_precision.c \
-				  $(SRCDIR)/ft_numtostr_precision_u.c \
 				  $(SRCDIR)/ft_numtostr_u.c \
-				  $(SRCDIR)/ft_padend.c \
-				  $(SRCDIR)/ft_padstart.c \
 				  $(SRCDIR)/ft_putchar_fd.c \
 				  $(SRCDIR)/ft_putendl_fd.c \
 				  $(SRCDIR)/ft_putnbr_fd.c \

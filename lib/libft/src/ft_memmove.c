@@ -13,10 +13,10 @@
 #include "libft.h"
 #include <stddef.h>
 
-void		*ft_memmove(void *dest, void *src, size_t n)
+void	*ft_memmove(void *dest, void *src, size_t n)
 {
-	char *d;
-	char *s;
+	char	*d;
+	char	*s;
 
 	if (dest == NULL || src == NULL || dest == src)
 		return (dest);

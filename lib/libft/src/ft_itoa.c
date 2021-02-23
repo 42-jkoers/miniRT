@@ -13,7 +13,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-char				*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char			*res;
 	unsigned int	len;
@@ -23,7 +23,7 @@ char				*ft_itoa(int n)
 	res = malloc((len + 1) * sizeof(char));
 	if (res == NULL)
 		return (NULL);
-	is_negative = (unsigned long)(n < 0 ? 1 : 0);
+	is_negative = n < 0;
 	if (is_negative)
 		res[0] = '-';
 	res[len] = '\0';

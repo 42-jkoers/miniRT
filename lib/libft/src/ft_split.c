@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_spit.c                                          :+:    :+:            */
+/*   ft_split.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
@@ -36,7 +36,7 @@ static size_t	count_words(char *s, char c)
 	}
 }
 
-static void		free_strings(char **strings, size_t n)
+static void	free_strings(char **strings, size_t n)
 {
 	while (n > 0)
 	{
@@ -46,7 +46,7 @@ static void		free_strings(char **strings, size_t n)
 	free(strings);
 }
 
-static void		cpy_words(char *s, char c, char **split, size_t num_words)
+static void	cpy_words(char *s, char c, char **split, size_t num_words)
 {
 	char	*sep;
 	size_t	word_i;
@@ -59,8 +59,7 @@ static void		cpy_words(char *s, char c, char **split, size_t num_words)
 		{
 			if (s - sep > 1)
 			{
-				split[word_i] = ft_strndup_unsafe(
-					sep + 1, (size_t)(s - sep - 1));
+				split[word_i] = ft_strndup_unsafe(sep + 1, s - sep - 1);
 				if (split[word_i] == NULL)
 				{
 					free_strings(split, word_i);
@@ -75,7 +74,7 @@ static void		cpy_words(char *s, char c, char **split, size_t num_words)
 	split[num_words] = NULL;
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**split;
 	size_t	num_words;
