@@ -59,7 +59,7 @@ typedef enum e_rule
 
 char	*rule_id(t_rule i);
 char	*rule_name(t_rule i);
-char	*g_failed_rule;
+char	*line_error(char *line);
 
 typedef struct s_rgb
 {

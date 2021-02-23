@@ -11,12 +11,8 @@
 /* ************************************************************************** */
 
 #include "parse_rt.h"
-#include "parse_rt.h"
 #include "constants.h"
 #include "../lib/libft/include/libft.h"
-#include <math.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
 
 void	log_shapes(const t_arr_voidp *shapes)
@@ -88,7 +84,7 @@ void	parse_rt(t_gui *gui, const char *rt_filename)
 	i = 0;
 	while (rt[i])
 	{
-		g_failed_rule = rt[i];
+		line_error(rt[i]);
 		parse_rt_line(rt[i], gui);
 		i++;
 	}

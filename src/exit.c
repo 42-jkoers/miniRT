@@ -14,6 +14,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+char	*line_error(char *line)
+{
+	static char	*current = NULL;
+
+	if (line)
+		current = line;
+	return (current);
+}
+
 void	exit_e(const char *msg)
 {
 	size_t	len;
@@ -24,7 +33,8 @@ void	exit_e(const char *msg)
 	len = ft_strlen((char *)msg);
 	if (len > 0 && msg[len - 1] != '\n')
 		printf("\n");
-	printf("At line <%s>\n", g_failed_rule);
+	if (line_error(NULL))
+		printf("At line <%s>\n", line_error(NULL));
 	exit(1);
 }
 
