@@ -39,7 +39,7 @@ void	log_shapes(const t_arr_voidp *shapes)
 	}
 }
 
-static bool	is_rule(char *line, t_rule rule)
+bool	is_rule(char *line, t_rule rule)
 {
 	return (ft_strcmp(line, rule_id(rule)) == ' ');
 }

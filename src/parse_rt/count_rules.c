@@ -13,14 +13,13 @@
 #include "parse_rt.h"
 #include "constants.h"
 #include "../lib/libft/include/libft.h"
-#include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 static void	count_rules(unsigned int *rules_n, char **rt)
 {
 	size_t	i;
-	size_t	rule_i;
+	t_rule	rule_i;
 
 	i = 0;
 	while (rt[i])
@@ -28,8 +27,8 @@ static void	count_rules(unsigned int *rules_n, char **rt)
 		rule_i = 0;
 		while (rule_i < RULE_LAST)
 		{
-			if (ft_strcmp(rt[i], (char *)rule_id(rule_i)) == ' ')
-				rules_n[i] += 1;
+			if (is_rule(rt[i], rule_i))
+				rules_n[rule_i] += 1;
 			rule_i++;
 		}
 		i++;

@@ -40,5 +40,6 @@ void	add_camera(t_gui *gui, char *line);
 void	add_light(t_arr_voidp **lights, char *line);
 void	set_resolution(t_gui *gui, char *line);
 void	set_ambient(t_ambient *ambient, char *line);
+bool	is_rule(char *line, t_rule rule);
 
 #endif
