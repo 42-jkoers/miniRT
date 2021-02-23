@@ -33,7 +33,7 @@ static t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 	while (arr_get(shapes, i) != NULL)
 	{
 		obj = arr_get(shapes, i);
-		hit = g_hit_shape[obj->shape](obj->pos, ray);
+		hit = hit_obj(obj->shape, obj->pos, ray);
 		if (hit.hit && hit.dist < closest_dist)
 		{
 			closest_dist = hit.dist;
