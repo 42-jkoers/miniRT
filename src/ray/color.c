@@ -63,10 +63,7 @@ t_rgb	rgb(unsigned char r, unsigned char g, unsigned char b)
 	return ((t_rgb){r, g, b});
 }
 
-t_rgb	no_bounce(const t_gui *gui)
+t_rgb	no_bounce(void)
 {
-	t_rgb	color;
-
-	color = rgb(0, 0, 0);
-	return (color);
+	return (rgb(0, 0, 0));
 }

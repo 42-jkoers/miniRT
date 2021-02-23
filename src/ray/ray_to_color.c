@@ -94,7 +94,7 @@ t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
 
 	bounce = get_bounce(gui->shapes, ray);
 	if (bounce.obj == NULL)
-		return (no_bounce(gui));
+		return (no_bounce());
 	i = 0;
 	scalar = gui->ambient.scalar;
 	while (arr_get(gui->lights, i) != NULL)
