@@ -14,7 +14,6 @@
 #include "constants.h"
 #include "ray.h"
 #include "../lib/libft/include/libft.h"
-#include <stdio.h>
 #include <string.h>
 #include <errno.h>
 
@@ -36,6 +35,6 @@ int	main(int argc, const char *argv[])
 		exit_success(&gui);
 	}
 	else
-		printf("Invalid args\n");
+		exit_e("Usage: minirt [.rt file] [--save]\n");
 	return (0);
 }
