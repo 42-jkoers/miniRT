@@ -67,13 +67,13 @@
 # define THREADS 7
 
 /*
-**  :boolean
-*/
-# define DISABLE_ANTI_ALIASING 1
-
-/*
 **  :unsigned int --> 1, 4, 16, 32, ect
 */
-# define ANTI_ALIASING_LEVEL 4
+# define ANTI_ALIASING_LEVEL 1
+
+/*
+**  :boolean
+*/
+# define LOG_PROCESS 1
 
 #endif
