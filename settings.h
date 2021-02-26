@@ -29,7 +29,7 @@
 ** Allow non-normalized direction vector in .rt file? :boolean
 ** The vector will still be normalized before internal use.
 */
-# define ALLOW_ABNORMAL_DIR 1 // illegal
+# define ALLOW_ABNORMAL_DIR 0
 
 /*
 ** When reading the rt file, only allow a window resolution that is <= than the
@@ -69,7 +69,7 @@
 /*
 **  :boolean
 */
-# define DISABLE_ANTI_ALIASING 0
+# define DISABLE_ANTI_ALIASING 1
 
 /*
 **  :unsigned int --> 1, 4, 16, 32, ect

@@ -15,6 +15,7 @@
 #include "../lib/libft/include/libft.h"
 #include "vector.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void	set_point(t_vec3 *origin, char *str)
 {
@@ -42,9 +43,15 @@ void	set_dir(t_vec3 *dir, char *str)
 	{
 		len = length(*dir);
 		if (len < 0.99999 || len > 1.00001)
-			exit_e("Direction vector is not normalized");
+		{
+			printf("Direction vector is not normalized\n");
+			normalize(dir);
+			printf("Normalized: %.10g,%.10g,%.10g\n", dir->x, dir->y, dir->z);
+			exit_e("");
+		}
 	}
-	normalize(dir);
+	else
+		normalize(dir);
 }
 
 void	set_color(t_rgb *color, char *str)
