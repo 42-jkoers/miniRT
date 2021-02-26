@@ -41,6 +41,7 @@ static void	set_canvas(t_canvas *canvas, t_gui *gui, bool max_size)
 			&canvas->line_length, &canvas->byte_order);
 	if (canvas->data == NULL)
 		exit_e("Can't create canvas image 2");
+	gui->row_done = calloc_safe(gui->y_size * sizeof(bool));
 }
 
 static int	on_keypress(int keycode, t_gui *gui)

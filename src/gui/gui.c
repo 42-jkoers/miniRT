@@ -66,6 +66,7 @@ void	exit_success(t_gui *gui)
 		mlx_destroy_display(gui->mlx);
 		free(gui->mlx);
 	}
+	free(gui->row_done);
 	exit(0);
 }
 
