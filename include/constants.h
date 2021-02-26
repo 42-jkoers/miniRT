@@ -136,13 +136,6 @@ typedef struct s_cylinder
 	double			height;
 }					t_cylinder;
 
-typedef struct s_square
-{
-	t_vec3			origin;
-	t_vec3			normal;
-	double			size;
-}					t_square;
-
 typedef struct s_plane
 {
 	t_vec3			origin;
@@ -168,7 +161,6 @@ typedef struct s_triangle
 typedef union u_pos
 {
 	t_cylinder		cy;
-	t_square		sq;
 	t_plane			pl;
 	t_sphere		sp;
 	t_triangle		tr;

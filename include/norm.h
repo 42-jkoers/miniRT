@@ -65,4 +65,11 @@ typedef struct s_intersect_cy
 	bool		b2;
 }				t_intersect_cy;
 
+typedef struct s_square
+{
+	t_vec3		origin;
+	t_vec3		normal;
+	double		size;
+}				t_square;
+
 #endif

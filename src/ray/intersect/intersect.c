@@ -19,7 +19,6 @@ t_hit	hit_obj(t_shape shape, t_pos pos, t_ray ray)
 		[SHAPE_CYLINDER] = hit_cylinder,
 		[SHAPE_PLANE] = hit_plane,
 		[SHAPE_SPHERE] = hit_sphere,
-		[SHAPE_SQUARE] = hit_square,
 		[SHAPE_TRIANGLE] = hit_triangle,
 	};
 

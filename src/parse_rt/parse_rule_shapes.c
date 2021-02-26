@@ -51,23 +51,6 @@ void	add_plane(t_arr_voidp **shapes, char *line)
 		exit_e("malloc");
 }
 
-void	add_square(t_arr_voidp **shapes, char *line)
-{
-	t_obj	*obj;
-	char	**items;
-
-	obj = malloc_safe(sizeof(t_obj));
-	obj->shape = SHAPE_SQUARE;
-	items = split_clamp(line, 5);
-	set_point(&obj->pos.sq.origin, items[1]);
-	set_dir(&obj->pos.sq.normal, items[2]);
-	obj->pos.sq.size = strtodbl_clamp(items[3], '\0', 0.0, DOUBLE_MAX);
-	set_color(&obj->color, items[4]);
-	ft_free_until_null_char(items);
-	if (ft_arr_voidp_push(shapes, obj) == NULL)
-		exit_e("malloc");
-}
-
 void	add_cylinder(t_arr_voidp **shapes, char *line)
 {
 	t_obj	*obj;
