@@ -17,14 +17,13 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <fcntl.h>
-
-static const size_t	g_header_size = 54;
+#define HEADER_SIZE 54
 
 static size_t	bmp_size(size_t x, size_t y)
 {
 	if ((x * 3) % 4 != 0)
 		x = x + 4 - ((x * 3) % 4);
-	return (g_header_size + (3 * y * x));
+	return (HEADER_SIZE + (3 * y * x));
 }
 
 /*
@@ -52,7 +51,7 @@ static void	header(uint8_t *buf, uint32_t x, uint32_t y, uint32_t file_size)
 	*((uint8_t *)&buf[0]) = (uint8_t) 0x42;
 	*((uint8_t *)&buf[1]) = (uint8_t) 0x4D;
 	*((uint32_t *)&buf[2]) = (uint32_t) file_size;
-	*((uint32_t *)&buf[10]) = (uint32_t) g_header_size;
+	*((uint32_t *)&buf[10]) = (uint32_t) HEADER_SIZE;
 	*((uint32_t *)&buf[14]) = (uint32_t) 0x28;
 	*((uint32_t *)&buf[18]) = (uint32_t) x;
 	*((uint32_t *)&buf[22]) = (uint32_t) y;
@@ -66,7 +65,7 @@ static void	write_image(uint8_t *buf, const t_gui *gui)
 	unsigned long	x;
 	unsigned long	y;
 
-	buf_i = g_header_size;
+	buf_i = HEADER_SIZE;
 	y = gui->y_size;
 	while (y > 0)
 	{
