@@ -92,4 +92,4 @@ fi
 
 echo "Now make it."
 make -f Makefile.gen all
-(cd test ; make -f Makefile.gen all )
+# (cd test ; make -f Makefile.gen all )

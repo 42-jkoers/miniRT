@@ -57,11 +57,6 @@
 # define NEXT_CAMERA_KEY 0x0063
 
 /*
-** Enable multithreading? :boolean
-*/
-# define ENABLE_MULTITHREADING 1
-
-/*
 ** What number of threads should the program use? :unsigned int [1 n]
 */
 # define THREADS 7

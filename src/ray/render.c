@@ -20,20 +20,20 @@
 static void	log_progress(size_t i, const t_gui *gui)
 {
 	static unsigned int	skip = 0;
-	double				percent;
 
+	if (i + 1 == gui->y_size)
+	{
+		printf("\rProgress %7.3lf%%  ", 100.0);
+		return ;
+	}
 	if (skip != 0)
 	{
 		skip--;
 		return ;
 	}
-	if (i + 1 == gui->y_size)
-		percent = 100.0;
-	else
-		percent = ((double)i / gui->y_size) * 100.0;
-	printf("\rProgress %4.1lf%%", percent);
-	fflush(stdout);
 	skip = (unsigned)round(gui->y_size * 0.001);
+	printf("\rProgress %7.3lf%%  ", ((double)(i + 1) / gui->y_size) * 100.0);
+	fflush(stdout);
 }
 
 static bool	find_row(unsigned int *y, const t_thread *thread)

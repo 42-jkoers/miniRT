@@ -42,16 +42,14 @@ void	set_dir(t_vec3 *dir, char *str)
 	if (!ALLOW_ABNORMAL_DIR)
 	{
 		len = length(*dir);
-		if (len < 0.99999 || len > 1.00001)
+		if (len < 0.9999 || len > 1.0001)
 		{
-			printf("Direction vector is not normalized\n");
+			printf("Direction vector is not normalized (length %.10g)\n", len);
 			normalize(dir);
 			printf("Normalized: %.10g,%.10g,%.10g\n", dir->x, dir->y, dir->z);
 			exit_e("");
 		}
 	}
-	else
-		normalize(dir);
 }
 
 void	set_color(t_rgb *color, char *str)
