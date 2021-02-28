@@ -17,7 +17,7 @@
 #include <math.h>
 #include <stdio.h>
 
-static void	log_progress(size_t i, const t_gui *gui)
+static void	log_progress(unsigned int i, const t_gui *gui)
 {
 	static unsigned int	skip = 0;
 
@@ -31,32 +31,28 @@ static void	log_progress(size_t i, const t_gui *gui)
 		skip--;
 		return ;
 	}
-	skip = (unsigned)round(gui->y_size * 0.001);
+	skip = (unsigned int)round(gui->y_size * 0.001);
 	printf("\rProgress %7.3lf%%  ", ((double)(i + 1) / gui->y_size) * 100.0);
 	fflush(stdout);
 }
 
 static bool	find_row(unsigned int *y, const t_thread *thread)
 {
-	size_t	i;
+	bool	found_non_rendered_row;
 
-	i = 0;
-	pthread_mutex_lock(thread->row_done_lock);
-	while (i < thread->gui->y_size)
+	pthread_mutex_lock(thread->row_to_render_lock);
+	if (thread->gui->row_to_render < thread->gui->y_size)
 	{
-		if (thread->gui->row_done[i] == false)
-		{
-			*y = i;
-			thread->gui->row_done[i] = true;
-			if (LOG_PROCESS)
-				log_progress(i, thread->gui);
-			pthread_mutex_unlock(thread->row_done_lock);
-			return (true);
-		}
-		i++;
+		*y = thread->gui->row_to_render;
+		thread->gui->row_to_render++;
+		found_non_rendered_row = true;
+		if (LOG_PROCESS)
+			log_progress(*y, thread->gui);
 	}
-	pthread_mutex_unlock(thread->row_done_lock);
-	return (false);
+	else
+		found_non_rendered_row = false;
+	pthread_mutex_unlock(thread->row_to_render_lock);
+	return (found_non_rendered_row);
 }
 
 static void	*run_thread(void *p)
@@ -79,9 +75,7 @@ static void	*run_thread(void *p)
 }
 
 static void	start_threads(
-	t_thread *threads,
-	t_gui *gui,
-	pthread_mutex_t *row_done_lock)
+	t_thread *threads, t_gui *gui, pthread_mutex_t *row_to_render_lock)
 {
 	size_t	i;
 
@@ -89,7 +83,7 @@ static void	start_threads(
 	while (i < THREADS)
 	{
 		threads[i].gui = gui;
-		threads[i].row_done_lock = row_done_lock;
+		threads[i].row_to_render_lock = row_to_render_lock;
 		pthread_create(&threads[i].id, NULL, run_thread, (void *)(&threads[i]));
 		i++;
 	}
@@ -99,16 +93,16 @@ void	render(t_gui *gui)
 {
 	t_thread		threads[THREADS];
 	size_t			i;
-	pthread_mutex_t	row_done_lock;
+	pthread_mutex_t	row_to_render_lock;
 
-	ft_bzero(gui->row_done, gui->y_size * sizeof(bool));
-	pthread_mutex_init(&row_done_lock, NULL);
-	start_threads(threads, gui, &row_done_lock);
+	gui->row_to_render = 0;
+	pthread_mutex_init(&row_to_render_lock, NULL);
+	start_threads(threads, gui, &row_to_render_lock);
 	i = 0;
 	while (i < THREADS)
 	{
 		pthread_join(threads[i].id, NULL);
 		i++;
 	}
-	pthread_mutex_destroy(&row_done_lock);
+	pthread_mutex_destroy(&row_to_render_lock);
 }

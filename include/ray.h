@@ -20,7 +20,7 @@ typedef struct s_thread
 {
 	pthread_t		id;
 	t_gui			*gui;
-	pthread_mutex_t	*row_done_lock;
+	pthread_mutex_t	*row_to_render_lock;
 }				t_thread;
 
 t_rgb			compute_color(unsigned int x, unsigned int y, const t_gui *gui);

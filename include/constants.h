@@ -121,7 +121,7 @@ typedef struct s_gui
 	unsigned int	x_size;
 	unsigned int	y_size;
 	t_camera		camera;
-	bool			*row_done;
+	unsigned int	row_to_render;
 
 	void			*mlx;
 	void			*window;
