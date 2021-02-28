@@ -20,6 +20,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// Mlx has a somewhat weird way to save pixel data
+// @return pointer to 0xBBGGRR in memory
+
 char	*gui_get_pixel_data(const t_gui *gui, unsigned x, unsigned y)
 {
 	return (gui->canvas.data
@@ -47,6 +50,8 @@ t_rgb	gui_get_pixel(t_gui *gui, unsigned x, unsigned y)
 	color.r = (unsigned char)pixel_data[2];
 	return (color);
 }
+
+// Cleanup before exiting
 
 void	exit_success(t_gui *gui)
 {

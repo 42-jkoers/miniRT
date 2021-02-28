@@ -29,10 +29,15 @@ double	length(t_vec3 v)
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
+// @return product of the Euclidean magnitudes of the two vectors
+// and the cosine of the angle between them.
+
 double	dot(t_vec3 a, t_vec3 b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
+
+// @return vector orthogonal (perpendicular) to a and b
 
 t_vec3	cross(t_vec3 a, t_vec3 b)
 {

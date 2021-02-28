@@ -68,6 +68,9 @@ static void	add_triangles(t_arr_voidp **shapes, t_triangle *trs, t_rgb color)
 	}
 }
 
+// A square can be represented by 2 triangles.
+// So we add 2 triangels to the renderer instead 1 triangle
+
 void	add_square(t_arr_voidp **shapes, char *line)
 {
 	t_square	sq;

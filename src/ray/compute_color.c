@@ -16,7 +16,7 @@
 #include "vector.h"
 #include <math.h>
 
-static t_rgb	add_colors(const t_rgb *colors, unsigned int n)
+static t_rgb	average_color(const t_rgb *colors, unsigned int n)
 {
 	double			r;
 	double			g;
@@ -63,5 +63,5 @@ t_rgb	compute_color(unsigned int x, unsigned int y, const t_gui *gui)
 		}
 		y_off += aa;
 	}
-	return (add_colors(colors, ANTI_ALIASING_LEVEL));
+	return (average_color(colors, ANTI_ALIASING_LEVEL));
 }

@@ -56,6 +56,8 @@
 #include "constants.h"
 #include "vector.h"
 
+// Stolen from: Möller–Trumbore
+
 t_hit	hit_triangle(t_pos pos, t_ray ray)
 {
 	t_hit_triangle	n;

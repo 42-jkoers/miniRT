@@ -23,6 +23,8 @@ char	*line_error(char *line)
 	return (current);
 }
 
+// exit with error mesage *msg
+
 void	exit_e(const char *msg)
 {
 	size_t	len;

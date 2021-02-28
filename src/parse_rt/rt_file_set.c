@@ -28,6 +28,8 @@ void	set_point(t_vec3 *origin, char *str)
 	origin->z = strtodbl_clamp(str, '\0', DOUBLE_MIN, DOUBLE_MAX);
 }
 
+// Set direction vector of a shape, eg. a surface normal of a plane
+
 void	set_dir(t_vec3 *dir, char *str)
 {
 	double	len;

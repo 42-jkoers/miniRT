@@ -36,6 +36,9 @@ static void	log_progress(unsigned int i, const t_gui *gui)
 	fflush(stdout);
 }
 
+// Every render of a scene consists of gui->y_size rows
+// find_row() is called by any thread that needs a new row to render
+
 static bool	find_row(unsigned int *y, const t_thread *thread)
 {
 	bool	found_non_rendered_row;
@@ -54,6 +57,8 @@ static bool	find_row(unsigned int *y, const t_thread *thread)
 	pthread_mutex_unlock(thread->row_to_render_lock);
 	return (found_non_rendered_row);
 }
+
+// Render rows until there are none left
 
 static void	*run_thread(void *p)
 {

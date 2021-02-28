@@ -17,6 +17,10 @@
 #include <string.h>
 #include <errno.h>
 
+// Main program consists of 2 modes:
+// 1 open X11 window and switch between cameras
+// 2 export render to bmp
+
 int	main(int argc, const char *argv[])
 {
 	t_gui	gui;

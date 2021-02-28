@@ -12,7 +12,7 @@
 
 #include "quadratic.h"
 
-void		swapf(double *a, double *b)
+static void	swapf(double *a, double *b)
 {
 	double	buffer;
 
@@ -31,14 +31,14 @@ t_quadratic	quadratic(double a, double b, double c)
 	return (params);
 }
 
-int			solve_quadratic(t_quadratic params, double *x0, double *x1)
+bool	solve_quadratic(t_quadratic params, double *x0, double *x1)
 {
 	double	discr;
 	double	q;
 
 	discr = pow(params.b, 2) - 4 * params.a * params.c;
 	if (discr < 0)
-		return (0);
+		return (false);
 	else if (discr == 0)
 	{
 		*x0 = -0.5 * params.b / params.a;
@@ -55,5 +55,5 @@ int			solve_quadratic(t_quadratic params, double *x0, double *x1)
 	}
 	if (*x0 > *x1)
 		swapf(x0, x1);
-	return (1);
+	return (true);
 }

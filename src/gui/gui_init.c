@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// Create a mlx image of the right size to store the rendered scene
+
 static void	set_canvas(t_canvas *canvas, t_gui *gui, bool max_size)
 {
 	int		screen_x;
@@ -51,6 +53,8 @@ static int	on_keypress(int keycode, t_gui *gui)
 		gui_render_next_camera(gui);
 	return (0);
 }
+
+// When the red cross/the close button is pressed run this
 
 static int	on_cross(t_gui *gui)
 {

@@ -15,9 +15,7 @@
 #include "constants.h"
 #include "vector.h"
 
-/*
-** Get closest object pointer from *shapes
-*/
+// Get closest t_obj * (relative to ray.origin) from *shapes
 
 static t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 {
@@ -58,19 +56,18 @@ static bool	is2d(const t_obj *obj)
 	return (false);
 }
 
-static bool	same_point(t_vec3 p1, t_vec3 p2, double range)
+static bool	same_point(t_vec3 p1, t_vec3 p2, double epsilon)
 {
-	return ((p1.x >= p2.x - range && p1.x <= p2.x + range)
-		&& (p1.y >= p2.y - range && p1.y <= p2.y + range)
-		&& (p1.z >= p2.z - range && p1.z <= p2.z + range));
+	return ((p1.x >= p2.x - epsilon && p1.x <= p2.x + epsilon)
+		&& (p1.y >= p2.y - epsilon && p1.y <= p2.y + epsilon)
+		&& (p1.z >= p2.z - epsilon && p1.z <= p2.z + epsilon));
 }
 
-/*
-** If there is a clear path between *l and te bounce point to_find.
-** Assuming to_find has bounced
-*/
+// If there is a clear path between *l and te bounce point to_find.
+// Assuming to_find has bounced
 
-static bool	clear(t_bounce to_find, const t_light *l, const t_arr_voidp *shapes)
+static bool	is_clear_path(
+	t_bounce to_find, const t_light *l, const t_arr_voidp *shapes)
 {
 	t_ray		ray;
 	t_bounce	found;
@@ -100,7 +97,7 @@ t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
 	while (arr_get(gui->lights, i) != NULL)
 	{
 		light = arr_get(gui->lights, i);
-		if (!clear(bounce, light, gui->shapes))
+		if (!is_clear_path(bounce, light, gui->shapes))
 		{
 			intensity = relative_intensity(
 					bounce.point, bounce.normal, is2d(bounce.obj), light);

@@ -13,9 +13,7 @@
 #include "vector.h"
 #include "constants.h"
 
-/*
-** = a - b or to, from
-*/
+// = a - b || to, from
 
 t_vec3	subtract(t_vec3 a, t_vec3 b)
 {
@@ -36,6 +34,8 @@ t_vec3	scale(t_vec3 v, double r)
 	vec.z = v.z * r;
 	return (vec);
 }
+
+// Get point t distance away from origin in direction of (normalized) dir
 
 t_vec3	translate(t_vec3 origin, t_vec3 dir, double t)
 {
