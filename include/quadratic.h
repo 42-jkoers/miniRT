@@ -13,6 +13,7 @@
 #ifndef QUADRATIC_H
 # define QUADRATIC_H
 # include <math.h>
+# include <stdbool.h>
 
 typedef struct s_qparams
 {
@@ -21,8 +22,8 @@ typedef struct s_qparams
 	double	c;
 }				t_quadratic;
 
-void			swapf(double *a, double *b);
 t_quadratic		quadratic(double a, double b, double c);
-int				solve_quadratic(t_quadratic params, double *x0, double *x1);
+bool			solve_quadratic(t_quadratic params, double *x0, double *x1);
+void			swapf(double *a, double *b);
 
 #endif

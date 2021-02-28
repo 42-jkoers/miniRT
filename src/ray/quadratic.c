@@ -12,7 +12,7 @@
 
 #include "quadratic.h"
 
-static void	swapf(double *a, double *b)
+void	swapf(double *a, double *b)
 {
 	double	buffer;
 
