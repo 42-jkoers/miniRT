@@ -32,12 +32,13 @@ LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
 else
 MLXDIR			= minilibx_mms_20200219/
 LINKSRC			=
-LINKS		= -L$(LIBDIR)/$(MLXDIR) -lmlx
-LIBS			= $(LIBDIR)/libft/bin/libft.a $(LIBDIR)/minilibx_mms_20200219/libmlx.dylib
+LINKS			= -L$(LIBDIR)/$(MLXDIR) -lmlx
+LIBS			= $(LIBDIR)/libft/bin/libft.a \
+				  $(LIBDIR)/minilibx_mms_20200219/libmlx.dylib
 endif
 
 HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
-SRC			= $(shell find $(SRCDIR) -name "*.$(SRCEXT)" -exec basename {} \;)
+include sources.mk
 OBJ				= $(addprefix $(BUILDDIR)/, $(SRC:.$(SRCEXT)=.$(OBJEXT)))
 STARTGREEN		= @echo "\033[38;2;0;255;0m\c"
 RESETCOLOR		= @echo "\033[0m\c"
