@@ -13,7 +13,7 @@
 NAME      		= miniRT
 
 CC          	= gcc
-CFLAGS      	= -Wall -Wextra -Werror -Wuninitialized -O2
+CFLAGS      	= -Wall -Wextra -Werror -Wuninitialized -O3
 
 SRCEXT      	= c
 SRCDIR      	= src
@@ -23,17 +23,27 @@ BUILDDIR    	= obj
 
 SETTINGS		= settings.h
 LIBDIR			= lib
-LINKS			= -L$(LIBDIR)/minilibx-linux -lmlx -lXext -lX11 -lm -lpthread
-SOURCELINKS		= -lm -lpthread
+ifeq ($(shell uname),Linux)
+MLXDIR			= minilibx-linux/
+LINKSRC			= -lm -lpthread
+LINKS			= $(LINKSRC) -L$(LIBDIR)/$(MLXDIR) -lmlx -lXext -lX11
 LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
 				  $(LIBDIR)/libft/bin/libft.a
+else
+MLXDIR			= minilibx_mms_20200219/
+LINKSRC			=
+LINKS		= -L$(LIBDIR)/$(MLXDIR) -lmlx
+LIBS			= $(LIBDIR)/libft/bin/libft.a $(LIBDIR)/minilibx_mms_20200219/libmlx.dylib
+endif
+
 HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
 SRC			= $(shell find $(SRCDIR) -name "*.$(SRCEXT)" -exec basename {} \;)
 OBJ				= $(addprefix $(BUILDDIR)/, $(SRC:.$(SRCEXT)=.$(OBJEXT)))
 STARTGREEN		= @echo "\033[38;2;0;255;0m\c"
 RESETCOLOR		= @echo "\033[0m\c"
+TESTRT			= rt/standard.rt
 
-VPATH = $(shell find $(SRCDIR) -type d | tr '\n' ':' | sed -r 's/(.*):/\1/')
+VPATH = $(shell find $(SRCDIR) -type d | tr '\n' ':' | sed -E 's/(.*):/\1/')
 
 all bonus:
 	make -j4 $(NAME)
@@ -45,13 +55,18 @@ $(LIBS) $(LINKS)
 # sources
 
 $(BUILDDIR)/%.$(OBJEXT): %.$(SRCEXT) $(HEADERS) $(SETTINGS)
-	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $(BUILDDIR)/$(notdir $@) \
-$(SOURCELINKS)
+	$(CC) $(CFLAGS) -I$(HEADERDIR) -c $< -o $(BUILDDIR)/$(notdir $@) $(LINKSRC)
 
 # libs
 
+ifeq ($(shell uname),Linux)
 $(LIBDIR)/minilibx-linux/libmlx.a:
 	$(MAKE) -C $(LIBDIR)/minilibx-linux/
+else
+$(LIBDIR)/minilibx_mms_20200219/libmlx.dylib:
+	$(MAKE) -C $(LIBDIR)/minilibx_mms_20200219/
+	cp $(LIBDIR)/minilibx_mms_20200219/libmlx.dylib .
+endif
 
 $(LIBDIR)/libft/bin/libft.a:
 	$(MAKE) -C $(LIBDIR)/libft/
@@ -59,7 +74,7 @@ $(LIBDIR)/libft/bin/libft.a:
 clean:
 	make -C $(LIBDIR)/minilibx-linux/ clean
 	make -C $(LIBDIR)/libft/ clean
-ifneq "$(BUILDDIR)" "."
+ifneq ($(BUILDDIR),.)
 	/bin/rm -rf $(BUILDDIR)/
 endif
 
@@ -76,10 +91,13 @@ re:
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
 
+silent:
+	@$(MAKE) > /dev/null
+
 eval:
 	$(MAKE) > /dev/null
 	@echo ""
-	find eval/ -name "*.rt" -exec echo {} \; -exec ./miniRT {} --save \; \
+	find eval/ -name "*.rt" -exec echo {} \; -exec ./$(NAME) {} --save \; \
 -exec mv scene.bmp {}.bmp \;
 
 evalclean:
@@ -87,17 +105,14 @@ evalclean:
 
 rt:
 	@$(MAKE) > /dev/null
-	@./miniRT rt/standard.rt --save
-	@while inotifywait -qq -e close_write rt/standard.rt; do \
-make > /dev/null && ./miniRT rt/standard.rt --save \
-&& convert scene.bmp scene.png; done
+	@./$(NAME) $(TESTRT) --save
+	@while inotifywait -qq -e close_write $(TESTRT); do \
+$(MAKE) > /dev/null && ./$(NAME) $(TESTRT) --save; done
 
 rtall:
-	@$(MAKE) > /dev/null
-	@find rt/ -name "*.rt" -exec echo {} \; -exec ./miniRT {} --save \; \
+	@$(MAKE) silent
+	@find rt/ -name "*.rt" -exec echo {} \; -exec ./$(NAME) {} --save \; \
 -exec mv scene.bmp renders/{}.bmp \;
 
-silent:
-	@$(MAKE) > /dev/null
 
-.PHONY: all clean fclean re sync rt rtall silent eval
+.PHONY: all clean fclean re silent eval evalclean rt rtall

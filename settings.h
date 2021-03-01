@@ -54,8 +54,6 @@
 */
 # define STUPID 0
 
-# define NEXT_CAMERA_KEY 0x0063
-
 /*
 ** What number of threads should the program use? :unsigned int [1 n]
 */

@@ -31,6 +31,7 @@ double	length(t_vec3 v)
 
 // @return product of the Euclidean magnitudes of the two vectors
 // and the cosine of the angle between them.
+// = length(a) * length(b) * cos(alpha)
 
 double	dot(t_vec3 a, t_vec3 b)
 {

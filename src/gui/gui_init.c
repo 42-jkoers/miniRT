@@ -47,7 +47,7 @@ static void	set_canvas(t_canvas *canvas, t_gui *gui, bool max_size)
 
 static int	on_keypress(int keycode, t_gui *gui)
 {
-	if (keycode == XK_Escape)
+	if (keycode == KEY_ESC)
 		exit_success(gui);
 	if (keycode == NEXT_CAMERA_KEY)
 		gui_render_next_camera(gui);
@@ -69,7 +69,10 @@ static void	open_window(t_gui *gui)
 	if (gui->window == NULL)
 		exit_e("mlx_new_window() failed");
 	mlx_key_hook(gui->window, on_keypress, gui);
-	mlx_hook(gui->window, 33, 0L, on_cross, gui);
+	if (IS_LINUX)
+		mlx_hook(gui->window, 33, 0L, on_cross, gui);
+	else
+		mlx_hook(gui->window, 17, 1L << 17, on_cross, gui);
 	gui_display_scene(gui);
 	mlx_loop(gui->mlx);
 }

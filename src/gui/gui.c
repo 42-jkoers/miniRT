@@ -68,7 +68,8 @@ void	exit_success(t_gui *gui)
 		mlx_destroy_image(gui->mlx, gui->canvas.mlx_img);
 	if (gui->mlx)
 	{
-		mlx_destroy_display(gui->mlx);
+		if (IS_LINUX)
+			mlx_destroy_display(gui->mlx);
 		free(gui->mlx);
 	}
 	exit(0);

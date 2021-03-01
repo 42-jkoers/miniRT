@@ -13,8 +13,6 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-# include <X11/keysymdef.h>
-# include <X11/keysym.h>
 # include "../lib/libft/include/libft.h"
 # include "../settings.h"
 # include <stdbool.h>
@@ -23,6 +21,16 @@
 # define DOUBLE_MAX	9999999999.0
 # define DOUBLE_MIN	-9999999999.0
 # define EPSILON	(1e-7)
+
+# ifdef linux
+#  define IS_LINUX 1
+#  define KEY_ESC 65307
+#  define NEXT_CAMERA_KEY 99
+# else
+#  define IS_LINUX 0
+#  define KEY_ESC 53
+#  define NEXT_CAMERA_KEY 8
+# endif
 
 void	exit_e(const char *msg);
 void	exit_range(long num, long min, long max);

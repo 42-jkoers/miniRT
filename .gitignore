@@ -11,3 +11,4 @@ scene.*
 .vscode/
 standard.rt
 renders/
+*.dylib
