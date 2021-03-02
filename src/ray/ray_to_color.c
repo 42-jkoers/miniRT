@@ -73,12 +73,12 @@ static bool	is_clear_path(
 	t_bounce	found;
 
 	ray.origin = l->origin;
-	ray.dir = unit(subtract(l->origin, to_find.point));
+	ray.dir = unit(subtract(to_find.point, l->origin));
 	found = get_bounce(shapes, ray);
 	if (found.obj == NULL)
 		return (false);
-	return (to_find.obj == found.obj
-		&& same_point(to_find.point, found.point, EPSILON));
+	return ((to_find.obj == found.obj)
+		&& same_point(to_find.point, found.point, 0.1));
 }
 
 t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
@@ -97,7 +97,7 @@ t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
 	while (arr_get(gui->lights, i) != NULL)
 	{
 		light = arr_get(gui->lights, i);
-		if (!is_clear_path(bounce, light, gui->shapes))
+		if (is_clear_path(bounce, light, gui->shapes))
 		{
 			intensity = relative_intensity(
 					bounce.point, bounce.normal, is2d(bounce.obj), light);
