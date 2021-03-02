@@ -23,7 +23,7 @@ static void	log_progress(unsigned int i, const t_gui *gui)
 
 	if (i + 1 == gui->y_size)
 	{
-		printf("\rProgress %7.3lf%%  ", 100.0);
+		printf("\rProgress %7.3lf%%  \n", 100.0);
 		return ;
 	}
 	if (skip != 0)
@@ -49,7 +49,7 @@ static bool	find_row(unsigned int *y, const t_thread *thread)
 		*y = thread->gui->row_to_render;
 		thread->gui->row_to_render++;
 		found_non_rendered_row = true;
-		if (LOG_PROCESS)
+		if (LOG_PROGRESS)
 			log_progress(*y, thread->gui);
 	}
 	else

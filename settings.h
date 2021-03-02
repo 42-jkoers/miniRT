@@ -17,7 +17,6 @@
 // This the settings file for the miniRT project.
 // After changing a setting you have to recompile with make re
 
-
 // Bool: Enable verbose logging? :boolean
 # define VERBOSE 0
 
@@ -28,25 +27,25 @@
 // When reading the rt file, only allow a window resolution that is <= than the
 // display resolution? :boolean
 // This max resolution is always ignored when exporting a bmp file.
-# define MAX_WINDOW_SIZE 0
+# define MAX_WINDOW_SIZE 1
 
 // Count rules to check for duplicates or missing? :boolean
 // For example: when enabled the R (resolution) rule can only exist once
 # define COUNT_RULES 1
 
 // Allow comments (line prefixed by #) .rt file? :boolean
-# define ALLOW_RT_COMMENTS 1
+# define ALLOW_RT_COMMENTS 0
 
 // Fulfill stupid assignment requirements? :boolean
-# define STUPID 0
+# define STUPID 1
 
 // What number of threads should the program use? :unsigned int [1 n]
 # define THREADS 7
 
 //  :unsigned int --> 1, 4, 16, 32, ect
-# define ANTI_ALIASING_LEVEL 1
+# define ANTI_ALIASING_LEVEL 4
 
 //  :boolean
-# define LOG_PROCESS 1
+# define LOG_PROGRESS 1
 
 #endif
