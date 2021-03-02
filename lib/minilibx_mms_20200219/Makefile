@@ -13,7 +13,7 @@ CFLAGS=-O3
 
 NAME=libmlx.dylib
 
-INC=-I.
+INC=-I. -Ilib/minilibx_mms_20200219
 #OPTI=-Ounchecked
 
 all: $(NAME)
@@ -31,4 +31,3 @@ $(NAME): $(MODULE_OBJ) $(OBJ) $(C_OBJ)
 
 clean:
 	rm -f $(NAME) $(OBJ) $(MODULE_OBJ) $(C_OBJ) *.swiftdoc *~
-

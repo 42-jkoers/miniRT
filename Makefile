@@ -33,8 +33,7 @@ else
 MLXDIR			= minilibx_mms_20200219/
 LINKSRC			=
 LINKS			= -L$(LIBDIR)/$(MLXDIR) -lmlx
-LIBS			= $(LIBDIR)/libft/bin/libft.a \
-				  $(LIBDIR)/minilibx_mms_20200219/libmlx.dylib
+LIBS			= $(LIBDIR)/libft/bin/libft.a libmlx.dylib
 endif
 
 HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
@@ -64,8 +63,8 @@ ifeq ($(shell uname),Linux)
 $(LIBDIR)/minilibx-linux/libmlx.a:
 	$(MAKE) -C $(LIBDIR)/minilibx-linux/
 else
-$(LIBDIR)/minilibx_mms_20200219/libmlx.dylib:
-	$(MAKE) -C $(LIBDIR)/minilibx_mms_20200219/
+libmlx.dylib:
+	make -C $(LIBDIR)/minilibx_mms_20200219/
 	cp $(LIBDIR)/minilibx_mms_20200219/libmlx.dylib .
 endif
 
