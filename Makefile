@@ -103,16 +103,25 @@ eval:
 evalclean:
 	find eval/ -name "*.bmp" -exec rm {} \;
 
-rt:
+standard:
 	@$(MAKE) > /dev/null
 	@./$(NAME) $(TESTRT) --save
 	@while inotifywait -qq -e close_write $(TESTRT); do \
 $(MAKE) > /dev/null && ./$(NAME) $(TESTRT) --save; done
 
-rtall:
-	@$(MAKE) silent
-	@find rt/ -name "*.rt" -exec echo {} \; -exec ./$(NAME) {} --save \; \
--exec mv scene.bmp renders/{}.bmp \;
+rt:
+	@$(MAKE) > /dev/null
+	@find rt/ -name "*.rt" -exec echo {} \; \
+-exec ./$(NAME) {} --save \; \
+-exec mv scene.bmp {}.bmp \; \
+-exec echo "" \;
+
+rttest:
+	@$(MAKE) > /dev/null
+	@find rt_test/ -name "*.rt" -exec echo {} \; \
+-exec ./$(NAME) {} --save \; \
+-exec mv scene.bmp {}.bmp \; \
+-exec echo "" \;
 
 
 .PHONY: all clean fclean re silent eval evalclean rt rtall
