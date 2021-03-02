@@ -38,7 +38,8 @@ endif
 
 HEADERS			= $(shell find $(HEADERDIR) -type f -name '*.h')
 include sources.mk
-OBJ				= $(addprefix $(BUILDDIR)/, $(SRC:.$(SRCEXT)=.$(OBJEXT)))
+OBJ	= $(foreach src,$(SRC),$(BUILDDIR)/$(notdir $(src:.$(SRCEXT)=.$(OBJEXT))))
+
 STARTGREEN		= @echo "\033[38;2;0;255;0m\c"
 RESETCOLOR		= @echo "\033[0m\c"
 TESTRT			= rt/standard.rt
