@@ -23,6 +23,10 @@ typedef struct s_thread
 	pthread_mutex_t	*row_to_render_lock;
 }				t_thread;
 
+bool			is2d(const t_obj *obj);
+t_bounce		get_bounce(const t_arr_voidp *shapes, t_ray ray);
+bool			is_clear_path(
+					t_bounce to_find, const t_light *l, const t_gui *gui);
 t_rgb			compute_color(unsigned int x, unsigned int y, const t_gui *gui);
 t_ray			ray_from_pix(double x, double y, const t_gui *gui);
 double			relative_intensity(
