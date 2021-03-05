@@ -16,6 +16,10 @@
 #include "vector.h"
 #include <math.h>
 
+// Apparently adding the values as uint*_t is not presice enough and makes it
+// seem there are fewer colors available, eg 150 per channel insted of 256
+// Thus using the more precise doubles
+
 static t_rgb	average_color(const t_rgb *colors, unsigned int n)
 {
 	double			r;
@@ -34,10 +38,10 @@ static t_rgb	average_color(const t_rgb *colors, unsigned int n)
 		b += colors[i].b;
 		i++;
 	}
-	r /= n;
-	g /= n;
-	b /= n;
-	return (rgb(round(r), round(g), round(b)));
+	r = round(r / n);
+	g = round(g / n);
+	b = round(b / n);
+	return ((t_rgb){r, g, b});
 }
 
 t_rgb	compute_color(unsigned int x, unsigned int y, const t_gui *gui)
