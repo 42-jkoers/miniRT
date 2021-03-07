@@ -14,21 +14,15 @@
 #include "constants.h"
 #include "vector.h"
 #include <math.h>
-#include <stdio.h>
 
-double	relative_intensity(
-	t_vec3 point, t_vec3 normal, bool is2d, const t_light *light)
+double	relative_intensity(t_vec3 point, t_vec3 normal, const t_light *light)
 {
 	t_vec3	to_light;
 	double	intensity;
 
 	to_light = unit(subtract(light->origin, point));
-	if (is2d)
-		intensity = 1 * light->brightness * fabs(dot(normal, to_light));
-	else
-		intensity = 1 * light->brightness * fmax(0.0, dot(normal, to_light));
-	intensity = fmin(intensity, 1.0);
-	return (intensity);
+	intensity = 1 * light->brightness * fmax(0.0, dot(normal, to_light));
+	return (fmin(intensity, 1.0));
 }
 
 t_rgb	add_color(t_rgb color, t_rgb additive, double intensity)

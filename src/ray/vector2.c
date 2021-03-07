@@ -12,6 +12,7 @@
 
 #include "vector.h"
 #include "constants.h"
+#include <math.h>
 
 // = a - b || to, from
 
@@ -40,4 +41,21 @@ t_vec3	scale(t_vec3 v, double r)
 t_vec3	translate(t_vec3 origin, t_vec3 dir, double t)
 {
 	return (add(origin, scale(dir, t)));
+}
+
+// The (always positive) squared distance between a and b
+
+double	distance2(t_vec3 a, t_vec3 b)
+{
+	t_vec3	ab;
+
+	ab = subtract(a, b);
+	return (ab.x * ab.x + ab.y * ab.y + ab.z * ab.z);
+}
+
+// The (always positive) distance between a and b
+
+double	distance(t_vec3 a, t_vec3 b)
+{
+	return (sqrt(distance2(a, b)));
 }

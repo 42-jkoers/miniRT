@@ -15,17 +15,6 @@
 #include "constants.h"
 #include "vector.h"
 
-bool	is2d(const t_obj *obj)
-{
-	if (obj->shape == SHAPE_TRIANGLE)
-		return (true);
-	if (obj->shape == SHAPE_PLANE)
-		return (true);
-	if (obj->shape == SHAPE_SQUARE)
-		return (true);
-	return (false);
-}
-
 static bool	same_point(t_vec3 p1, t_vec3 p2, double epsilon)
 {
 	return ((p1.x >= p2.x - epsilon && p1.x <= p2.x + epsilon)
@@ -33,38 +22,36 @@ static bool	same_point(t_vec3 p1, t_vec3 p2, double epsilon)
 		&& (p1.z >= p2.z - epsilon && p1.z <= p2.z + epsilon));
 }
 
-// Eg: the camera is inside a sphere and the light source is outside the sphere
+// Pointing a new ray to hitpoint, form origin *l
 
-static bool	light_obstructed_by_itself(
-	t_bounce to_find, const t_light *l, const t_gui *gui)
+t_bounce	bounce_from_light(
+		t_vec3 hitpoint, const t_light *l, const t_arr_voidp *shapes)
 {
-	t_hit		hit;
+	t_bounce	from_light;
 	t_ray		ray;
 
-	if (is2d(to_find.obj))
-		return (false);
-	ray.origin = gui->camera.origin;
-	ray.dir = unit(subtract(l->origin, gui->camera.origin));
-	hit = hit_obj(to_find.obj->shape, to_find.obj->pos, ray);
-	return (hit.hit);
+	ray.origin = l->origin;
+	ray.dir = unit(subtract(hitpoint, l->origin));
+	from_light = get_bounce(shapes, ray);
+	return (from_light);
 }
 
-// If there is a clear path between *l and te bounce point of to_find.
+// If there is a clear path the detected bounce, and the light *l
 // Assuming to_find has bounced
 
 bool	is_clear_path(
-	t_bounce to_find, const t_light *l, const t_gui *gui)
+	t_bounce from_camera, const t_light *l, const t_arr_voidp *shapes)
 {
-	t_ray		ray;
-	t_bounce	found;
+	t_bounce	from_light;
 
-	if (light_obstructed_by_itself(to_find, l, gui))
+	from_light = bounce_from_light(from_camera.point, l, shapes);
+	if (from_light.obj == NULL)
 		return (false);
-	ray.origin = l->origin;
-	ray.dir = unit(subtract(to_find.point, l->origin));
-	found = get_bounce(gui->shapes, ray);
-	if (found.obj == NULL)
+	if (from_camera.obj != from_light.obj)
 		return (false);
-	return ((to_find.obj == found.obj)
-		&& same_point(to_find.point, found.point, 0.1));
+	if (!same_point(from_camera.normal, from_light.normal, 0.1))
+		return (false);
+	if (!same_point(from_camera.point, from_light.point, 0.1))
+		return (false);
+	return (true);
 }
