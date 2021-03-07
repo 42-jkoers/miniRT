@@ -15,7 +15,7 @@
 #include <math.h>
 
 /*
-** A double implantation of the famous quake Q_rsqrt()
+** A double implementation of the famous quake Q_rsqrt()
 ** Changed a bit to allow for norminette
 ** https://en.wikipedia.org/wiki/Fast_inverse_square_root
 */
