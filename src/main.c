@@ -16,6 +16,7 @@
 #include "../lib/libft/include/libft.h"
 #include <string.h>
 #include <errno.h>
+#include <stdio.h>
 
 // Main program consists of 2 modes:
 // 1 open X11 window and switch between cameras
@@ -39,6 +40,10 @@ int	main(int argc, const char *argv[])
 		exit_success(&gui);
 	}
 	else
-		exit_e("Usage: minirt [.rt file] [--save]\n");
+	{
+		printf("Usage: minirt [.rt file] [--save]\n");
+		printf("Switch between cameras by pressing c");
+		exit_e("");
+	}
 	return (0);
 }

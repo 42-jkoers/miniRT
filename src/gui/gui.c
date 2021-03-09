@@ -55,8 +55,6 @@ t_rgb	gui_get_pixel(t_gui *gui, unsigned x, unsigned y)
 
 void	exit_success(t_gui *gui)
 {
-	if (STUPID)
-		printf("Done\n");
 	if (gui == NULL)
 		exit(1);
 	ft_arr_free(gui->shapes, free);

@@ -17,6 +17,7 @@
 # include "../settings.h"
 # include <stdbool.h>
 # include <sys/types.h>
+# include <stdint.h>
 
 # define DOUBLE_MAX	9999999999.0
 # define DOUBLE_MIN	-9999999999.0
@@ -69,9 +70,9 @@ char	*line_error(char *line);
 
 typedef struct s_rgb
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
+	uint8_t			r;
+	uint8_t			g;
+	uint8_t			b;
 }					t_rgb;
 
 typedef struct s_vec3
