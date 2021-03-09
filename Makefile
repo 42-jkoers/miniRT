@@ -14,6 +14,7 @@ NAME      		= miniRT
 
 CC          	= gcc
 CFLAGS      	= -Wall -Wextra -Werror -Wuninitialized -O3
+# CFLAGS			= -Wall -Wextra -Wuninitialized -O0 # debug
 
 SRCEXT      	= c
 SRCDIR      	= src
@@ -91,6 +92,12 @@ re:
 
 $(BUILDDIR)/:
 	mkdir -p $(BUILDDIR)
+
+findsources:
+	echo "# SRC = find src/ -name \"\*.c\" -exec echo \"\{\} \\\\\" \\\;" \
+> sources.mk
+	echo "SRC = \\" >> sources.mk
+	find src/ -name "*.c" -exec echo "{} \\" \; >> sources.mk
 
 silent:
 	@$(MAKE) > /dev/null
