@@ -60,9 +60,9 @@ t_ray	ray_from_pix(double x, double y, const t_gui *gui)
 	n.py = (2 * y / (double)gui->y_size - 1) * n.fov;
 	n.ray.origin = gui->camera.origin;
 	if (gui->camera.dir.x == 0.0 && gui->camera.dir.z == 0.0)
-		n.positive_x = vec(1.0, 0.0, 0.0);
+		n.positive_x = (t_vec3){1.0, 0.0, 0.0};
 	else
-		n.positive_x = cross(gui->camera.dir, vec(0.0, 1.0, 0.0));
+		n.positive_x = cross(gui->camera.dir, (t_vec3){0.0, 1.0, 0.0});
 	n.negative_y = cross(gui->camera.dir, n.positive_x);
 	n.scaled_x = scale(n.positive_x, n.px);
 	n.scaled_y = scale(n.negative_y, n.py);

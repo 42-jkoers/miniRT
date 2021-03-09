@@ -46,13 +46,13 @@ static void	square_to_triangles(t_triangle *trs, t_square sq, double half_side)
 	t_vec3	edges[4];
 
 	if (fabs(sq.normal.z) == 1.0)
-		tmp[0] = vec(1.0, 0.0, 0.0);
+		tmp[0] = (t_vec3){1.0, 0.0, 0.0};
 	else
-		tmp[0] = vec(0.0, 0.0, 1.0);
+		tmp[0] = (t_vec3){0.0, 0.0, 1.0};
 	cross_r[0] = unit(cross(tmp[0], sq.normal));
 	cross_r[1] = unit(cross(sq.normal, cross_r[0]));
 	cross_r[2] = unit(cross(sq.normal, tmp[0]));
-	tmp[1] = vec(sq.origin.x, sq.origin.y, sq.origin.z);
+	tmp[1] = (t_vec3){sq.origin.x, sq.origin.y, sq.origin.z};
 	v[0] = add(tmp[1], scale(add(cross_r[1], cross_r[0]), half_side));
 	v[1] = add(tmp[1], scale(subtract(cross_r[1], cross_r[0]), half_side));
 	v[2] = add(tmp[1], scale(subtract(cross_r[2], cross_r[1]), half_side));

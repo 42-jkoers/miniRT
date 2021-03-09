@@ -15,7 +15,6 @@
 
 # include "constants.h"
 
-t_vec3	vec(double x, double y, double z);
 double	length(t_vec3 v);
 double	dot(t_vec3 a, t_vec3 b);
 t_vec3	cross(t_vec3 a, t_vec3 b);

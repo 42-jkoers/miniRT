@@ -14,16 +14,6 @@
 #include "constants.h"
 #include <math.h>
 
-t_vec3	vec(double x, double y, double z)
-{
-	t_vec3	v;
-
-	v.x = x;
-	v.y = y;
-	v.z = z;
-	return (v);
-}
-
 double	length(t_vec3 v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
