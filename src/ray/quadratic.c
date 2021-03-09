@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "quadratic.h"
+#include <math.h>
 
 void	swapf(double *a, double *b)
 {
