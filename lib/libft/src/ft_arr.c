@@ -69,7 +69,7 @@ void	*ft_arr_set(t_arr **arr, size_t i, void *value)
 	return (*((*arr)->table + (*arr)->start_i + i));
 }
 
-void	*ft_arr_get(t_arr *arr, size_t i)
+void	*ft_arr_get(const t_arr *arr, size_t i)
 {
 	if (arr == NULL)
 		return (NULL);

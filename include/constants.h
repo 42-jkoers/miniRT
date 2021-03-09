@@ -39,8 +39,6 @@ void	exit_char(char got, char expected);
 void	*malloc_safe(size_t size);
 void	*calloc_safe(size_t size);
 
-void	*arr_get(const t_arr *arr, size_t i);
-
 typedef enum e_shape
 {
 	SHAPE_SPHERE,

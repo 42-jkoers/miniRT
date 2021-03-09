@@ -65,8 +65,3 @@ void	*calloc_safe(size_t size)
 	ft_bzero(p, size);
 	return (p);
 }
-
-void	*arr_get(const t_arr *arr, size_t i)
-{
-	return (ft_arr_get((t_arr *)arr, i));
-}

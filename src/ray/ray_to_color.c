@@ -29,9 +29,9 @@ t_bounce	get_bounce(const t_arr *shapes, t_ray ray)
 	bounce.obj = NULL;
 	bounce.ray_origin = ray.origin;
 	closest_dist = DOUBLE_MAX;
-	while (arr_get(shapes, i) != NULL)
+	while (ft_arr_get(shapes, i) != NULL)
 	{
-		obj = arr_get(shapes, i);
+		obj = ft_arr_get(shapes, i);
 		hit = hit_obj(obj->shape, obj->pos, ray);
 		if (hit.hit && hit.dist < closest_dist)
 		{
@@ -73,9 +73,9 @@ t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
 		return (no_bounce());
 	i = 0;
 	scalar = gui->ambient.scalar;
-	while (arr_get(gui->lights, i) != NULL)
+	while (ft_arr_get(gui->lights, i) != NULL)
 	{
-		shine_on(&scalar, arr_get(gui->lights, i), bounce, gui->shapes);
+		shine_on(&scalar, ft_arr_get(gui->lights, i), bounce, gui->shapes);
 		i++;
 	}
 	return (multiply_color(bounce.color, scalar));

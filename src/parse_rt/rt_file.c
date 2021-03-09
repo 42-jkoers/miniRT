@@ -24,9 +24,9 @@ void	log_shapes(const t_arr *shapes)
 	i = 0;
 	ft_bzero(shape_n, sizeof(shape_n));
 	printf("Shapes found:\n");
-	while (arr_get(shapes, i) != NULL)
+	while (ft_arr_get(shapes, i) != NULL)
 	{
-		obj = arr_get(shapes, i);
+		obj = ft_arr_get(shapes, i);
 		shape_n[obj->shape] += 1;
 		i++;
 	}
