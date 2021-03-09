@@ -59,3 +59,23 @@ t_vec3	add(t_vec3 a, t_vec3 b)
 	v.z = a.z + b.z;
 	return (v);
 }
+
+
+// see doc/project_on_line.png
+// a = p
+// b = line0
+// c = line1
+
+t_vec3	project_on_line(t_vec3 p, t_vec3 line0, t_vec3 line1)
+{
+	t_vec3	dir;
+	t_vec3	v;
+	double	t;
+	t_vec3	p_on_line;
+
+	dir = unit(subtract(line1, line0));
+	v = subtract(p, line0);
+	t = dot(v, dir);
+	p_on_line = translate(line0, dir, t);
+	return (p_on_line);
+}

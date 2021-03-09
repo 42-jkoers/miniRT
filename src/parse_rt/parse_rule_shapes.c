@@ -16,6 +16,7 @@
 #include "constants.h"
 #include "parse_rt.h"
 #include "vector.h"
+#include "intersect.h"
 #include <stdlib.h>
 
 void	add_sphere(t_arr_voidp **shapes, char *line)
@@ -86,6 +87,8 @@ void	add_triangle(t_arr_voidp **shapes, char *line)
 	ft_free_until_null_char(items);
 	obj->pos.tr.edge1 = subtract(obj->pos.tr.p1, obj->pos.tr.p0);
 	obj->pos.tr.edge2 = subtract(obj->pos.tr.p2, obj->pos.tr.p0);
+	obj->pos.tr.normal = normal_tr(
+			obj->pos.tr.p0, obj->pos.tr.p1, obj->pos.tr.p2);
 	if (ft_arr_voidp_push(shapes, obj) == NULL)
 		exit_e("malloc");
 }

@@ -37,7 +37,7 @@ t_bounce	bounce_from_light(
 }
 
 // If there is a clear path the detected bounce, and the light *l
-// Assuming to_find has bounced
+// Assuming from_camera has bounced
 
 bool	is_clear_path(
 	t_bounce from_camera, const t_light *l, const t_arr_voidp *shapes)
@@ -49,9 +49,9 @@ bool	is_clear_path(
 		return (false);
 	if (from_camera.obj != from_light.obj)
 		return (false);
-	if (!same_point(from_camera.normal, from_light.normal, 0.1))
+	if (!same_point(from_camera.normal, from_light.normal, 0.01))
 		return (false);
-	if (!same_point(from_camera.point, from_light.point, 0.1))
+	if (!same_point(from_camera.point, from_light.point, 0.01))
 		return (false);
 	return (true);
 }

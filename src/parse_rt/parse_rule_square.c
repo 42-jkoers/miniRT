@@ -10,15 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse_rt.h"
 #include "../lib/libft/include/libft.h"
-#include "gui.h"
+#include "norm.h"
+#include "intersect.h"
 #include "constants.h"
 #include "parse_rt.h"
 #include "vector.h"
-#include "norm.h"
 #include <stdlib.h>
 #include <math.h>
+
+static void	set_triangles(t_triangle *trs, const t_vec3 *v, const t_vec3 *edges)
+{
+	trs[0].p0 = v[0];
+	trs[0].p1 = v[1];
+	trs[0].p2 = v[2];
+	trs[0].edge1 = edges[0];
+	trs[0].edge2 = edges[1];
+	trs[0].normal = normal_tr(trs[0].p0, trs[0].p1, trs[0].p2);
+	trs[1].p0 = v[0];
+	trs[1].p1 = v[2];
+	trs[1].p2 = v[3];
+	trs[1].edge1 = edges[2];
+	trs[1].edge2 = edges[3];
+	trs[1].normal = normal_tr(trs[1].p0, trs[1].p1, trs[1].p2);
+}
 
 // edge1 = subtract(p1, p0);
 // edge2 = subtract(p2, p0);
@@ -46,8 +61,7 @@ static void	square_to_triangles(t_triangle *trs, t_square sq, double half_side)
 	edges[1] = subtract(v[2], v[0]);
 	edges[2] = subtract(v[2], v[0]);
 	edges[3] = subtract(v[3], v[0]);
-	trs[0] = (t_triangle){v[0], v[1], v[2], edges[0], edges[1]};
-	trs[1] = (t_triangle){v[0], v[2], v[3], edges[2], edges[3]};
+	set_triangles(trs, v, edges);
 }
 
 static void	add_triangles(t_arr_voidp **shapes, t_triangle *trs, t_rgb color)

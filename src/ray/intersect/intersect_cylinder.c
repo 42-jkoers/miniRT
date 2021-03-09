@@ -11,22 +11,20 @@
 /* ************************************************************************** */
 
 #include "intersect.h"
-#include "norm.h"
 #include "constants.h"
 #include "vector.h"
-#include "../lib/libft/include/libft.h"
 #include <math.h>
 #include "quadratic.h"
 
-t_vec3	cylinder_normal(t_vec3 point, t_cylinder cylinder)
+t_vec3	cylinder_normal(t_vec3 hitpoint, t_ray ray, t_cylinder cylinder)
 {
 	t_vec3	ctp;
 	t_vec3	normal;
 
-	ctp = subtract(point, cylinder.origin);
+	ctp = subtract(hitpoint, cylinder.origin);
 	normal = subtract(ctp, scale(cylinder.dir, dot(cylinder.dir, ctp)));
 	normalize(&normal);
-	return (normal);
+	return (correct_normal(normal, ray));
 }
 
 void	check_t(double *t, t_cylinder cylinder, t_ray ray)
@@ -89,6 +87,6 @@ t_hit	hit_cylinder(t_pos pos, t_ray ray)
 	if (!hit.hit)
 		return ((t_hit){false});
 	hit.point = translate(ray.origin, ray.dir, hit.dist);
-	hit.normal = cylinder_normal(hit.point, pos.cy);
+	hit.normal = cylinder_normal(hit.point, ray, pos.cy);
 	return (hit);
 }

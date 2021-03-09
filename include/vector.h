@@ -26,6 +26,7 @@ t_vec3	unit(t_vec3 v);
 t_vec3	translate(t_vec3 origin, t_vec3 dir, double t);
 double	distance2(t_vec3 a, t_vec3 b);
 double	distance(t_vec3 a, t_vec3 b);
+t_vec3	project_on_line(t_vec3 p, t_vec3 line0, t_vec3 line1);
 
 typedef union u_rsqrt
 {

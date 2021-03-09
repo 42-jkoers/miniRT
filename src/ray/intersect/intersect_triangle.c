@@ -56,6 +56,11 @@
 #include "constants.h"
 #include "vector.h"
 
+t_vec3	normal_tr(t_vec3 p0, t_vec3 p1, t_vec3 p2)
+{
+	return (unit(cross(subtract(p1, p0), subtract(p2, p0))));
+}
+
 // Stolen from: Möller–Trumbore
 
 t_hit	hit_triangle(t_pos pos, t_ray ray)
@@ -80,9 +85,7 @@ t_hit	hit_triangle(t_pos pos, t_ray ray)
 		return ((t_hit){false});
 	n.hit.hit = true;
 	n.hit.dist = n.t;
-	n.hit.point = add(ray.origin, scale(ray.dir, n.hit.dist));
-	n.hit.normal = cross(
-			subtract(pos.tr.p1, pos.tr.p0), subtract(pos.tr.p2, pos.tr.p0));
-	normalize(&n.hit.normal);
+	n.hit.point = translate(ray.origin, ray.dir, n.hit.dist);
+	n.hit.normal = correct_normal(pos.tr.normal, ray);
 	return (n.hit);
 }

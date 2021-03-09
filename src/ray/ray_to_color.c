@@ -27,6 +27,7 @@ t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
 
 	i = 0;
 	bounce.obj = NULL;
+	bounce.ray_origin = ray.origin;
 	closest_dist = DOUBLE_MAX;
 	while (arr_get(shapes, i) != NULL)
 	{

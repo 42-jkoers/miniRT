@@ -165,6 +165,7 @@ typedef struct s_triangle
 	t_vec3			p2;
 	t_vec3			edge1;
 	t_vec3			edge2;
+	t_vec3			normal;
 }					t_triangle;
 
 typedef union u_pos
@@ -196,6 +197,7 @@ typedef struct s_bounce
 	t_rgb			color;
 	t_vec3			point;
 	t_vec3			normal;
+	t_vec3			ray_origin;
 }					t_bounce;
 
 #endif

@@ -28,7 +28,7 @@ t_hit	hit_plane(t_pos pos, t_ray ray)
 		return ((t_hit){false});
 	hit.hit = true;
 	hit.dist = t;
-	hit.normal = pos.pl.normal;
-	hit.point = add(ray.origin, scale(ray.dir, hit.dist));
+	hit.normal = correct_normal(pos.pl.normal, ray);
+	hit.point = translate(ray.origin, ray.dir, hit.dist);
 	return (hit);
 }
