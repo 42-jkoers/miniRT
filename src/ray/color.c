@@ -35,13 +35,13 @@ t_rgb	add_color(t_rgb color, t_rgb additive, double intensity)
 	return (out);
 }
 
-t_rgb	multiply_color(t_rgb color, t_rgb multication)
+t_rgb	mix_color(t_rgb light, t_rgb surface)
 {
 	t_rgb	out;
 
-	out.r = round(color.r * (multication.r / 255.0));
-	out.g = round(color.g * (multication.g / 255.0));
-	out.b = round(color.b * (multication.b / 255.0));
+	out.r = round(light.r * (surface.r / 255.0));
+	out.g = round(light.g * (surface.g / 255.0));
+	out.b = round(light.b * (surface.b / 255.0));
 	return (out);
 }
 

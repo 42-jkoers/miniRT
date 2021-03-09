@@ -46,10 +46,10 @@ t_bounce	get_bounce(const t_arr *shapes, t_ray ray)
 	return (bounce);
 }
 
-// Add light from *light to *scalar
+// Add light from *light to *l
 
-void	shine_on(
-	t_rgb *scalar,
+static void	merge_lights(
+	t_rgb *l,
 	const t_light *light,
 	t_bounce bounce,
 	const t_arr *shapes)
@@ -59,24 +59,24 @@ void	shine_on(
 	if (!is_clear_path(bounce, light, shapes))
 		return ;
 	intensity = relative_intensity(bounce.point, bounce.normal, light);
-	*scalar = add_color(*scalar, light->color, intensity);
+	*l = add_color(*l, light->color, intensity);
 }
 
 t_rgb	ray_to_color(t_ray ray, const t_gui *gui)
 {
 	size_t		i;
-	t_rgb		scalar;
+	t_rgb		l;
 	t_bounce	bounce;
 
 	bounce = get_bounce(gui->shapes, ray);
 	if (bounce.obj == NULL)
 		return (no_bounce());
 	i = 0;
-	scalar = gui->ambient.scalar;
+	l = gui->ambient.scalar;
 	while (ft_arr_get(gui->lights, i) != NULL)
 	{
-		shine_on(&scalar, ft_arr_get(gui->lights, i), bounce, gui->shapes);
+		merge_lights(&l, ft_arr_get(gui->lights, i), bounce, gui->shapes);
 		i++;
 	}
-	return (multiply_color(bounce.color, scalar));
+	return (mix_color(l, bounce.color));
 }

@@ -36,7 +36,7 @@ t_rgb			ray_to_color(t_ray ray, const t_gui *gui);
 t_rgb			no_bounce(void);
 
 t_rgb			add_color(t_rgb color, t_rgb additive, double intensity);
-t_rgb			multiply_color(t_rgb color, t_rgb multication);
+t_rgb			mix_color(t_rgb light, t_rgb surface);
 
 void			render(t_gui *gui);
 
