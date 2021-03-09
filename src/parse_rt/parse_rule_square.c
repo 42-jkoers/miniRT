@@ -64,7 +64,7 @@ static void	square_to_triangles(t_triangle *trs, t_square sq, double half_side)
 	set_triangles(trs, v, edges);
 }
 
-static void	add_triangles(t_arr_voidp **shapes, t_triangle *trs, t_rgb color)
+static void	add_triangles(t_arr **shapes, t_triangle *trs, t_rgb color)
 {
 	t_obj	*obj;
 	size_t	i;
@@ -76,7 +76,7 @@ static void	add_triangles(t_arr_voidp **shapes, t_triangle *trs, t_rgb color)
 		obj->shape = SHAPE_TRIANGLE;
 		obj->color = color;
 		obj->pos.tr = trs[i];
-		if (ft_arr_voidp_push(shapes, obj) == NULL)
+		if (ft_arr_push(shapes, obj) == NULL)
 			exit_e("malloc");
 		i++;
 	}
@@ -85,7 +85,7 @@ static void	add_triangles(t_arr_voidp **shapes, t_triangle *trs, t_rgb color)
 // A square can be represented by 2 triangles.
 // So we add 2 triangels to the renderer instead 1 triangle
 
-void	add_square(t_arr_voidp **shapes, char *line)
+void	add_square(t_arr **shapes, char *line)
 {
 	t_square	sq;
 	t_rgb		color;

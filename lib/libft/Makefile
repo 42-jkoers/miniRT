@@ -27,8 +27,8 @@ TESTNAME		= testor
 UNITTEST		= test/test_ft_split_file.c
 
 SOURCES			= $(SRCDIR)/ft_abs.c \
-				  $(SRCDIR)/ft_arr_voidp.c \
-				  $(SRCDIR)/ft_arr_voidp2.c \
+				  $(SRCDIR)/ft_arr.c \
+				  $(SRCDIR)/ft_arr2.c \
 				  $(SRCDIR)/ft_arrchr.c \
 				  $(SRCDIR)/ft_atoi.c \
 				  $(SRCDIR)/ft_bzero.c \

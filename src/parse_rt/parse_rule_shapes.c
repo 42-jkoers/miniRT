@@ -19,7 +19,7 @@
 #include "intersect.h"
 #include <stdlib.h>
 
-void	add_sphere(t_arr_voidp **shapes, char *line)
+void	add_sphere(t_arr **shapes, char *line)
 {
 	t_obj	*obj;
 	char	**items;
@@ -32,11 +32,11 @@ void	add_sphere(t_arr_voidp **shapes, char *line)
 	obj->pos.sp.radius2 = obj->pos.sp.radius * obj->pos.sp.radius;
 	set_color(&obj->color, items[3]);
 	ft_free_until_null_char(items);
-	if (ft_arr_voidp_push(shapes, obj) == NULL)
+	if (ft_arr_push(shapes, obj) == NULL)
 		exit_e("malloc");
 }
 
-void	add_plane(t_arr_voidp **shapes, char *line)
+void	add_plane(t_arr **shapes, char *line)
 {
 	t_obj	*obj;
 	char	**items;
@@ -48,11 +48,11 @@ void	add_plane(t_arr_voidp **shapes, char *line)
 	set_dir(&obj->pos.pl.normal, items[2]);
 	set_color(&obj->color, items[3]);
 	ft_free_until_null_char(items);
-	if (ft_arr_voidp_push(shapes, obj) == NULL)
+	if (ft_arr_push(shapes, obj) == NULL)
 		exit_e("malloc");
 }
 
-void	add_cylinder(t_arr_voidp **shapes, char *line)
+void	add_cylinder(t_arr **shapes, char *line)
 {
 	t_obj	*obj;
 	char	**items;
@@ -68,11 +68,11 @@ void	add_cylinder(t_arr_voidp **shapes, char *line)
 	obj->pos.cy.base2 = translate(
 			obj->pos.cy.origin, obj->pos.cy.dir, obj->pos.cy.height);
 	ft_free_until_null_char(items);
-	if (ft_arr_voidp_push(shapes, obj) == NULL)
+	if (ft_arr_push(shapes, obj) == NULL)
 		exit_e("malloc");
 }
 
-void	add_triangle(t_arr_voidp **shapes, char *line)
+void	add_triangle(t_arr **shapes, char *line)
 {
 	t_obj	*obj;
 	char	**items;
@@ -89,6 +89,6 @@ void	add_triangle(t_arr_voidp **shapes, char *line)
 	obj->pos.tr.edge2 = subtract(obj->pos.tr.p2, obj->pos.tr.p0);
 	obj->pos.tr.normal = normal_tr(
 			obj->pos.tr.p0, obj->pos.tr.p1, obj->pos.tr.p2);
-	if (ft_arr_voidp_push(shapes, obj) == NULL)
+	if (ft_arr_push(shapes, obj) == NULL)
 		exit_e("malloc");
 }

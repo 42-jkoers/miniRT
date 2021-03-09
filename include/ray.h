@@ -24,9 +24,9 @@ typedef struct s_thread
 }				t_thread;
 
 bool			is2d(const t_obj *obj);
-t_bounce		get_bounce(const t_arr_voidp *shapes, t_ray ray);
+t_bounce		get_bounce(const t_arr *shapes, t_ray ray);
 bool			is_clear_path(t_bounce from_camera, const t_light *l,
-					const t_arr_voidp *shapes);
+					const t_arr *shapes);
 t_rgb			compute_color(unsigned int x, unsigned int y, const t_gui *gui);
 t_ray			ray_from_pix(double x, double y, const t_gui *gui);
 double			relative_intensity(t_vec3 p, t_vec3 n, const t_light *light);

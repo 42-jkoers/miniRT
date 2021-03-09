@@ -66,7 +66,7 @@ void	*calloc_safe(size_t size)
 	return (p);
 }
 
-void	*arr_get(const t_arr_voidp *arr, size_t i)
+void	*arr_get(const t_arr *arr, size_t i)
 {
-	return (ft_arr_voidp_get((t_arr_voidp *)arr, i));
+	return (ft_arr_get((t_arr *)arr, i));
 }

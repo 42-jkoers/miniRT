@@ -17,7 +17,7 @@
 
 // Get closest t_obj * (relative to ray.origin) from *shapes
 
-t_bounce	get_bounce(const t_arr_voidp *shapes, t_ray ray)
+t_bounce	get_bounce(const t_arr *shapes, t_ray ray)
 {
 	size_t		i;
 	t_obj		*obj;
@@ -52,7 +52,7 @@ void	shine_on(
 	t_rgb *scalar,
 	const t_light *light,
 	t_bounce bounce,
-	const t_arr_voidp *shapes)
+	const t_arr *shapes)
 {
 	double		intensity;
 

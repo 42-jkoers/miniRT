@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   test_ft_arr_voidp.c                                :+:    :+:            */
+/*   test_ft_arr.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
@@ -16,21 +16,21 @@
 
 int	main(void)
 {
-	t_arr_voidp	*arr;
-	size_t		i;
+	t_arr	*arr;
+	size_t	i;
 
 	arr = NULL;
 	i = 0;
 	while (i < 2)
 	{
-		ft_arr_voidp_push(&arr, (void *)ft_strdup("hello\n"));
-		ft_arr_voidp_shift(&arr, free);
+		ft_arr_push(&arr, (void *)ft_strdup("hello\n"));
+		ft_arr_shift(&arr, free);
 		i++;
 	}
 	printf("length %lu\n", arr->length);
 	printf("size %lu\n", arr->size);
-	ft_arr_voidp_push(&arr, (void *)ft_strdup("hello\n"));
-	ft_putstr((char *)ft_arr_voidp_get(arr, arr->length - 1));
-	ft_arr_voidp_free(arr, free);
+	ft_arr_push(&arr, (void *)ft_strdup("hello\n"));
+	ft_putstr((char *)ft_arr_get(arr, arr->length - 1));
+	ft_arr_free(arr, free);
 	return (0);
 }

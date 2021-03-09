@@ -15,7 +15,7 @@
 #include "../lib/libft/include/libft.h"
 #include <stdio.h>
 
-void	log_shapes(const t_arr_voidp *shapes)
+void	log_shapes(const t_arr *shapes)
 {
 	t_obj			*obj;
 	size_t			i;

@@ -30,13 +30,13 @@ void	add_camera(t_gui *gui, char *line)
 	cam->fov = strtodbl_clamp(items[3], '\0', 0.0, 180.0);
 	cam->fov = ft_radians(cam->fov);
 	ft_free_until_null_char(items);
-	if (ft_arr_voidp_push(&gui->cameras, cam) == NULL)
+	if (ft_arr_push(&gui->cameras, cam) == NULL)
 		exit_e("malloc");
 	if (gui->cameras->length == 1)
 		ft_memcpy(&gui->camera, cam, sizeof(t_camera));
 }
 
-void	add_light(t_arr_voidp **lights, char *line)
+void	add_light(t_arr **lights, char *line)
 {
 	char	**items;
 	t_light	*light;
@@ -47,7 +47,7 @@ void	add_light(t_arr_voidp **lights, char *line)
 	light->brightness = strtodbl_clamp(items[2], '\0', 0.0, 1.0);
 	set_color(&light->color, items[3]);
 	ft_free_until_null_char(items);
-	if (ft_arr_voidp_push(lights, light) == NULL)
+	if (ft_arr_push(lights, light) == NULL)
 		exit_e("malloc");
 }
 

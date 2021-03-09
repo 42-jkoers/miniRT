@@ -20,7 +20,7 @@ char	**ft_split_file(const char *filename, size_t *num_lines)
 {
 	char		*read;
 	int			fd;
-	t_arr_voidp	*arr;
+	t_arr		*arr;
 
 	fd = open((char *)filename, O_RDONLY);
 	if (fd < 0)
@@ -28,13 +28,13 @@ char	**ft_split_file(const char *filename, size_t *num_lines)
 	arr = NULL;
 	while (ft_get_next_line(fd, &read) == 1)
 	{
-		if (ft_arr_voidp_push(&arr, read) == NULL)
+		if (ft_arr_push(&arr, read) == NULL)
 		{
-			ft_arr_voidp_free(arr, free);
+			ft_arr_free(arr, free);
 			read = NULL;
 			*num_lines = 0;
 		}
 	}
 	close(fd);
-	return ((char **)ft_arr_voidp_concat(arr, num_lines));
+	return ((char **)ft_arr_concat(arr, num_lines));
 }

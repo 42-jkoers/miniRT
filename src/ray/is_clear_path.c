@@ -25,7 +25,7 @@ static bool	same_point(t_vec3 p1, t_vec3 p2, double epsilon)
 // Pointing a new ray to hitpoint, form origin *l
 
 t_bounce	bounce_from_light(
-		t_vec3 hitpoint, const t_light *l, const t_arr_voidp *shapes)
+		t_vec3 hitpoint, const t_light *l, const t_arr *shapes)
 {
 	t_bounce	from_light;
 	t_ray		ray;
@@ -40,7 +40,7 @@ t_bounce	bounce_from_light(
 // Assuming from_camera has bounced
 
 bool	is_clear_path(
-	t_bounce from_camera, const t_light *l, const t_arr_voidp *shapes)
+	t_bounce from_camera, const t_light *l, const t_arr *shapes)
 {
 	t_bounce	from_light;
 

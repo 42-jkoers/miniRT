@@ -115,21 +115,21 @@ void			ft_lstshift(t_list **lst, void (*del)(void*));
 void			ft_free_2d(void **arr, size_t length);
 void			*ft_memdup(void *src, size_t n);
 
-typedef struct s_arr_voidp
+typedef struct s_arr
 {
 	size_t		start_i;
 	size_t		length;
 	size_t		size;
 	void		**table;
-}				t_arr_voidp;
-t_arr_voidp		*ft_arr_voidp(size_t initial_size);
-void			*ft_arr_voidp_set(t_arr_voidp **arr, size_t i, void *value);
-void			*ft_arr_voidp_get(t_arr_voidp *arr, size_t i);
-void			*ft_arr_voidp_push(t_arr_voidp **arr, void *value);
-void			ft_arr_voidp_free(t_arr_voidp *arr, void (*del)(void *));
-void			ft_arr_voidp_shift(t_arr_voidp **arr, void (*del)(void *));
-void			ft_arr_voidp_pop(t_arr_voidp **arr, void (*del)(void *));
-void			**ft_arr_voidp_concat(t_arr_voidp *arr, size_t *length);
+}				t_arr;
+t_arr			*ft_arr(size_t initial_size);
+void			*ft_arr_set(t_arr **arr, size_t i, void *value);
+void			*ft_arr_get(t_arr *arr, size_t i);
+void			*ft_arr_push(t_arr **arr, void *value);
+void			ft_arr_free(t_arr *arr, void (*del)(void *));
+void			ft_arr_shift(t_arr **arr, void (*del)(void *));
+void			ft_arr_pop(t_arr **arr, void (*del)(void *));
+void			**ft_arr_concat(t_arr *arr, size_t *length);
 double			ft_strtodbl(char *str);
 size_t			ft_strcount(char *str, char search);
 void			ft_free_until_null_void(void **arr);

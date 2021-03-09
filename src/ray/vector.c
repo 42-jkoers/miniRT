@@ -50,7 +50,6 @@ t_vec3	add(t_vec3 a, t_vec3 b)
 	return (v);
 }
 
-
 // see doc/project_on_line.png
 // a = p
 // b = line0

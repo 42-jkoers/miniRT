@@ -39,7 +39,7 @@ void	exit_char(char got, char expected);
 void	*malloc_safe(size_t size);
 void	*calloc_safe(size_t size);
 
-void	*arr_get(const t_arr_voidp *arr, size_t i);
+void	*arr_get(const t_arr *arr, size_t i);
 
 typedef enum e_shape
 {
@@ -121,9 +121,9 @@ typedef struct s_light
 
 typedef struct s_gui
 {
-	t_arr_voidp		*shapes;
-	t_arr_voidp		*lights;
-	t_arr_voidp		*cameras;
+	t_arr			*shapes;
+	t_arr			*lights;
+	t_arr			*cameras;
 	size_t			camera_i;
 	t_ambient		ambient;
 	unsigned int	x_size;
