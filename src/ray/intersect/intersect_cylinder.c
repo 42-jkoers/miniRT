@@ -27,6 +27,9 @@ t_vec3	cylinder_normal(t_vec3 hitpoint, t_ray ray, t_cylinder cylinder)
 	return (correct_normal(normal, ray));
 }
 
+// WARNING!
+// Starting from this point, the code is shit because it wasn't written by me
+
 void	check_t(double *t, t_cylinder cylinder, t_ray ray)
 {
 	t_vec3	q;
@@ -54,7 +57,7 @@ int	cyl_get_roots(double *t0, double *t1, t_cylinder cylinder, t_ray ray)
 				dot(subtract(ray.origin, cylinder.origin), cylinder.dir)));
 	b = 2 * dot(a_sqrt, right);
 	c = dot(right, right) - (cylinder.radius * cylinder.radius);
-	if (!solve_quadratic(quadratic(a, b, c), t0, t1))
+	if (!solve_quadratic((t_quadratic){a, b, c}, t0, t1))
 		return (0);
 	return (1);
 }

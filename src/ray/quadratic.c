@@ -21,16 +21,6 @@ void	swapf(double *a, double *b)
 	*b = buffer;
 }
 
-t_quadratic	quadratic(double a, double b, double c)
-{
-	t_quadratic	params;
-
-	params.a = a;
-	params.b = b;
-	params.c = c;
-	return (params);
-}
-
 bool	solve_quadratic(t_quadratic params, double *x0, double *x1)
 {
 	double	discr;
@@ -47,9 +37,9 @@ bool	solve_quadratic(t_quadratic params, double *x0, double *x1)
 	else
 	{
 		if (params.b > 0)
-			q = -1 * (params.b + sqrt(discr)) / 2;
+			q = -0.5 * (params.b + sqrt(discr));
 		else
-			q = -1 * (params.b - sqrt(discr)) / 2;
+			q = -0.5 * (params.b - sqrt(discr));
 		*x0 = q / params.a;
 		*x1 = params.c / q;
 	}

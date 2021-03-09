@@ -14,34 +14,47 @@
 #include "constants.h"
 #include "vector.h"
 #include <math.h>
+#include "quadratic.h"
 
-t_vec3	normal_sp(t_sphere sp, t_vec3 hitpoint, t_ray ray)
+static bool	get_intersections(double *t0, double *t1, t_sphere sp, t_ray ray)
 {
-	t_vec3	normal;
+	t_vec3		l;
+	t_quadratic	q;
 
-	normal = unit(subtract(hitpoint, sp.origin));
-	if (distance2(ray.origin, sp.origin) < sp.radius2)
-		normal = scale(normal, -1);
-	return (normal);
+	l = subtract(ray.origin, sp.origin);
+	q.a = dot(ray.dir, ray.dir);
+	q.b = 2 * dot(ray.dir, l);
+	q.c = dot(l, l) - sp.radius2;
+	return (solve_quadratic(q, t0, t1));
+}
+
+// see doc/rayspherecases.png
+
+static double	actual_t(double t0, double t1)
+{
+	if (t0 > 0 && t1 > 0)
+		return (t0);
+	if (t0 <= 0 && t1 > 0)
+		return (t1);
+	return (-1);
 }
 
 t_hit	hit_sphere(t_pos pos, t_ray ray)
 {
-	t_vec3	l;
-	double	tca;
-	double	d2;
-	double	thc;
+	double	t0;
+	double	t1;
 	t_hit	hit;
 
-	l = subtract(pos.sp.origin, ray.origin);
-	tca = fabs(dot(l, ray.dir));
-	d2 = dot(l, l) - tca * tca;
-	if (d2 > pos.sp.radius2)
+	if (!get_intersections(&t0, &t1, pos.sp, ray))
 		return ((t_hit){false});
-	thc = sqrt(pos.sp.radius2 - d2);
+	hit.dist = actual_t(t0, t1);
+	if (hit.dist < 0)
+		return ((t_hit){false});
 	hit.hit = true;
-	hit.dist = tca - thc;
 	hit.point = translate(ray.origin, ray.dir, hit.dist);
-	hit.normal = normal_sp(pos.sp, hit.point, ray);
+	if (distance2(ray.origin, pos.sp.origin) > pos.sp.radius2)
+		hit.normal = unit(subtract(hit.point, pos.sp.origin));
+	else
+		hit.normal = unit(subtract(pos.sp.origin, hit.point));
 	return (hit);
 }
