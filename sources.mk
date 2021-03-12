@@ -18,6 +18,8 @@ src/ray/is_clear_path.c \
 src/ray/compute_color.c \
 src/ray/vector.c \
 src/ray/normalize.c \
+src/ray/render/render_bonus.c \
+src/ray/render/render.c \
 src/ray/vector2.c \
 src/ray/ray_to_color.c \
 src/ray/intersect/intersect_sphere.c \
@@ -26,6 +28,5 @@ src/ray/intersect/intersect.c \
 src/ray/intersect/intersect_triangle.c \
 src/ray/intersect/intersect_plane.c \
 src/ray/ray_from_pix.c \
-src/ray/render.c \
 src/ray/color.c \
 src/ray/quadratic.c \

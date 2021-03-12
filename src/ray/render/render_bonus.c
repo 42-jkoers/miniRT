@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
+/*   render_bonus.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "constants.h"
+#if BONUS == 1
 #include "ray.h"
 #include "gui.h"
-#include "constants.h"
 #include <pthread.h>
 #include <math.h>
 #include <stdio.h>
@@ -111,3 +112,5 @@ void	render(t_gui *gui)
 	}
 	pthread_mutex_destroy(&row_to_render_lock);
 }
+
+#endif

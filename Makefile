@@ -47,7 +47,16 @@ TESTRT			= rt/standard.rt
 
 VPATH = $(shell find $(SRCDIR) -type d | tr '\n' ':' | sed -E 's/(.*):/\1/')
 
-all bonus:
+all:
+ifneq ($(shell grep $(SETTINGS) -e '\# define BONUS.*'),\# define BONUS 0)
+	sed -i 's/# define BONUS.*/# define BONUS 0/' $(SETTINGS)
+endif
+	make -j4 $(NAME)
+
+bonus:
+ifneq ($(shell grep $(SETTINGS) -e '\# define BONUS.*'),\# define BONUS 1)
+	sed -i 's/# define BONUS.*/# define BONUS 1/' $(SETTINGS)
+endif
 	make -j4 $(NAME)
 
 $(NAME): $(BUILDDIR)/ $(OBJ) $(HEADERS) $(LIBS) $(SETTINGS)

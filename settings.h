@@ -17,6 +17,12 @@
 // This the settings file for the miniRT project.
 // After changing a setting you have to recompile with make re
 
+// Enable bonus functionality? :boolean
+// Do not change this define manually, it will be overwritten by the Makefile
+// to enable compile with bonus run: make bonus
+
+# define BONUS 0
+
 // Bool: Enable verbose logging? :boolean
 # define VERBOSE 0
 
@@ -42,10 +48,10 @@
 // What number of threads should the program use? :unsigned int [1 n]
 # define THREADS 7
 
-//  :unsigned int --> 1, 4, 16, 32, ect
+// :unsigned int --> 1, 4, 16, 32, ect
 # define ANTI_ALIASING_LEVEL 4
 
-//  :boolean
+// Print progress to terminal (eg 42.123%) :boolean
 # define LOG_PROGRESS 1
 
 #endif
