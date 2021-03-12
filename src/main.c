@@ -17,6 +17,7 @@
 #include <string.h>
 #include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 // Main program consists of 2 modes:
 // 1 open X11 window and switch between cameras
@@ -41,9 +42,9 @@ int	main(int argc, const char *argv[])
 	}
 	else
 	{
-		printf("Usage: minirt [.rt file] [--save]\n");
-		printf("Switch between cameras by pressing c");
-		exit_e("");
+		printf("Usage: ./miniRT [.rt file] [--save]\n");
+		printf("Switch between cameras by pressing c\n");
+		exit(0);
 	}
 	return (0);
 }
