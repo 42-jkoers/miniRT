@@ -10,3 +10,8 @@ scene.*
 .vscode/
 renders/
 *.dylib
+
+# swift
+*~
+*.swiftdoc
+*.swiftmodule
