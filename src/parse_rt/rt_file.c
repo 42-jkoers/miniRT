@@ -70,6 +70,15 @@ static void	parse_rt_line(char *line, t_gui *gui)
 		exit_e("Unknown rule");
 }
 
+static void	exit_invalid_filename(const char *filename)
+{
+	size_t	len;
+
+	len = ft_strlen((char *)filename);
+	if (len < 3 || ft_strcmp((char *)&filename[len - 3], ".rt") != 0)
+		exit_e("Rt file should end with .rt\n");
+}
+
 void	parse_rt(t_gui *gui, const char *rt_filename)
 {
 	size_t		rt_lines;
@@ -77,8 +86,9 @@ void	parse_rt(t_gui *gui, const char *rt_filename)
 	size_t		i;
 
 	rt = ft_split_file(rt_filename, &rt_lines);
+	exit_invalid_filename(rt_filename);
 	if (rt == NULL || rt_lines == 0)
-		exit_e("Empty rt file");
+		exit_e("RT file does not exist");
 	if (COUNT_RULES)
 		exit_on_illegal_rule_n(rt);
 	i = 0;
