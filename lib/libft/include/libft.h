@@ -146,7 +146,7 @@ double			ft_radians(double degrees);
 bool			is_power_of_2(long x);
 bool			is_power_of_2u(unsigned long x);
 void			*ft_malloc(size_t size);
-char			*ft_readfile(const char **filename);
+char			*ft_readfile(const char *filename);
 
 typedef struct s_block
 {

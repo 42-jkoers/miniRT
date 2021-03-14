@@ -15,7 +15,6 @@
 #include "../lib/libft/include/libft.h"
 #include <math.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <limits.h>
 
 void	add_camera(t_gui *gui, char *line)
@@ -66,7 +65,7 @@ void	set_ambient(t_ambient *ambient, char *line)
 	char	**items;
 
 	items = split_clamp(line, 3);
-	ambient->brightness = strtodbl_clamp(items[1], '\0', 0.0, DOUBLE_MAX);
+	ambient->brightness = strtodbl_clamp(items[1], '\0', 0.0, 1.0);
 	set_color(&ambient->color, items[2]);
 	ambient->scalar.r = round(ambient->color.r * ambient->brightness);
 	ambient->scalar.g = round(ambient->color.g * ambient->brightness);

@@ -15,9 +15,9 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-char	*ft_readfile(const char **filename)
+char	*ft_readfile(const char *filename)
 {
-	t_readbuf	*buf;
+	t_readbuf	buf;
 	int			fd;
 	ssize_t		read;
 
