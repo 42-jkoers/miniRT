@@ -8,10 +8,9 @@ a.out
 test/
 scene.*
 .vscode/
-renders/
-*.dylib
 
 # swift
+*.dylib
 *~
 *.swiftdoc
 *.swiftmodule
