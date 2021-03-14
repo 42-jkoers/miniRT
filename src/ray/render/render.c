@@ -35,7 +35,6 @@ static void	log_progress(unsigned int i, const t_gui *gui)
 	printf("\rProgress %7.3lf%%  ", ((double)(i + 1) / gui->y_size) * 100.0);
 }
 
-
 void	render(t_gui *gui)
 {
 	unsigned int	x;
