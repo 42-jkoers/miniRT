@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_split_file.c                                    :+:    :+:            */
+/*   ft_readfile.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jkoers <jkoers@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/12/23 14:12:50 by jkoers        #+#    #+#                 */
-/*   Updated: 2020/12/26 13:13:03 by jkoers        ########   odam.nl         */
+/*   Created: 2021/03/12 18:49:52 by jkoers        #+#    #+#                 */
+/*   Updated: 2021/03/12 18:49:52 by jkoers        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "internal.h"
 #include <fcntl.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
 
-char	**ft_split_file(const char *filename, size_t *num_lines)
+char	*ft_readfile(const char **filename)
 {
-	char		*read;
+	t_readbuf	*buf;
 	int			fd;
-	t_arr		*arr;
+	ssize_t		read;
 
-	fd = open((char *)filename, O_RDONLY);
+	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	arr = NULL;
-	while (ft_get_next_line(fd, &read) >= 0)
+	ft_buf_init(&buf, BUFFER_SIZE, fd);
+	while (true)
 	{
-		if (ft_arr_push(&arr, read) == NULL)
+		read = ft_buf_read(&buf);
+		if (read < 0)
 		{
-			ft_arr_free(arr, free);
-			read = NULL;
-			*num_lines = 0;
-			close(fd);
+			ft_buf_free(&buf);
 			return (NULL);
 		}
+		if (read == 0)
+			break ;
 	}
-	close(fd);
-	return ((char **)ft_arr_concat(arr, num_lines));
+	return (ft_buf_merge(&buf));
 }

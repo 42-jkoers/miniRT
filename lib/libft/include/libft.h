@@ -32,8 +32,7 @@ size_t			ft_strlcpy(char *dst, char *src, size_t size);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
 char			*ft_strchr(char *str, char c);
 char			*ft_strrchr(char *str, char c);
-char			*ft_strnstr(
-					const char *big, const char *little, size_t len);
+char			*ft_strnstr(const char *big, const char *little, size_t len);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_atoi(char *str);
 int				ft_isalpha(int c);
@@ -69,6 +68,7 @@ void			ft_lstadd_back(t_list **lst, t_list *new);
 void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
+
 t_list			*ft_lstmap(
 					t_list *lst, void *(*f)(void *), void (*del)(void *));
 
@@ -106,6 +106,7 @@ long			ft_min(long a, long b);
 unsigned long	ft_min_u(unsigned long a, unsigned long b);
 double			ft_minf(double a, double b);
 int				ft_get_next_line(int fd, char **line);
+
 char			**ft_split_or(
 					const char *s, const char *spitters, size_t *length);
 char			**ft_split_file(const char *filename, size_t *num_lines);
@@ -137,19 +138,34 @@ void			ft_free_until_null_char(char **arr);
 ssize_t			ft_arrchr(char **arr, char *search);
 ssize_t			ft_arrchrn(char **arr, char *search, size_t search_len);
 ssize_t			ft_arrnchr(char **arr, size_t arr_len, char *search);
+
 ssize_t			ft_arrnchrn(char **arr, size_t arr_len, char *search,
 					size_t search_len);
 double			ft_degrees(double radians);
 double			ft_radians(double degrees);
+bool			is_power_of_2(long x);
+bool			is_power_of_2u(unsigned long x);
+void			*ft_malloc(size_t size);
+char			*ft_readfile(const char **filename);
 
-/*
-** typedef struct		s_arr_long
-** {
-** 	size_t			start_i;
-** 	size_t			length;
-** 	size_t			size;
-** 	long			*table;
-** }					t_arr_long;
-*/
+typedef struct s_block
+{
+	char		*content;
+	ssize_t		written;
+}				t_block;
+
+typedef struct s_readbuf
+{
+	t_block		*blocks;
+	size_t		block_size;
+	size_t		n_blocks;
+	size_t		size;
+	int			fd;
+}				t_readbuf;
+
+void			ft_buf_init(t_readbuf *buf, size_t block_size, int fd);
+ssize_t			ft_buf_read(t_readbuf *buf);
+char			*ft_buf_merge(t_readbuf	*buf);
+void			ft_buf_free(t_readbuf *buf);
 
 #endif
