@@ -33,7 +33,7 @@ LIBS			= $(LIBDIR)/minilibx-linux/libmlx.a \
 else
 MLXDIR			= minilibx_mms_20200219/
 LINKSRC			=
-LINKS			= -L$(LIBDIR)/$(MLXDIR) -lmlx
+LINKS			=
 LIBS			= $(LIBDIR)/libft/bin/libft.a libmlx.dylib
 endif
 
@@ -49,13 +49,13 @@ VPATH = $(shell find $(SRCDIR) -type d | tr '\n' ':' | sed -E 's/(.*):/\1/')
 
 all:
 ifneq ($(shell grep $(SETTINGS) -e '\# define BONUS.*'),\# define BONUS 0)
-	sed -i 's/# define BONUS.*/# define BONUS 0/' $(SETTINGS)
+	sed -iE 's/# define BONUS.*/# define BONUS 0/' $(SETTINGS)
 endif
 	make -j4 $(NAME)
 
 bonus:
 ifneq ($(shell grep $(SETTINGS) -e '\# define BONUS.*'),\# define BONUS 1)
-	sed -i 's/# define BONUS.*/# define BONUS 1/' $(SETTINGS)
+	sed -iE 's/# define BONUS.*/# define BONUS 1/' $(SETTINGS)
 endif
 	make -j4 $(NAME)
 
