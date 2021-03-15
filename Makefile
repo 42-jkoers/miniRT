@@ -49,13 +49,21 @@ VPATH = $(shell find $(SRCDIR) -type d | tr '\n' ':' | sed -E 's/(.*):/\1/')
 
 all:
 ifneq ($(shell grep $(SETTINGS) -e '\# define BONUS.*'),\# define BONUS 0)
-	sed -iE 's/# define BONUS.*/# define BONUS 0/' $(SETTINGS)
+ifeq ($(shell uname),Linux)
+	sed -i 's/# define BONUS.*/# define BONUS 0/' $(SETTINGS)
+else
+	sed -i '' 's/# define BONUS.*/# define BONUS 0/' $(SETTINGS)
+endif
 endif
 	make -j4 $(NAME)
 
 bonus:
 ifneq ($(shell grep $(SETTINGS) -e '\# define BONUS.*'),\# define BONUS 1)
-	sed -iE 's/# define BONUS.*/# define BONUS 1/' $(SETTINGS)
+ifeq ($(shell uname),Linux)
+	sed -i 's/# define BONUS.*/# define BONUS 1/' $(SETTINGS)
+else
+	sed -i '' 's/# define BONUS.*/# define BONUS 1/' $(SETTINGS)
+endif
 endif
 	make -j4 $(NAME)
 
