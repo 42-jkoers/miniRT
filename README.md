@@ -28,3 +28,15 @@ See `doc/renders` for more
 ![](doc/renders/dragon.png)
 ![](doc/renders/room%205K%2016AA.png)
 ![](doc/renders/deer.png)
+
+## Benchmarking how-to
+This ray tracer can be used as a fun benchmarker.
+1. Change number of cores in `settings.h`
+2. Run `make bonus`
+3. Run `time ./miniRT rt/dragon.rt --save`
+
+## Benchmarking results
+```
+MM:SS | <name> | <date>
+01:01 | MacBook Pro 13-inch, M1, 2020 Kernel Version 21.6.0 | 2022-11-22
+```
