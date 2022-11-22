@@ -38,5 +38,6 @@ This ray tracer can be used as a fun benchmarker.
 ## Benchmarking results
 ```
 MM:SS | <name> | <date>
-01:01 | MacBook Pro 13-inch, M1, 2020 Kernel Version 21.6.0 | 2022-11-22
+01:01 | MacBook Pro 13-inch 2020, M1, Kernel Version 21.6.0 | 2022-11-22
+00:34 | MacBook Pro 16-inch 2021, M1 Pro, Kernel Version 21.6.0 | 2022-11-22 
 ```
